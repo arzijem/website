@@ -36,9 +36,10 @@ body {
     color: #fff;
     text-decoration: none;
 
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
 
     white-space: nowrap;
 }
