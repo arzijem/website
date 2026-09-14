@@ -192,123 +192,47 @@ body {
 
 .az-fingerprint {
     position: fixed;
-    width: 32px;
-    height: 44px;
+
+    width: 28px;
+    height: 38px;
 
     pointer-events: none;
     z-index: 99999;
 
-    color: #fff;
-    opacity: 0;
+    transform: translate(-50%, -50%);
 
-    border-radius: 48% 52% 43% 47% / 44% 46% 54% 56%;
-
-    border:
-        1.4px solid rgba(255,255,255,0.95);
-
-    box-shadow:
-        inset 2px 0 0 1px transparent,
-        inset 3px 0 0 1px rgba(255,255,255,0.85),
-
-        inset -1px 1px 0 3px transparent,
-        inset -2px 1px 0 4px rgba(255,255,255,0.9),
-
-        inset 1px -1px 0 6px transparent,
-        inset 2px -1px 0 7px rgba(255,255,255,0.8),
-
-        inset -2px 2px 0 9px transparent,
-        inset -3px 2px 0 10px rgba(255,255,255,0.9),
-
-        inset 1px 1px 0 12px transparent,
-        inset 2px 1px 0 13px rgba(255,255,255,0.75);
-
-    transform:
-        translate(-50%, -50%)
-        rotate(var(--fingerprint-rotation, -7deg));
-
-    animation: fingerprintStamp 8s ease-out forwards;
+    animation: fingerprintFade 8s ease-out forwards;
 }
 
-
-/* INNER IRREGULAR RIDGES */
-
-.az-fingerprint::before {
-    content: "";
-
-    position: absolute;
-
-    width: 18px;
-    height: 27px;
-
-    left: 6px;
-    top: 8px;
-
-    border-radius: 46% 54% 44% 56% / 52% 45% 55% 48%;
-
-    border: 1.3px solid rgba(255,255,255,0.95);
-
-    box-shadow:
-        1px 0 0 2px transparent,
-        2px 0 0 3px rgba(255,255,255,0.8),
-
-        -1px 1px 0 5px transparent,
-        -2px 1px 0 6px rgba(255,255,255,0.85);
-
-    transform: rotate(5deg);
+.az-fingerprint svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
-
-/* SMALL WHORL */
-
-.az-fingerprint::after {
-    content: "";
-
-    position: absolute;
-
-    width: 8px;
-    height: 13px;
-
-    left: 12px;
-    top: 19px;
-
-    border: 1.3px solid rgba(255,255,255,0.95);
-
-    border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
-
-    transform: rotate(-13deg);
-
-    box-shadow:
-        1px 1px 0 2px transparent,
-        2px 1px 0 3px rgba(255,255,255,0.8);
+.az-fingerprint path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-
-/* STAMP + LONG SLOW FADE */
-
-@keyframes fingerprintStamp {
+@keyframes fingerprintFade {
 
     0% {
         opacity: 0;
-        transform:
-            translate(-50%, -50%)
-            rotate(var(--fingerprint-rotation, -7deg))
-            scale(1.15);
+        transform: translate(-50%, -50%) scale(1.15);
     }
 
-    4% {
+    5% {
         opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            rotate(var(--fingerprint-rotation, -7deg))
-            scale(0.94);
+        transform: translate(-50%, -50%) scale(0.95);
     }
 
-    8% {
+    10% {
         opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            rotate(var(--fingerprint-rotation, -7deg))
-            scale(1);
+        transform: translate(-50%, -50%) scale(1);
     }
 
     65% {
@@ -325,5 +249,6 @@ body {
 
     100% {
         opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
     }
 }
