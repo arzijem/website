@@ -846,3 +846,152 @@ body {
         padding: 0 18px;
     }
 }
+
+/* ==================================================
+   HERO — OPENING MOTION
+================================================== */
+
+/* IMAGE ENTERS SLIGHTLY ZOOMED */
+
+.az-hero-image {
+    transform: scale(1.07);
+
+    animation:
+        azHeroEntrance 2.4s cubic-bezier(.16, 1, .3, 1) forwards,
+        azHeroDrift 16s ease-in-out 2.4s infinite alternate;
+
+    will-change: transform;
+}
+
+
+/* image settles when page opens */
+
+@keyframes azHeroEntrance {
+
+    from {
+        transform: scale(1.07);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+
+/* very slow movement after entrance */
+
+@keyframes azHeroDrift {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.035);
+    }
+}
+
+
+/* ==================================================
+   DARK OVERLAY ENTERS
+================================================== */
+
+.az-hero-overlay {
+    opacity: 0;
+
+    animation: azOverlayEntrance 1.8s ease 0.2s forwards;
+}
+
+
+@keyframes azOverlayEntrance {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ==================================================
+   HERO TEXT
+================================================== */
+
+.az-hero-text {
+    overflow: hidden;
+}
+
+
+/* MAIN TITLE */
+
+.az-hero-text h1 {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    animation:
+        azTitleEntrance 1.2s cubic-bezier(.16, 1, .3, 1)
+        0.9s forwards;
+}
+
+
+@keyframes azTitleEntrance {
+
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+        letter-spacing: 4px;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 1.2px;
+    }
+}
+
+
+/* SMALL TEXT */
+
+.az-hero-text p {
+    opacity: 0;
+
+    transform: translateY(18px);
+
+    animation:
+        azSubtitleEntrance 1s cubic-bezier(.16, 1, .3, 1)
+        1.35s forwards;
+}
+
+
+@keyframes azSubtitleEntrance {
+
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==================================================
+   ACCESSIBILITY
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .az-hero-image,
+    .az-hero-overlay,
+    .az-hero-text h1,
+    .az-hero-text p {
+        animation: none;
+        transform: none;
+        opacity: 1;
+    }
+}
