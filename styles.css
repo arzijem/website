@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* TOP BAR */
+
+.az-topbar {
+    width: 100%;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 32px;
+
+    background: #000;
+    color: #fff;
+}
+
+
+/* NAME — LEFT */
+
+.az-brand {
+    color: #fff;
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+
+    white-space: nowrap;
+}
+
+
+/* MENU — RIGHT */
+
+.az-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.az-menu a {
+    color: #fff;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+
+    transition: opacity 0.2s ease;
+}
+
+.az-menu a:hover {
+    opacity: 0.6;
+}
+
+
+/* LANGUAGES */
+
+.az-languages {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-left: 8px;
+}
+
+.az-languages span {
+    color: #fff;
+    font-size: 13px;
+}
