@@ -254,134 +254,300 @@ body {
     }
 }
 
-/* HOME NAVIGATION */
+/* ==================================================
+   THE REVEAL
+================================================== */
 
-.az-home-navigation {
+.az-reveal {
     width: 100%;
-    background: #fff;
-    color: #000;
-    padding: 80px 32px;
+    padding: 8vh 4vw 12vh;
+
+    background: #000;
+    color: #fff;
 }
 
-.az-home-row {
+
+/* GENERAL */
+
+.az-reveal-item {
     position: relative;
 
-    min-height: 180px;
+    display: block;
 
-    display: grid;
-    grid-template-columns: 70px 1fr auto;
-    align-items: center;
+    width: 100%;
+    height: 52vh;
+    min-height: 400px;
 
     overflow: hidden;
 
-    border-top: 1px solid #000;
-
-    color: #000;
+    color: #fff;
     text-decoration: none;
 }
 
-.az-home-row:last-child {
-    border-bottom: 1px solid #000;
+
+/* WORD */
+
+.az-reveal-word {
+    position: absolute;
+    z-index: 2;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(80px, 14vw, 220px);
+    font-weight: 700;
+    line-height: 0.85;
+
+    letter-spacing: -7px;
+
+    white-space: nowrap;
 }
 
 
-/* NUMBER */
+/* HIDDEN OUTLINE */
 
-.az-home-number {
-    position: relative;
-    z-index: 2;
+.az-word-ghost {
+    position: absolute;
+    z-index: -1;
 
-    align-self: start;
+    left: 0;
+    top: 0;
 
-    padding-top: 24px;
+    color: transparent;
 
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
+    -webkit-text-stroke: 1px rgba(255,255,255,0.35);
 
-
-/* MAIN WORD */
-
-.az-home-title {
-    position: relative;
-    z-index: 2;
-
-    font-size: clamp(55px, 8vw, 125px);
-    font-weight: 700;
-    line-height: 1;
-
-    letter-spacing: -4px;
+    opacity: 0;
 
     transition:
-        transform 0.5s ease,
-        letter-spacing 0.5s ease;
+        transform 1.2s cubic-bezier(.16,1,.3,1),
+        opacity 0.8s ease;
 }
 
 
 /* ARROW */
 
-.az-home-arrow {
-    position: relative;
-    z-index: 2;
-
-    font-size: 30px;
-
-    transition: transform 0.5s ease;
-}
-
-
-/* INVISIBLE WORD */
-
-.az-hidden-word {
+.az-reveal-arrow {
     position: absolute;
+    z-index: 5;
 
-    left: 35%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%)
-        scale(0.8);
-
-    font-size: clamp(100px, 17vw, 260px);
-    font-weight: 700;
-    line-height: 1;
-
-    white-space: nowrap;
-
-    color: transparent;
-
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.13);
+    font-size: 25px;
 
     opacity: 0;
 
-    pointer-events: none;
+    transition:
+        opacity 0.5s ease,
+        transform 0.7s cubic-bezier(.16,1,.3,1);
+}
+
+
+/* ==================================================
+   WORK
+   LEFT → REVEAL
+================================================== */
+
+.az-reveal-work .az-reveal-word {
+    left: 3%;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.az-reveal-work .az-reveal-cover {
+    position: absolute;
+    z-index: 3;
+
+    left: 52%;
+    top: 0;
+
+    width: 55%;
+    height: 100%;
+
+    background: #000;
 
     transition:
-        opacity 0.6s ease,
-        transform 0.8s cubic-bezier(.2,.8,.2,1);
+        transform 1.4s cubic-bezier(.16,1,.3,1);
 }
 
+.az-reveal-work:hover .az-reveal-cover {
+    transform: translateX(100%);
+}
 
-/* REVEAL */
+.az-reveal-work:hover .az-word-ghost {
+    opacity: 1;
+    transform: translate(16px, 16px);
+}
 
-.az-home-row:hover .az-hidden-word {
+.az-reveal-work .az-reveal-arrow {
+    right: 3%;
+    top: 50%;
+
+    transform: translate(-20px, -50%);
+}
+
+.az-reveal-work:hover .az-reveal-arrow {
     opacity: 1;
 
-    transform:
-        translate(-40%, -50%)
-        scale(1);
+    transform: translate(0, -50%);
 }
 
-.az-home-row:hover .az-home-title {
-    transform: translateX(20px);
-    letter-spacing: -2px;
+
+/* ==================================================
+   ABOUT
+   RIGHT → VERTICAL REVEAL
+================================================== */
+
+.az-reveal-about .az-reveal-word {
+    right: 3%;
+    top: 50%;
+
+    transform: translateY(-50%);
 }
 
-.az-home-row:hover .az-home-arrow {
-    transform:
-        translate(5px, -5px)
-        rotate(8deg);
+.az-reveal-about .az-reveal-cover {
+    position: absolute;
+    z-index: 3;
+
+    right: 0;
+    bottom: 0;
+
+    width: 75%;
+    height: 58%;
+
+    background: #000;
+
+    transition:
+        transform 1.4s cubic-bezier(.16,1,.3,1);
+}
+
+.az-reveal-about:hover .az-reveal-cover {
+    transform: translateY(100%);
+}
+
+.az-reveal-about:hover .az-word-ghost {
+    opacity: 1;
+    transform: translate(-15px, 15px);
+}
+
+.az-reveal-about .az-reveal-arrow {
+    left: 3%;
+    top: 50%;
+
+    transform: translate(20px, -50%);
+}
+
+.az-reveal-about:hover .az-reveal-arrow {
+    opacity: 1;
+
+    transform: translate(0, -50%);
+}
+
+
+/* ==================================================
+   CONTACT
+   CURSOR-LIKE CIRCULAR REVEAL
+================================================== */
+
+.az-reveal-contact .az-reveal-word {
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* black mask */
+
+.az-contact-reveal {
+    position: absolute;
+    z-index: 3;
+
+    left: 50%;
+    top: 50%;
+
+    width: 115%;
+    height: 115%;
+
+    background: #000;
+
+    transform: translate(-50%, -50%);
+
+    clip-path: circle(0% at 50% 50%);
+
+    transition:
+        clip-path 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+
+/*
+   Creates the opposite visual:
+   the invisible area expands around the word.
+*/
+
+.az-reveal-contact:hover .az-contact-reveal {
+    clip-path: circle(18% at 50% 50%);
+}
+
+.az-reveal-contact:hover .az-word-ghost {
+    opacity: 1;
+    transform: translate(0, 18px);
+}
+
+.az-reveal-contact .az-reveal-arrow {
+    right: 3%;
+    bottom: 15%;
+}
+
+.az-reveal-contact:hover .az-reveal-arrow {
+    opacity: 1;
+}
+
+
+/* ==================================================
+   VERY SUBTLE LINES
+================================================== */
+
+.az-reveal-item::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 1px;
+
+    background: rgba(255,255,255,0.35);
+
+    transition:
+        width 1.4s cubic-bezier(.16,1,.3,1);
+}
+
+.az-reveal-item:hover::after {
+    width: 100%;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+.az-footer {
+    min-height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 32px;
+
+    background: #000;
+    color: #fff;
+
+    border-top: 1px solid rgba(255,255,255,0.2);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 
@@ -389,26 +555,25 @@ body {
 
 @media (max-width: 800px) {
 
-    .az-home-navigation {
-        padding: 50px 18px;
+    .az-reveal {
+        padding: 40px 18px 70px;
     }
 
-    .az-home-row {
-        min-height: 125px;
-
-        grid-template-columns: 42px 1fr auto;
+    .az-reveal-item {
+        height: 38vh;
+        min-height: 300px;
     }
 
-    .az-home-title {
-        font-size: 48px;
-        letter-spacing: -2px;
+    .az-reveal-word {
+        font-size: clamp(65px, 20vw, 110px);
+        letter-spacing: -4px;
     }
 
-    .az-home-arrow {
-        font-size: 23px;
+    .az-reveal-arrow {
+        opacity: 1;
     }
 
-    .az-hidden-word {
-        font-size: 100px;
+    .az-footer {
+        padding: 0 18px;
     }
 }
