@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: arzijem/website
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/website/assets/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Description", name: "body", widget: "markdown", required: false }
+      - { label: "Cover Image", name: "cover", widget: "image", required: false }
