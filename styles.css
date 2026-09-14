@@ -255,67 +255,280 @@ body {
 }
 
 /* ==================================================
-   THE REVEAL
+   THE OPENING
 ================================================== */
 
-.az-reveal {
+.az-opening {
     width: 100%;
-    padding: 8vh 4vw 12vh;
-
     background: #000;
     color: #fff;
+    overflow: hidden;
 }
 
 
-/* GENERAL */
+/* EACH AREA */
 
-.az-reveal-item {
+.az-opening-item {
     position: relative;
 
     display: block;
 
     width: 100%;
-    height: 52vh;
-    min-height: 400px;
+    height: 68vh;
+    min-height: 500px;
 
     overflow: hidden;
 
+    background: #000;
     color: #fff;
     text-decoration: none;
 }
 
 
-/* WORD */
+/* ==================================================
+   MAIN TYPOGRAPHY
+================================================== */
 
-.az-reveal-word {
+.az-opening-title {
     position: absolute;
-    z-index: 2;
+    z-index: 5;
+}
+
+.az-main-word,
+.az-shadow-word {
+    display: block;
 
     font-family: Arial, Helvetica, sans-serif;
-    font-size: clamp(80px, 14vw, 220px);
+    font-size: clamp(90px, 14vw, 220px);
     font-weight: 700;
-    line-height: 0.85;
-
+    line-height: 0.82;
     letter-spacing: -7px;
 
     white-space: nowrap;
 }
 
 
-/* HIDDEN OUTLINE */
+/* REAL WORD */
 
-.az-word-ghost {
+.az-main-word {
+    position: relative;
+    z-index: 2;
+
+    color: #fff;
+}
+
+
+/* GHOST / LIGHT BEHIND WORD */
+
+.az-shadow-word {
     position: absolute;
-    z-index: -1;
+    z-index: 1;
 
     left: 0;
     top: 0;
 
-    color: transparent;
+    color: rgba(255, 255, 255, 0.08);
 
-    -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+    filter: blur(7px);
 
-    opacity: 0;
+    transform: translate(7px, 8px);
+
+    opacity: 0.55;
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s cubic-bezier(.16,1,.3,1),
+        filter 1.2s ease;
+}
+
+
+/* LIGHTS UP ON HOVER */
+
+.az-opening-item:hover .az-shadow-word {
+    opacity: 0.95;
+
+    color: rgba(255,255,255,0.22);
+
+    filter: blur(11px);
+
+    transform: translate(15px, 13px);
+}
+
+
+/* ==================================================
+   WORK
+================================================== */
+
+.az-opening-work .az-opening-title {
+    left: 7%;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+/* WORK SMALL SLIT */
+
+.az-work-mark {
+    position: absolute;
+
+    right: 7%;
+    top: 50%;
+
+    width: 190px;
+    height: 60px;
+
+    transform: translateY(-50%);
+}
+
+
+/* FIVE LINES OCCUPY SAME POSITION INITIALLY */
+
+.az-work-mark span {
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 100%;
+    height: 1px;
+
+    background: rgba(255,255,255,0.8);
+
+    transform: translateY(-50%);
+
+    transition:
+        top 1s cubic-bezier(.16,1,.3,1),
+        opacity 1s ease,
+        width 1s cubic-bezier(.16,1,.3,1);
+}
+
+
+/* OPEN THE SINGLE LINE */
+
+.az-opening-work:hover .az-work-mark span:nth-child(1) {
+    top: 15%;
+}
+
+.az-opening-work:hover .az-work-mark span:nth-child(2) {
+    top: 32%;
+}
+
+.az-opening-work:hover .az-work-mark span:nth-child(3) {
+    top: 50%;
+}
+
+.az-opening-work:hover .az-work-mark span:nth-child(4) {
+    top: 68%;
+}
+
+.az-opening-work:hover .az-work-mark span:nth-child(5) {
+    top: 85%;
+}
+
+
+/* ==================================================
+   ABOUT
+================================================== */
+
+.az-opening-about .az-opening-title {
+    right: 7%;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+/* VERTICAL CUT */
+
+.az-about-opening {
+    position: absolute;
+
+    left: 12%;
+    top: 50%;
+
+    width: 80px;
+    height: 280px;
+
+    transform: translateY(-50%);
+}
+
+
+/* THE WHITE OPENING */
+
+.az-about-light {
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 1px;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    background: #fff;
+
+    box-shadow:
+        0 0 8px rgba(255,255,255,0.35),
+        0 0 20px rgba(255,255,255,0.12);
+
+    transition:
+        width 1.2s cubic-bezier(.16,1,.3,1),
+        box-shadow 1.2s ease;
+}
+
+
+/* THE CUT OPENS */
+
+.az-opening-about:hover .az-about-light {
+    width: 22px;
+
+    box-shadow:
+        0 0 18px rgba(255,255,255,0.55),
+        0 0 55px rgba(255,255,255,0.22);
+}
+
+
+/* ==================================================
+   CONTACT
+================================================== */
+
+.az-opening-contact .az-opening-title {
+    left: 10%;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+/* DIAGONAL MARK */
+
+.az-contact-mark {
+    position: absolute;
+
+    right: 12%;
+    top: 50%;
+
+    width: 130px;
+    height: 130px;
+
+    transform: translateY(-50%);
+}
+
+
+.az-contact-mark span {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 1px;
+    height: 130px;
+
+    background: rgba(255,255,255,0.85);
+
+    transform-origin: center;
 
     transition:
         transform 1.2s cubic-bezier(.16,1,.3,1),
@@ -323,15 +536,61 @@ body {
 }
 
 
-/* ARROW */
+/* INITIALLY ALL LOOK LIKE ONE SLASH */
 
-.az-reveal-arrow {
+.az-contact-mark span:nth-child(1),
+.az-contact-mark span:nth-child(2),
+.az-contact-mark span:nth-child(3),
+.az-contact-mark span:nth-child(4) {
+    transform:
+        translate(-50%, -50%)
+        rotate(40deg);
+}
+
+
+/* THEN THE MARK BECOMES A FORM */
+
+.az-opening-contact:hover .az-contact-mark span:nth-child(1) {
+    transform:
+        translate(-50%, -50%)
+        rotate(0deg);
+}
+
+.az-opening-contact:hover .az-contact-mark span:nth-child(2) {
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+}
+
+.az-opening-contact:hover .az-contact-mark span:nth-child(3) {
+    transform:
+        translate(-50%, -50%)
+        rotate(90deg);
+}
+
+.az-opening-contact:hover .az-contact-mark span:nth-child(4) {
+    transform:
+        translate(-50%, -50%)
+        rotate(135deg);
+}
+
+
+/* ==================================================
+   ARROWS
+================================================== */
+
+.az-opening-arrow {
     position: absolute;
-    z-index: 5;
+    z-index: 10;
 
-    font-size: 25px;
+    right: 32px;
+    bottom: 28px;
+
+    font-size: 24px;
 
     opacity: 0;
+
+    transform: translate(-12px, 12px);
 
     transition:
         opacity 0.5s ease,
@@ -339,191 +598,28 @@ body {
 }
 
 
-/* ==================================================
-   WORK
-   LEFT → REVEAL
-================================================== */
-
-.az-reveal-work .az-reveal-word {
-    left: 3%;
-    top: 50%;
-
-    transform: translateY(-50%);
-}
-
-.az-reveal-work .az-reveal-cover {
-    position: absolute;
-    z-index: 3;
-
-    left: 52%;
-    top: 0;
-
-    width: 55%;
-    height: 100%;
-
-    background: #000;
-
-    transition:
-        transform 1.4s cubic-bezier(.16,1,.3,1);
-}
-
-.az-reveal-work:hover .az-reveal-cover {
-    transform: translateX(100%);
-}
-
-.az-reveal-work:hover .az-word-ghost {
+.az-opening-item:hover .az-opening-arrow {
     opacity: 1;
-    transform: translate(16px, 16px);
-}
-
-.az-reveal-work .az-reveal-arrow {
-    right: 3%;
-    top: 50%;
-
-    transform: translate(-20px, -50%);
-}
-
-.az-reveal-work:hover .az-reveal-arrow {
-    opacity: 1;
-
-    transform: translate(0, -50%);
+    transform: translate(0, 0);
 }
 
 
 /* ==================================================
-   ABOUT
-   RIGHT → VERTICAL REVEAL
+   VERY FAINT SEPARATORS
 ================================================== */
 
-.az-reveal-about .az-reveal-word {
-    right: 3%;
-    top: 50%;
-
-    transform: translateY(-50%);
-}
-
-.az-reveal-about .az-reveal-cover {
-    position: absolute;
-    z-index: 3;
-
-    right: 0;
-    bottom: 0;
-
-    width: 75%;
-    height: 58%;
-
-    background: #000;
-
-    transition:
-        transform 1.4s cubic-bezier(.16,1,.3,1);
-}
-
-.az-reveal-about:hover .az-reveal-cover {
-    transform: translateY(100%);
-}
-
-.az-reveal-about:hover .az-word-ghost {
-    opacity: 1;
-    transform: translate(-15px, 15px);
-}
-
-.az-reveal-about .az-reveal-arrow {
-    left: 3%;
-    top: 50%;
-
-    transform: translate(20px, -50%);
-}
-
-.az-reveal-about:hover .az-reveal-arrow {
-    opacity: 1;
-
-    transform: translate(0, -50%);
-}
-
-
-/* ==================================================
-   CONTACT
-   CURSOR-LIKE CIRCULAR REVEAL
-================================================== */
-
-.az-reveal-contact .az-reveal-word {
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-}
-
-
-/* black mask */
-
-.az-contact-reveal {
-    position: absolute;
-    z-index: 3;
-
-    left: 50%;
-    top: 50%;
-
-    width: 115%;
-    height: 115%;
-
-    background: #000;
-
-    transform: translate(-50%, -50%);
-
-    clip-path: circle(0% at 50% 50%);
-
-    transition:
-        clip-path 1.5s cubic-bezier(.16,1,.3,1);
-}
-
-
-/*
-   Creates the opposite visual:
-   the invisible area expands around the word.
-*/
-
-.az-reveal-contact:hover .az-contact-reveal {
-    clip-path: circle(18% at 50% 50%);
-}
-
-.az-reveal-contact:hover .az-word-ghost {
-    opacity: 1;
-    transform: translate(0, 18px);
-}
-
-.az-reveal-contact .az-reveal-arrow {
-    right: 3%;
-    bottom: 15%;
-}
-
-.az-reveal-contact:hover .az-reveal-arrow {
-    opacity: 1;
-}
-
-
-/* ==================================================
-   VERY SUBTLE LINES
-================================================== */
-
-.az-reveal-item::after {
+.az-opening-item::after {
     content: "";
 
     position: absolute;
 
-    left: 0;
+    left: 4%;
+    right: 4%;
     bottom: 0;
 
-    width: 0;
     height: 1px;
 
-    background: rgba(255,255,255,0.35);
-
-    transition:
-        width 1.4s cubic-bezier(.16,1,.3,1);
-}
-
-.az-reveal-item:hover::after {
-    width: 100%;
+    background: rgba(255,255,255,0.08);
 }
 
 
@@ -543,34 +639,53 @@ body {
     background: #000;
     color: #fff;
 
-    border-top: 1px solid rgba(255,255,255,0.2);
-
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
 
-/* MOBILE */
+/* ==================================================
+   MOBILE
+================================================== */
 
 @media (max-width: 800px) {
 
-    .az-reveal {
-        padding: 40px 18px 70px;
+    .az-opening-item {
+        height: 48vh;
+        min-height: 360px;
     }
 
-    .az-reveal-item {
-        height: 38vh;
-        min-height: 300px;
-    }
-
-    .az-reveal-word {
-        font-size: clamp(65px, 20vw, 110px);
+    .az-main-word,
+    .az-shadow-word {
+        font-size: clamp(65px, 20vw, 105px);
         letter-spacing: -4px;
     }
 
-    .az-reveal-arrow {
+    .az-work-mark {
+        width: 90px;
+        right: 5%;
+    }
+
+    .az-about-opening {
+        left: 7%;
+        height: 170px;
+    }
+
+    .az-contact-mark {
+        right: 6%;
+        width: 80px;
+        height: 80px;
+    }
+
+    .az-contact-mark span {
+        height: 80px;
+    }
+
+    .az-opening-arrow {
         opacity: 1;
+        right: 18px;
+        bottom: 18px;
     }
 
     .az-footer {
