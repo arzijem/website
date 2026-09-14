@@ -188,61 +188,128 @@ body {
     }
 }
 
-/* CLICK FINGERPRINT */
+/* FINGERPRINT CLICK EFFECT */
 
 .az-fingerprint {
     position: fixed;
-    width: 42px;
-    height: 52px;
+    width: 34px;
+    height: 46px;
 
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99999;
 
-    border: 2px solid currentColor;
-    border-radius: 50% 50% 45% 45%;
+    transform: translate(-50%, -50%) rotate(-8deg);
 
-    color: #fff;
-    opacity: 0.55;
+    opacity: 0;
 
-    transform: translate(-50%, -50%) rotate(-12deg);
-
-    animation: fingerprintFade 2.2s ease forwards;
+    animation: fingerprintStamp 6s ease-out forwards;
 }
 
+
+/* OUTER FINGERPRINT */
+
+.az-fingerprint,
 .az-fingerprint::before,
 .az-fingerprint::after {
-    content: "";
-    position: absolute;
-    border: 1px solid currentColor;
-    border-radius: 50%;
+    border-radius: 50% 50% 45% 45%;
 }
+
+
+/* FINGERPRINT RIDGES */
+
+.az-fingerprint {
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        inset 0 0 0 3px transparent,
+        inset 0 0 0 4px rgba(255,255,255,.85),
+        inset 0 0 0 7px transparent,
+        inset 0 0 0 8px rgba(255,255,255,.8),
+        inset 0 0 0 11px transparent,
+        inset 0 0 0 12px rgba(255,255,255,.75),
+        inset 0 0 0 15px transparent,
+        inset 0 0 0 16px rgba(255,255,255,.7);
+}
+
 
 .az-fingerprint::before {
-    inset: 6px;
+    content: "";
+
+    position: absolute;
+
+    left: 7px;
+    right: 7px;
+    top: 8px;
+    bottom: 5px;
+
+    border: 1.5px solid rgba(255,255,255,.85);
+
+    box-shadow:
+        inset 0 0 0 3px transparent,
+        inset 0 0 0 4px rgba(255,255,255,.75),
+        inset 0 0 0 7px transparent,
+        inset 0 0 0 8px rgba(255,255,255,.65);
 }
+
 
 .az-fingerprint::after {
-    inset: 12px;
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 15px;
+
+    left: 50%;
+    top: 52%;
+
+    transform: translate(-50%, -50%);
+
+    border: 1.5px solid rgba(255,255,255,.85);
+
+    box-shadow:
+        0 0 0 3px transparent,
+        0 0 0 4px rgba(255,255,255,.6);
 }
 
-@keyframes fingerprintFade {
+
+/* STAMP + SLOW FADE */
+
+@keyframes fingerprintStamp {
 
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.7) rotate(-12deg);
+        transform:
+            translate(-50%, -50%)
+            rotate(-8deg)
+            scale(1.18);
     }
 
-    15% {
-        opacity: 0.55;
-        transform: translate(-50%, -50%) scale(1) rotate(-12deg);
+    5% {
+        opacity: 0.9;
+        transform:
+            translate(-50%, -50%)
+            rotate(-8deg)
+            scale(0.96);
     }
 
-    70% {
-        opacity: 0.4;
+    10% {
+        opacity: 0.8;
+        transform:
+            translate(-50%, -50%)
+            rotate(-8deg)
+            scale(1);
+    }
+
+    55% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.35;
     }
 
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(1.08) rotate(-12deg);
     }
 }
