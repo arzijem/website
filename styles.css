@@ -255,10 +255,10 @@ body {
 }
 
 /* ==================================================
-   THE OPENING
+   ART NAVIGATION
 ================================================== */
 
-.az-opening {
+.az-art-nav {
     width: 100%;
     background: #000;
     color: #fff;
@@ -266,16 +266,20 @@ body {
 }
 
 
-/* EACH AREA */
+/* EACH SECTION */
 
-.az-opening-item {
+.az-art-item {
     position: relative;
 
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     width: 100%;
-    height: 68vh;
-    min-height: 500px;
+    height: 64vh;
+    min-height: 470px;
+
+    padding: 0 7%;
 
     overflow: hidden;
 
@@ -285,32 +289,55 @@ body {
 }
 
 
-/* ==================================================
-   MAIN TYPOGRAPHY
-================================================== */
+/* very subtle separator */
 
-.az-opening-title {
+.az-art-item::after {
+    content: "";
+
     position: absolute;
-    z-index: 5;
+
+    left: 7%;
+    right: 7%;
+    bottom: 0;
+
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.10);
 }
 
-.az-main-word,
-.az-shadow-word {
+
+/* ==================================================
+   WORDS
+================================================== */
+
+.az-art-title {
+    position: relative;
+    z-index: 5;
+
+    display: inline-block;
+}
+
+
+/* both copies */
+
+.az-art-main,
+.az-art-outline {
     display: block;
 
     font-family: Arial, Helvetica, sans-serif;
-    font-size: clamp(90px, 14vw, 220px);
+    font-size: clamp(85px, 13vw, 205px);
     font-weight: 700;
     line-height: 0.82;
+
     letter-spacing: -7px;
 
     white-space: nowrap;
 }
 
 
-/* REAL WORD */
+/* solid word */
 
-.az-main-word {
+.az-art-main {
     position: relative;
     z-index: 2;
 
@@ -318,308 +345,420 @@ body {
 }
 
 
-/* GHOST / LIGHT BEHIND WORD */
+/* hidden outline behind */
 
-.az-shadow-word {
+.az-art-outline {
     position: absolute;
     z-index: 1;
 
     left: 0;
     top: 0;
 
-    color: rgba(255, 255, 255, 0.08);
+    color: transparent;
 
-    filter: blur(7px);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.55);
 
-    transform: translate(7px, 8px);
+    opacity: 0;
 
-    opacity: 0.55;
+    transform: translate(0, 0);
 
     transition:
-        opacity 1s ease,
-        transform 1.2s cubic-bezier(.16,1,.3,1),
-        filter 1.2s ease;
+        transform 1.1s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.7s ease;
 }
 
 
-/* LIGHTS UP ON HOVER */
+/* outline comes out from behind */
 
-.az-opening-item:hover .az-shadow-word {
-    opacity: 0.95;
+.az-art-item:hover .az-art-outline {
+    opacity: 1;
+}
 
-    color: rgba(255,255,255,0.22);
 
-    filter: blur(11px);
+/* each word moves differently */
 
-    transform: translate(15px, 13px);
+.az-art-work:hover .az-art-outline {
+    transform: translate(18px, 18px);
+}
+
+.az-art-about:hover .az-art-outline {
+    transform: translate(-18px, 18px);
+}
+
+.az-art-contact:hover .az-art-outline {
+    transform: translate(0, 20px);
 }
 
 
 /* ==================================================
-   WORK
+   SYMBOL — GENERAL
 ================================================== */
 
-.az-opening-work .az-opening-title {
-    left: 7%;
-    top: 50%;
+.az-symbol {
+    position: relative;
+    z-index: 3;
 
-    transform: translateY(-50%);
+    flex: 0 0 auto;
 }
 
 
-/* WORK SMALL SLIT */
+/* ==================================================
+   WORK — CREATION MARK
 
-.az-work-mark {
-    position: absolute;
+   Four independent strokes are separated.
+   Hover brings them together.
+================================================== */
 
-    right: 7%;
-    top: 50%;
-
+.az-symbol-work {
     width: 190px;
-    height: 60px;
-
-    transform: translateY(-50%);
+    height: 190px;
 }
 
 
-/* FIVE LINES OCCUPY SAME POSITION INITIALLY */
+/* four strokes */
 
-.az-work-mark span {
+.work-line {
     position: absolute;
-
-    left: 0;
-    top: 50%;
-
-    width: 100%;
-    height: 1px;
-
-    background: rgba(255,255,255,0.8);
-
-    transform: translateY(-50%);
-
-    transition:
-        top 1s cubic-bezier(.16,1,.3,1),
-        opacity 1s ease,
-        width 1s cubic-bezier(.16,1,.3,1);
-}
-
-
-/* OPEN THE SINGLE LINE */
-
-.az-opening-work:hover .az-work-mark span:nth-child(1) {
-    top: 15%;
-}
-
-.az-opening-work:hover .az-work-mark span:nth-child(2) {
-    top: 32%;
-}
-
-.az-opening-work:hover .az-work-mark span:nth-child(3) {
-    top: 50%;
-}
-
-.az-opening-work:hover .az-work-mark span:nth-child(4) {
-    top: 68%;
-}
-
-.az-opening-work:hover .az-work-mark span:nth-child(5) {
-    top: 85%;
-}
-
-
-/* ==================================================
-   ABOUT
-================================================== */
-
-.az-opening-about .az-opening-title {
-    right: 7%;
-    top: 50%;
-
-    transform: translateY(-50%);
-}
-
-
-/* VERTICAL CUT */
-
-.az-about-opening {
-    position: absolute;
-
-    left: 12%;
-    top: 50%;
-
-    width: 80px;
-    height: 280px;
-
-    transform: translateY(-50%);
-}
-
-
-/* THE WHITE OPENING */
-
-.az-about-light {
-    position: absolute;
-
-    left: 50%;
-    top: 0;
-
-    width: 1px;
-    height: 100%;
-
-    transform: translateX(-50%);
 
     background: #fff;
 
-    box-shadow:
-        0 0 8px rgba(255,255,255,0.35),
-        0 0 20px rgba(255,255,255,0.12);
-
     transition:
-        width 1.2s cubic-bezier(.16,1,.3,1),
-        box-shadow 1.2s ease;
-}
-
-
-/* THE CUT OPENS */
-
-.az-opening-about:hover .az-about-light {
-    width: 22px;
-
-    box-shadow:
-        0 0 18px rgba(255,255,255,0.55),
-        0 0 55px rgba(255,255,255,0.22);
-}
-
-
-/* ==================================================
-   CONTACT
-================================================== */
-
-.az-opening-contact .az-opening-title {
-    left: 10%;
-    top: 50%;
-
-    transform: translateY(-50%);
-}
-
-
-/* DIAGONAL MARK */
-
-.az-contact-mark {
-    position: absolute;
-
-    right: 12%;
-    top: 50%;
-
-    width: 130px;
-    height: 130px;
-
-    transform: translateY(-50%);
-}
-
-
-.az-contact-mark span {
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 1px;
-    height: 130px;
-
-    background: rgba(255,255,255,0.85);
-
-    transform-origin: center;
-
-    transition:
-        transform 1.2s cubic-bezier(.16,1,.3,1),
+        transform 1.2s cubic-bezier(.16, 1, .3, 1),
         opacity 0.8s ease;
 }
 
 
-/* INITIALLY ALL LOOK LIKE ONE SLASH */
+/* vertical */
 
-.az-contact-mark span:nth-child(1),
-.az-contact-mark span:nth-child(2),
-.az-contact-mark span:nth-child(3),
-.az-contact-mark span:nth-child(4) {
-    transform:
-        translate(-50%, -50%)
-        rotate(40deg);
+.work-top,
+.work-bottom {
+    left: 50%;
+
+    width: 1px;
+    height: 55px;
 }
 
 
-/* THEN THE MARK BECOMES A FORM */
+/* horizontal */
 
-.az-opening-contact:hover .az-contact-mark span:nth-child(1) {
-    transform:
-        translate(-50%, -50%)
-        rotate(0deg);
-}
+.work-left,
+.work-right {
+    top: 50%;
 
-.az-opening-contact:hover .az-contact-mark span:nth-child(2) {
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg);
-}
-
-.az-opening-contact:hover .az-contact-mark span:nth-child(3) {
-    transform:
-        translate(-50%, -50%)
-        rotate(90deg);
-}
-
-.az-opening-contact:hover .az-contact-mark span:nth-child(4) {
-    transform:
-        translate(-50%, -50%)
-        rotate(135deg);
+    width: 55px;
+    height: 1px;
 }
 
 
-/* ==================================================
-   ARROWS
-================================================== */
+.work-top {
+    top: 0;
 
-.az-opening-arrow {
+    transform:
+        translateX(-50%)
+        translateY(-18px);
+}
+
+.work-bottom {
+    bottom: 0;
+
+    transform:
+        translateX(-50%)
+        translateY(18px);
+}
+
+.work-left {
+    left: 0;
+
+    transform:
+        translateY(-50%)
+        translateX(-18px);
+}
+
+.work-right {
+    right: 0;
+
+    transform:
+        translateY(-50%)
+        translateX(18px);
+}
+
+
+/* invisible center */
+
+.work-center {
     position: absolute;
-    z-index: 10;
 
-    right: 32px;
-    bottom: 28px;
+    left: 50%;
+    top: 50%;
 
-    font-size: 24px;
+    width: 8px;
+    height: 8px;
+
+    border: 1px solid #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
 
     opacity: 0;
 
-    transform: translate(-12px, 12px);
-
     transition:
-        opacity 0.5s ease,
-        transform 0.7s cubic-bezier(.16,1,.3,1);
+        transform 0.8s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.6s ease;
 }
 
 
-.az-opening-item:hover .az-opening-arrow {
+/* WORK interaction */
+
+.az-art-work:hover .work-top {
+    transform:
+        translateX(-50%)
+        translateY(40px);
+}
+
+.az-art-work:hover .work-bottom {
+    transform:
+        translateX(-50%)
+        translateY(-40px);
+}
+
+.az-art-work:hover .work-left {
+    transform:
+        translateY(-50%)
+        translateX(40px);
+}
+
+.az-art-work:hover .work-right {
+    transform:
+        translateY(-50%)
+        translateX(-40px);
+}
+
+.az-art-work:hover .work-center {
     opacity: 1;
-    transform: translate(0, 0);
+
+    transform:
+        translate(-50%, -50%)
+        scale(1)
+        rotate(45deg);
 }
 
 
 /* ==================================================
-   VERY FAINT SEPARATORS
+   ABOUT — UNCOVERING
+
+   Something exists behind a black layer.
 ================================================== */
 
-.az-opening-item::after {
-    content: "";
+.az-art-about {
+    flex-direction: row-reverse;
+}
 
+
+.az-symbol-about {
+    width: 210px;
+    height: 210px;
+}
+
+
+.about-shape {
     position: absolute;
 
-    left: 4%;
-    right: 4%;
-    bottom: 0;
+    left: 50%;
+    top: 50%;
 
-    height: 1px;
+    width: 170px;
+    height: 170px;
 
-    background: rgba(255,255,255,0.08);
+    transform: translate(-50%, -50%);
+}
+
+
+/* complete shape underneath */
+
+.about-circle {
+    position: absolute;
+    inset: 0;
+
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 50%;
+}
+
+
+/* black layer hides most of it */
+
+.about-cover {
+    position: absolute;
+
+    right: -2px;
+    top: -5%;
+
+    width: 76%;
+    height: 110%;
+
+    background: #000;
+
+    transition:
+        transform 1.3s cubic-bezier(.16, 1, .3, 1);
+}
+
+
+/* tiny trace showing that something is hidden */
+
+.about-line {
+    position: absolute;
+
+    left: 49%;
+    top: 20%;
+
+    width: 1px;
+    height: 60%;
+
+    background: rgba(255,255,255,0.7);
+
+    transition:
+        height 1s cubic-bezier(.16, 1, .3, 1),
+        top 1s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.8s ease;
+}
+
+
+/* ABOUT interaction */
+
+.az-art-about:hover .about-cover {
+    transform: translateX(105%);
+}
+
+.az-art-about:hover .about-line {
+    top: 5%;
+    height: 90%;
+    opacity: 0.25;
+}
+
+
+/* ==================================================
+   CONTACT — MEETING
+
+   Two independent forms physically make contact.
+================================================== */
+
+.az-symbol-contact {
+    width: 240px;
+    height: 180px;
+}
+
+
+/* left and right forms */
+
+.contact-left,
+.contact-right {
+    position: absolute;
+
+    top: 50%;
+
+    width: 65px;
+    height: 65px;
+
+    border: 1px solid #fff;
+
+    transform:
+        translateY(-50%)
+        rotate(45deg);
+
+    transition:
+        left 1.3s cubic-bezier(.16, 1, .3, 1),
+        right 1.3s cubic-bezier(.16, 1, .3, 1),
+        transform 1.3s cubic-bezier(.16, 1, .3, 1);
+}
+
+
+.contact-left {
+    left: 0;
+}
+
+
+.contact-right {
+    right: 0;
+}
+
+
+/* shape created only when they meet */
+
+.contact-meeting {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 18px;
+    height: 18px;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(0);
+
+    opacity: 0;
+
+    transition:
+        transform 0.7s cubic-bezier(.16, 1, .3, 1) 0.35s,
+        opacity 0.5s ease 0.35s;
+}
+
+
+/* CONTACT interaction */
+
+.az-art-contact:hover .contact-left {
+    left: 72px;
+
+    transform:
+        translateY(-50%)
+        rotate(135deg);
+}
+
+.az-art-contact:hover .contact-right {
+    right: 72px;
+
+    transform:
+        translateY(-50%)
+        rotate(-45deg);
+}
+
+
+.az-art-contact:hover .contact-meeting {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg)
+        scale(1);
+}
+
+
+/* ==================================================
+   EXTRA MOTION ON WORD
+================================================== */
+
+.az-art-main {
+    transition:
+        transform 1s cubic-bezier(.16, 1, .3, 1);
+}
+
+
+.az-art-work:hover .az-art-main {
+    transform: translateX(8px);
+}
+
+
+.az-art-about:hover .az-art-main {
+    transform: translateX(-8px);
+}
+
+
+.az-art-contact:hover .az-art-main {
+    transform: translateX(8px);
 }
 
 
@@ -651,41 +790,56 @@ body {
 
 @media (max-width: 800px) {
 
-    .az-opening-item {
+    .az-art-item {
         height: 48vh;
-        min-height: 360px;
+        min-height: 370px;
+
+        padding: 0 18px;
     }
 
-    .az-main-word,
-    .az-shadow-word {
-        font-size: clamp(65px, 20vw, 105px);
+    .az-art-main,
+    .az-art-outline {
+        font-size: clamp(58px, 18vw, 100px);
         letter-spacing: -4px;
     }
 
-    .az-work-mark {
+    .az-symbol-work {
+        width: 85px;
+        height: 85px;
+    }
+
+    .az-symbol-about {
         width: 90px;
-        right: 5%;
+        height: 90px;
     }
 
-    .az-about-opening {
-        left: 7%;
-        height: 170px;
+    .about-shape {
+        width: 75px;
+        height: 75px;
     }
 
-    .az-contact-mark {
-        right: 6%;
-        width: 80px;
-        height: 80px;
+    .az-symbol-contact {
+        width: 105px;
+        height: 100px;
     }
 
-    .az-contact-mark span {
-        height: 80px;
+    .contact-left,
+    .contact-right {
+        width: 30px;
+        height: 30px;
     }
 
-    .az-opening-arrow {
-        opacity: 1;
-        right: 18px;
-        bottom: 18px;
+    .az-art-contact:hover .contact-left {
+        left: 30px;
+    }
+
+    .az-art-contact:hover .contact-right {
+        right: 30px;
+    }
+
+    .contact-meeting {
+        width: 10px;
+        height: 10px;
     }
 
     .az-footer {
