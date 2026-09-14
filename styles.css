@@ -1,3 +1,5 @@
+/* GENERAL */
+
 * {
     box-sizing: border-box;
 }
@@ -10,6 +12,7 @@ body {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    background: #000;
 }
 
 
@@ -30,22 +33,22 @@ body {
 }
 
 
-/* NAME — LEFT */
+/* BRAND */
 
 .az-brand {
     color: #fff;
     text-decoration: none;
 
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 21px;
-    font-weight: 400;
-    letter-spacing: 1.5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
 
     white-space: nowrap;
 }
 
 
-/* MENU — RIGHT */
+/* MENU */
 
 .az-menu {
     display: flex;
@@ -75,11 +78,109 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-
     margin-left: 8px;
 }
 
 .az-languages span {
     color: #fff;
     font-size: 13px;
+}
+
+
+/* HERO */
+
+.az-hero {
+    position: relative;
+
+    width: 100%;
+    height: calc(100vh - 72px);
+
+    overflow: hidden;
+}
+
+.az-hero-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+}
+
+
+/* SLIGHT DARK OVERLAY FOR READABLE TEXT */
+
+.az-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.18);
+}
+
+
+/* CENTER TEXT */
+
+.az-hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+
+    color: #fff;
+    text-align: center;
+}
+
+.az-hero-text h1 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 5vw, 72px);
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.az-hero-text p {
+    margin: 14px 0 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .az-topbar {
+        padding: 0 18px;
+    }
+
+    .az-brand {
+        font-size: 16px;
+    }
+
+    .az-menu {
+        gap: 14px;
+    }
+
+    .az-menu a {
+        font-size: 11px;
+    }
+
+    .az-hero-text h1 {
+        font-size: 38px;
+    }
+
+    .az-hero-text p {
+        font-size: 15px;
+    }
 }
