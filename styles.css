@@ -980,3 +980,646 @@ body {
         opacity: 1;
     }
 }
+
+/* ==================================================
+   TABLET + MOBILE RESPONSIVE
+   Desktop remains unchanged
+================================================== */
+
+
+/* ==================================================
+   MOBILE MENU BUTTON
+   Hidden on desktop
+================================================== */
+
+.az-menu-button {
+    display: none;
+}
+
+
+/* mobile menu hidden on desktop */
+
+.az-mobile-menu {
+    display: none;
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width: 1100px) and (min-width: 801px) {
+
+    /* HEADER */
+
+    .az-topbar {
+        height: 68px;
+        padding: 0 24px;
+    }
+
+    .az-brand {
+        font-size: 17px;
+        letter-spacing: 1px;
+    }
+
+    .az-menu {
+        gap: 20px;
+    }
+
+    .az-menu a {
+        font-size: 12px;
+    }
+
+    .az-languages {
+        margin-left: 3px;
+    }
+
+
+    /* HERO */
+
+    .az-hero {
+        height: calc(100svh - 68px);
+        min-height: 600px;
+    }
+
+    .az-hero-image {
+        object-position: center 15%;
+    }
+
+    .az-hero-text {
+        width: 86%;
+    }
+
+    .az-hero-text h1 {
+        font-size: clamp(34px, 5vw, 52px);
+    }
+
+    .az-hero-text p {
+        font-size: 17px;
+    }
+
+
+    /* ART SECTIONS */
+
+    .az-art-item {
+        height: 52vh;
+        min-height: 430px;
+        padding: 0 5%;
+    }
+
+    .az-art-main,
+    .az-art-outline {
+        font-size: clamp(76px, 12vw, 135px);
+        letter-spacing: -5px;
+    }
+
+
+    /* WORK SYMBOL */
+
+    .az-symbol-work {
+        width: 140px;
+        height: 140px;
+    }
+
+
+    /* ABOUT SYMBOL */
+
+    .az-symbol-about {
+        width: 150px;
+        height: 150px;
+    }
+
+    .about-shape {
+        width: 120px;
+        height: 120px;
+    }
+
+
+    /* CONTACT SYMBOL */
+
+    .az-symbol-contact {
+        width: 180px;
+        height: 150px;
+    }
+
+    .contact-left,
+    .contact-right {
+        width: 50px;
+        height: 50px;
+    }
+
+    .az-art-contact:hover .contact-left {
+        left: 53px;
+    }
+
+    .az-art-contact:hover .contact-right {
+        right: 53px;
+    }
+
+
+    /* FOOTER */
+
+    .az-footer {
+        min-height: 90px;
+        padding: 0 24px;
+    }
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 800px) {
+
+    /* prevent horizontal overflow */
+
+    html,
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    /* ==================================================
+       MOBILE HEADER
+    ================================================== */
+
+    .az-topbar {
+        position: relative;
+        z-index: 10001;
+
+        width: 100%;
+        height: 64px;
+
+        padding: 0 18px;
+
+        background: #000;
+    }
+
+
+    .az-brand {
+        position: relative;
+        z-index: 10003;
+
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+
+    /* hide desktop navigation */
+
+    .az-menu {
+        display: none;
+    }
+
+
+    /* ==================================================
+       HAMBURGER
+    ================================================== */
+
+    .az-menu-button {
+        position: relative;
+        z-index: 10003;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+
+        padding: 0;
+
+        border: 0;
+        background: transparent;
+
+        cursor: pointer;
+    }
+
+
+    .az-menu-button span {
+        position: absolute;
+        left: 3px;
+
+        width: 28px;
+        height: 1px;
+
+        background: #fff;
+
+        transition:
+            transform 0.5s cubic-bezier(.16, 1, .3, 1),
+            top 0.5s cubic-bezier(.16, 1, .3, 1);
+    }
+
+
+    .az-menu-button span:first-child {
+        top: 12px;
+    }
+
+
+    .az-menu-button span:last-child {
+        top: 21px;
+    }
+
+
+    /* hamburger becomes X */
+
+    body.az-menu-open .az-menu-button span:first-child {
+        top: 17px;
+        transform: rotate(45deg);
+    }
+
+
+    body.az-menu-open .az-menu-button span:last-child {
+        top: 17px;
+        transform: rotate(-45deg);
+    }
+
+
+    /* ==================================================
+       FULL SCREEN MOBILE MENU
+    ================================================== */
+
+    .az-mobile-menu {
+        position: fixed;
+
+        left: 0;
+        top: 0;
+
+        z-index: 10000;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        width: 100%;
+        height: 100svh;
+
+        padding: 90px 18px 30px;
+
+        background: #000;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-10px);
+
+        transition:
+            opacity 0.45s ease,
+            visibility 0.45s ease,
+            transform 0.6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+
+    body.az-menu-open .az-mobile-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+
+    /* stop page scrolling while menu is open */
+
+    body.az-menu-open {
+        overflow: hidden;
+    }
+
+
+    /* ==================================================
+       MOBILE MENU LINKS
+    ================================================== */
+
+    .az-mobile-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .az-mobile-links a {
+        color: #fff;
+        text-decoration: none;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: clamp(42px, 14vw, 70px);
+        font-weight: 700;
+        line-height: 1.05;
+
+        letter-spacing: -2px;
+
+        opacity: 0;
+
+        transform: translateY(15px);
+
+        transition:
+            opacity 0.5s ease,
+            transform 0.7s cubic-bezier(.16, 1, .3, 1);
+    }
+
+
+    body.az-menu-open .az-mobile-links a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    body.az-menu-open .az-mobile-links a:nth-child(1) {
+        transition-delay: 0.08s;
+    }
+
+    body.az-menu-open .az-mobile-links a:nth-child(2) {
+        transition-delay: 0.13s;
+    }
+
+    body.az-menu-open .az-mobile-links a:nth-child(3) {
+        transition-delay: 0.18s;
+    }
+
+    body.az-menu-open .az-mobile-links a:nth-child(4) {
+        transition-delay: 0.23s;
+    }
+
+
+    /* languages */
+
+    .az-mobile-languages {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        margin-top: 38px;
+
+        color: #fff;
+    }
+
+
+    .az-mobile-languages a,
+    .az-mobile-languages span {
+        color: #fff;
+
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 1px;
+
+        text-decoration: none;
+    }
+
+
+    .az-mobile-languages .active {
+        opacity: 1;
+    }
+
+
+    /* ==================================================
+       MOBILE HERO
+    ================================================== */
+
+    .az-hero {
+        height: calc(100svh - 64px);
+        min-height: 560px;
+    }
+
+
+    .az-hero-image {
+        object-position: center 15%;
+    }
+
+
+    .az-hero-overlay {
+        background: rgba(0, 0, 0, 0.30);
+    }
+
+
+    .az-hero-text {
+        width: calc(100% - 36px);
+    }
+
+
+    .az-hero-text h1 {
+        font-size: clamp(29px, 9vw, 42px);
+        line-height: 1.02;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    .az-hero-text p {
+        margin-top: 12px;
+
+        font-size: 13px;
+        letter-spacing: 1.3px;
+    }
+
+
+    /* ==================================================
+       MOBILE ART SECTIONS
+    ================================================== */
+
+    .az-art-item,
+    .az-art-about {
+        position: relative;
+
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        height: auto;
+        min-height: 390px;
+
+        padding: 55px 18px;
+    }
+
+
+    .az-art-item::after {
+        left: 18px;
+        right: 18px;
+    }
+
+
+    /* WORDS */
+
+    .az-art-title {
+        width: 100%;
+    }
+
+
+    .az-art-main,
+    .az-art-outline {
+        font-size: clamp(62px, 21vw, 100px);
+
+        line-height: 0.86;
+
+        letter-spacing: -4px;
+    }
+
+
+    /* keep outline inside phone */
+
+    .az-art-work:hover .az-art-outline {
+        transform: translate(8px, 10px);
+    }
+
+    .az-art-about:hover .az-art-outline {
+        transform: translate(8px, 10px);
+    }
+
+    .az-art-contact:hover .az-art-outline {
+        transform: translate(8px, 10px);
+    }
+
+
+    /* smaller word movement */
+
+    .az-art-work:hover .az-art-main,
+    .az-art-about:hover .az-art-main,
+    .az-art-contact:hover .az-art-main {
+        transform: translateX(3px);
+    }
+
+
+    /* ==================================================
+       MOBILE SYMBOL POSITION
+    ================================================== */
+
+    .az-symbol {
+        margin-top: 58px;
+        align-self: flex-end;
+    }
+
+
+    /* WORK */
+
+    .az-symbol-work {
+        width: 100px;
+        height: 100px;
+
+        margin-right: 8px;
+    }
+
+
+    .work-top,
+    .work-bottom {
+        height: 32px;
+    }
+
+
+    .work-left,
+    .work-right {
+        width: 32px;
+    }
+
+
+    .az-art-work:hover .work-top {
+        transform: translateX(-50%) translateY(28px);
+    }
+
+    .az-art-work:hover .work-bottom {
+        transform: translateX(-50%) translateY(-28px);
+    }
+
+    .az-art-work:hover .work-left {
+        transform: translateY(-50%) translateX(28px);
+    }
+
+    .az-art-work:hover .work-right {
+        transform: translateY(-50%) translateX(-28px);
+    }
+
+
+    /* ABOUT */
+
+    .az-symbol-about {
+        width: 110px;
+        height: 110px;
+
+        margin-right: 4px;
+    }
+
+
+    .about-shape {
+        width: 92px;
+        height: 92px;
+    }
+
+
+    /* CONTACT */
+
+    .az-symbol-contact {
+        width: 125px;
+        height: 95px;
+    }
+
+
+    .contact-left,
+    .contact-right {
+        width: 34px;
+        height: 34px;
+    }
+
+
+    .az-art-contact:hover .contact-left {
+        left: 36px;
+    }
+
+
+    .az-art-contact:hover .contact-right {
+        right: 36px;
+    }
+
+
+    .contact-meeting {
+        width: 11px;
+        height: 11px;
+    }
+
+
+    /* ==================================================
+       MOBILE FOOTER
+    ================================================== */
+
+    .az-footer {
+        min-height: 90px;
+
+        padding: 0 18px;
+
+        font-size: 9px;
+        letter-spacing: 1.2px;
+    }
+
+
+    /* fingerprint slightly smaller on phone */
+
+    .az-fingerprint {
+        width: 23px;
+        height: 31px;
+    }
+}
+
+
+/* ==================================================
+   VERY SMALL PHONES
+================================================== */
+
+@media (max-width: 380px) {
+
+    .az-brand {
+        font-size: 13px;
+    }
+
+    .az-hero-text h1 {
+        font-size: 28px;
+    }
+
+    .az-art-main,
+    .az-art-outline {
+        font-size: 58px;
+        letter-spacing: -3px;
+    }
+
+    .az-art-item,
+    .az-art-about {
+        min-height: 360px;
+    }
+}
