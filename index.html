@@ -70,7 +70,7 @@
             });
         }
     </script>
-    <script>
+<script>
 document.addEventListener("click", function(event) {
 
     const fingerprint = document.createElement("span");
@@ -80,26 +80,20 @@ document.addEventListener("click", function(event) {
     fingerprint.style.left = event.clientX + "px";
     fingerprint.style.top = event.clientY + "px";
 
-    /* Dark fingerprint on light backgrounds */
-    const element = document.elementFromPoint(
-        event.clientX,
-        event.clientY
+    /* Slightly different angle for every stamp */
+    const rotation = -12 + Math.random() * 24;
+
+    fingerprint.style.setProperty(
+        "--fingerprint-rotation",
+        rotation + "deg"
     );
-
-    const background = window.getComputedStyle(element).backgroundColor;
-
-    if (
-        background === "rgb(255, 255, 255)" ||
-        background === "white"
-    ) {
-        fingerprint.style.color = "#000";
-    }
 
     document.body.appendChild(fingerprint);
 
+    /* Remove after the slow fade finishes */
     setTimeout(function() {
         fingerprint.remove();
-    }, 2200);
+    }, 6000);
 
 });
 </script>
