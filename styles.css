@@ -192,65 +192,73 @@ body {
 
 .az-fingerprint {
     position: fixed;
-    width: 34px;
-    height: 46px;
+    width: 32px;
+    height: 44px;
 
     pointer-events: none;
     z-index: 99999;
 
-    transform: translate(-50%, -50%) rotate(-8deg);
-
+    color: #fff;
     opacity: 0;
 
-    animation: fingerprintStamp 6s ease-out forwards;
-}
+    border-radius: 48% 52% 43% 47% / 44% 46% 54% 56%;
 
-
-/* OUTER FINGERPRINT */
-
-.az-fingerprint,
-.az-fingerprint::before,
-.az-fingerprint::after {
-    border-radius: 50% 50% 45% 45%;
-}
-
-
-/* FINGERPRINT RIDGES */
-
-.az-fingerprint {
-    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    border:
+        1.4px solid rgba(255,255,255,0.95);
 
     box-shadow:
-        inset 0 0 0 3px transparent,
-        inset 0 0 0 4px rgba(255,255,255,.85),
-        inset 0 0 0 7px transparent,
-        inset 0 0 0 8px rgba(255,255,255,.8),
-        inset 0 0 0 11px transparent,
-        inset 0 0 0 12px rgba(255,255,255,.75),
-        inset 0 0 0 15px transparent,
-        inset 0 0 0 16px rgba(255,255,255,.7);
+        inset 2px 0 0 1px transparent,
+        inset 3px 0 0 1px rgba(255,255,255,0.85),
+
+        inset -1px 1px 0 3px transparent,
+        inset -2px 1px 0 4px rgba(255,255,255,0.9),
+
+        inset 1px -1px 0 6px transparent,
+        inset 2px -1px 0 7px rgba(255,255,255,0.8),
+
+        inset -2px 2px 0 9px transparent,
+        inset -3px 2px 0 10px rgba(255,255,255,0.9),
+
+        inset 1px 1px 0 12px transparent,
+        inset 2px 1px 0 13px rgba(255,255,255,0.75);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--fingerprint-rotation, -7deg));
+
+    animation: fingerprintStamp 8s ease-out forwards;
 }
 
+
+/* INNER IRREGULAR RIDGES */
 
 .az-fingerprint::before {
     content: "";
 
     position: absolute;
 
-    left: 7px;
-    right: 7px;
-    top: 8px;
-    bottom: 5px;
+    width: 18px;
+    height: 27px;
 
-    border: 1.5px solid rgba(255,255,255,.85);
+    left: 6px;
+    top: 8px;
+
+    border-radius: 46% 54% 44% 56% / 52% 45% 55% 48%;
+
+    border: 1.3px solid rgba(255,255,255,0.95);
 
     box-shadow:
-        inset 0 0 0 3px transparent,
-        inset 0 0 0 4px rgba(255,255,255,.75),
-        inset 0 0 0 7px transparent,
-        inset 0 0 0 8px rgba(255,255,255,.65);
+        1px 0 0 2px transparent,
+        2px 0 0 3px rgba(255,255,255,0.8),
+
+        -1px 1px 0 5px transparent,
+        -2px 1px 0 6px rgba(255,255,255,0.85);
+
+    transform: rotate(5deg);
 }
 
+
+/* SMALL WHORL */
 
 .az-fingerprint::after {
     content: "";
@@ -258,22 +266,24 @@ body {
     position: absolute;
 
     width: 8px;
-    height: 15px;
+    height: 13px;
 
-    left: 50%;
-    top: 52%;
+    left: 12px;
+    top: 19px;
 
-    transform: translate(-50%, -50%);
+    border: 1.3px solid rgba(255,255,255,0.95);
 
-    border: 1.5px solid rgba(255,255,255,.85);
+    border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
+
+    transform: rotate(-13deg);
 
     box-shadow:
-        0 0 0 3px transparent,
-        0 0 0 4px rgba(255,255,255,.6);
+        1px 1px 0 2px transparent,
+        2px 1px 0 3px rgba(255,255,255,0.8);
 }
 
 
-/* STAMP + SLOW FADE */
+/* STAMP + LONG SLOW FADE */
 
 @keyframes fingerprintStamp {
 
@@ -281,31 +291,35 @@ body {
         opacity: 0;
         transform:
             translate(-50%, -50%)
-            rotate(-8deg)
-            scale(1.18);
+            rotate(var(--fingerprint-rotation, -7deg))
+            scale(1.15);
     }
 
-    5% {
-        opacity: 0.9;
+    4% {
+        opacity: 1;
         transform:
             translate(-50%, -50%)
-            rotate(-8deg)
-            scale(0.96);
+            rotate(var(--fingerprint-rotation, -7deg))
+            scale(0.94);
     }
 
-    10% {
-        opacity: 0.8;
+    8% {
+        opacity: 1;
         transform:
             translate(-50%, -50%)
-            rotate(-8deg)
+            rotate(var(--fingerprint-rotation, -7deg))
             scale(1);
     }
 
-    55% {
-        opacity: 0.7;
+    65% {
+        opacity: 1;
     }
 
-    80% {
+    82% {
+        opacity: 0.75;
+    }
+
+    92% {
         opacity: 0.35;
     }
 
