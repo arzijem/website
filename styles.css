@@ -924,61 +924,46 @@ body {
 }
 
 
-/* MAIN TITLE */
+/* ==================================================
+   HERO TEXT — PURE FADE IN
+================================================== */
 
 .az-hero-text h1 {
     opacity: 0;
+    transform: none;
 
-    transform: translateY(35px);
-
-    animation:
-        azTitleEntrance 1.2s cubic-bezier(.16, 1, .3, 1)
-        0.9s forwards;
+    animation: azTitleFade 1.8s ease 0.8s forwards;
 }
 
-
-@keyframes azTitleEntrance {
-
+@keyframes azTitleFade {
     from {
         opacity: 0;
-        transform: translateY(35px);
-        letter-spacing: 4px;
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
-        letter-spacing: 1.2px;
     }
 }
 
 
-/* SMALL TEXT */
+/* SMALL TEXT FADES IN SLIGHTLY AFTER */
 
 .az-hero-text p {
     opacity: 0;
+    transform: none;
 
-    transform: translateY(18px);
-
-    animation:
-        azSubtitleEntrance 1s cubic-bezier(.16, 1, .3, 1)
-        1.35s forwards;
+    animation: azSubtitleFade 1.6s ease 1.35s forwards;
 }
 
-
-@keyframes azSubtitleEntrance {
-
+@keyframes azSubtitleFade {
     from {
         opacity: 0;
-        transform: translateY(18px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
-
 
 /* ==================================================
    ACCESSIBILITY
