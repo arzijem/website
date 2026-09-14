@@ -187,3 +187,62 @@ body {
         font-size: 15px;
     }
 }
+
+/* CLICK FINGERPRINT */
+
+.az-fingerprint {
+    position: fixed;
+    width: 42px;
+    height: 52px;
+
+    pointer-events: none;
+    z-index: 9999;
+
+    border: 2px solid currentColor;
+    border-radius: 50% 50% 45% 45%;
+
+    color: #fff;
+    opacity: 0.55;
+
+    transform: translate(-50%, -50%) rotate(-12deg);
+
+    animation: fingerprintFade 2.2s ease forwards;
+}
+
+.az-fingerprint::before,
+.az-fingerprint::after {
+    content: "";
+    position: absolute;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+}
+
+.az-fingerprint::before {
+    inset: 6px;
+}
+
+.az-fingerprint::after {
+    inset: 12px;
+}
+
+@keyframes fingerprintFade {
+
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7) rotate(-12deg);
+    }
+
+    15% {
+        opacity: 0.55;
+        transform: translate(-50%, -50%) scale(1) rotate(-12deg);
+    }
+
+    70% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.08) rotate(-12deg);
+    }
+}
