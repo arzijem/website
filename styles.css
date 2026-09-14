@@ -1623,3 +1623,50 @@ body {
         min-height: 360px;
     }
 }
+
+/* FORCE MOBILE HEADER ON SMALL SCREENS */
+
+@media (max-width: 900px) {
+
+    .az-menu {
+        display: none !important;
+    }
+
+    .az-menu-button {
+        display: flex !important;
+        position: relative;
+        z-index: 10003;
+
+        width: 34px;
+        height: 34px;
+
+        padding: 0;
+        border: 0;
+        background: transparent;
+
+        flex-direction: column;
+        justify-content: center;
+
+        cursor: pointer;
+    }
+
+    .az-menu-button span {
+        position: absolute;
+        left: 3px;
+
+        display: block;
+
+        width: 28px;
+        height: 1px;
+
+        background: #fff;
+    }
+
+    .az-menu-button span:first-child {
+        top: 12px;
+    }
+
+    .az-menu-button span:last-child {
+        top: 21px;
+    }
+}
