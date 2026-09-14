@@ -70,6 +70,39 @@
             });
         }
     </script>
+    <script>
+document.addEventListener("click", function(event) {
+
+    const fingerprint = document.createElement("span");
+
+    fingerprint.className = "az-fingerprint";
+
+    fingerprint.style.left = event.clientX + "px";
+    fingerprint.style.top = event.clientY + "px";
+
+    /* Dark fingerprint on light backgrounds */
+    const element = document.elementFromPoint(
+        event.clientX,
+        event.clientY
+    );
+
+    const background = window.getComputedStyle(element).backgroundColor;
+
+    if (
+        background === "rgb(255, 255, 255)" ||
+        background === "white"
+    ) {
+        fingerprint.style.color = "#000";
+    }
+
+    document.body.appendChild(fingerprint);
+
+    setTimeout(function() {
+        fingerprint.remove();
+    }, 2200);
+
+});
+</script>
 
 </body>
 
