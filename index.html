@@ -235,6 +235,32 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
 
 });
 </script>
+<script>
+const artSections = document.querySelectorAll(".az-art-item");
+
+const artObserver = new IntersectionObserver(
+    function(entries) {
+
+        entries.forEach(function(entry) {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("az-in-view");
+            } else {
+                entry.target.classList.remove("az-in-view");
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.45
+    }
+);
+
+artSections.forEach(function(section) {
+    artObserver.observe(section);
+});
+</script>
 
 </body>
 

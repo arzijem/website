@@ -1,4 +1,6 @@
-/* GENERAL */
+/* ==================================================
+   GENERAL
+================================================== */
 
 * {
     box-sizing: border-box;
@@ -16,7 +18,9 @@ body {
 }
 
 
-/* TOP BAR */
+/* ==================================================
+   TOP BAR
+================================================== */
 
 .az-topbar {
     width: 100%;
@@ -48,7 +52,7 @@ body {
 }
 
 
-/* MENU */
+/* DESKTOP MENU */
 
 .az-menu {
     display: flex;
@@ -78,6 +82,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+
     margin-left: 8px;
 }
 
@@ -87,7 +92,17 @@ body {
 }
 
 
-/* HERO */
+/* MOBILE MENU HIDDEN BY DEFAULT */
+
+.az-menu-button,
+.az-mobile-menu {
+    display: none;
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
 
 .az-hero {
     position: relative;
@@ -109,23 +124,30 @@ body {
     object-position: center 15%;
 
     display: block;
+
+    transform: scale(1.07);
+
+    animation:
+        azHeroEntrance 2.4s cubic-bezier(.16, 1, .3, 1) forwards,
+        azHeroDrift 16s ease-in-out 2.4s infinite alternate;
+
+    will-change: transform;
 }
-
-
-/* SLIGHT DARK OVERLAY FOR READABLE TEXT */
 
 .az-hero-overlay {
     position: absolute;
     inset: 0;
 
     background: rgba(0, 0, 0, 0.30);
+
+    opacity: 0;
+
+    animation: azOverlayEntrance 1.8s ease 0.2s forwards;
 }
-
-
-/* CENTER TEXT */
 
 .az-hero-text {
     position: absolute;
+
     top: 50%;
     left: 50%;
 
@@ -135,6 +157,8 @@ body {
 
     color: #fff;
     text-align: center;
+
+    overflow: hidden;
 }
 
 .az-hero-text h1 {
@@ -146,7 +170,12 @@ body {
     letter-spacing: 1.2px;
 
     color: #fff;
+
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+
+    opacity: 0;
+
+    animation: azTitleFade 1.8s ease 0.8s forwards;
 }
 
 .az-hero-text p {
@@ -156,40 +185,71 @@ body {
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 1.5px;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75)
+
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+
+    opacity: 0;
+
+    animation: azSubtitleFade 1.6s ease 1.35s forwards;
 }
 
 
-/* MOBILE */
+/* HERO ANIMATIONS */
 
-@media (max-width: 800px) {
-
-    .az-topbar {
-        padding: 0 18px;
+@keyframes azHeroEntrance {
+    from {
+        transform: scale(1.07);
     }
 
-    .az-brand {
-        font-size: 16px;
-    }
-
-    .az-menu {
-        gap: 14px;
-    }
-
-    .az-menu a {
-        font-size: 11px;
-    }
-
-    .az-hero-text h1 {
-        font-size: 38px;
-    }
-
-    .az-hero-text p {
-        font-size: 15px;
+    to {
+        transform: scale(1);
     }
 }
 
-/* FINGERPRINT CLICK EFFECT */
+@keyframes azHeroDrift {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.035);
+    }
+}
+
+@keyframes azOverlayEntrance {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes azTitleFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes azSubtitleFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ==================================================
+   FINGERPRINT
+================================================== */
 
 .az-fingerprint {
     position: fixed;
@@ -198,7 +258,8 @@ body {
     height: 38px;
 
     pointer-events: none;
-    z-index: 99999;
+
+    z-index: 999999;
 
     transform: translate(-50%, -50%);
 
@@ -208,32 +269,43 @@ body {
 .az-fingerprint svg {
     width: 100%;
     height: 100%;
+
     display: block;
 }
 
 .az-fingerprint path {
     fill: none;
+
     stroke: #fff;
     stroke-width: 2.2;
+
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 @keyframes fingerprintFade {
-
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(1.15);
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.15);
     }
 
     5% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(0.95);
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.95);
     }
 
     10% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
     }
 
     65% {
@@ -250,9 +322,13 @@ body {
 
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(1);
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
     }
 }
+
 
 /* ==================================================
    ART NAVIGATION
@@ -260,13 +336,12 @@ body {
 
 .az-art-nav {
     width: 100%;
+
     background: #000;
     color: #fff;
+
     overflow: hidden;
 }
-
-
-/* EACH SECTION */
 
 .az-art-item {
     position: relative;
@@ -285,11 +360,9 @@ body {
 
     background: #000;
     color: #fff;
+
     text-decoration: none;
 }
-
-
-/* very subtle separator */
 
 .az-art-item::after {
     content: "";
@@ -368,8 +441,8 @@ body {
 }
 
 
-/* outline comes out from behind */
 
+/* DESKTOP HOVER */
 .az-art-item:hover .az-art-outline {
     opacity: 1;
 }
@@ -389,6 +462,25 @@ body {
     transform: translate(0, 20px);
 }
 
+/* solid word movement — desktop */
+
+.az-art-main {
+    transition:
+        transform 1s cubic-bezier(.16, 1, .3, 1);
+}
+
+.az-art-work:hover .az-art-main {
+    transform: translateX(8px);
+}
+
+.az-art-about:hover .az-art-main {
+    transform: translateX(-8px);
+}
+
+.az-art-contact:hover .az-art-main {
+    transform: translateX(8px);
+}
+
 
 /* ==================================================
    SYMBOL — GENERAL
@@ -402,20 +494,16 @@ body {
 }
 
 
-/* ==================================================
-   WORK — CREATION MARK
 
-   Four independent strokes are separated.
-   Hover brings them together.
+
+/* ==================================================
+   WORK SYMBOL
 ================================================== */
 
 .az-symbol-work {
     width: 190px;
     height: 190px;
 }
-
-
-/* four strokes */
 
 .work-line {
     position: absolute;
@@ -427,9 +515,6 @@ body {
         opacity 0.8s ease;
 }
 
-
-/* vertical */
-
 .work-top,
 .work-bottom {
     left: 50%;
@@ -438,9 +523,6 @@ body {
     height: 55px;
 }
 
-
-/* horizontal */
-
 .work-left,
 .work-right {
     top: 50%;
@@ -448,7 +530,6 @@ body {
     width: 55px;
     height: 1px;
 }
-
 
 .work-top {
     top: 0;
@@ -482,9 +563,6 @@ body {
         translateX(18px);
 }
 
-
-/* invisible center */
-
 .work-center {
     position: absolute;
 
@@ -496,11 +574,11 @@ body {
 
     border: 1px solid #fff;
 
+    opacity: 0;
+
     transform:
         translate(-50%, -50%)
         scale(0);
-
-    opacity: 0;
 
     transition:
         transform 0.8s cubic-bezier(.16, 1, .3, 1),
@@ -508,7 +586,7 @@ body {
 }
 
 
-/* WORK interaction */
+/* WORK DESKTOP HOVER */
 
 .az-art-work:hover .work-top {
     transform:
@@ -545,21 +623,17 @@ body {
 
 
 /* ==================================================
-   ABOUT — UNCOVERING
-
-   Something exists behind a black layer.
+   ABOUT SYMBOL
 ================================================== */
 
 .az-art-about {
     flex-direction: row-reverse;
 }
 
-
 .az-symbol-about {
     width: 210px;
     height: 210px;
 }
-
 
 .about-shape {
     position: absolute;
@@ -573,19 +647,16 @@ body {
     transform: translate(-50%, -50%);
 }
 
-
-/* complete shape underneath */
-
 .about-circle {
     position: absolute;
+
     inset: 0;
 
-    border: 1px solid rgba(255,255,255,0.9);
+    border:
+        1px solid rgba(255, 255, 255, 0.9);
+
     border-radius: 50%;
 }
-
-
-/* black layer hides most of it */
 
 .about-cover {
     position: absolute;
@@ -602,9 +673,6 @@ body {
         transform 1.3s cubic-bezier(.16, 1, .3, 1);
 }
 
-
-/* tiny trace showing that something is hidden */
-
 .about-line {
     position: absolute;
 
@@ -614,7 +682,8 @@ body {
     width: 1px;
     height: 60%;
 
-    background: rgba(255,255,255,0.7);
+    background:
+        rgba(255, 255, 255, 0.7);
 
     transition:
         height 1s cubic-bezier(.16, 1, .3, 1),
@@ -623,7 +692,7 @@ body {
 }
 
 
-/* ABOUT interaction */
+/* ABOUT DESKTOP HOVER */
 
 .az-art-about:hover .about-cover {
     transform: translateX(105%);
@@ -631,24 +700,21 @@ body {
 
 .az-art-about:hover .about-line {
     top: 5%;
+
     height: 90%;
+
     opacity: 0.25;
 }
 
 
 /* ==================================================
-   CONTACT — MEETING
-
-   Two independent forms physically make contact.
+   CONTACT SYMBOL
 ================================================== */
 
 .az-symbol-contact {
     width: 240px;
     height: 180px;
 }
-
-
-/* left and right forms */
 
 .contact-left,
 .contact-right {
@@ -671,18 +737,13 @@ body {
         transform 1.3s cubic-bezier(.16, 1, .3, 1);
 }
 
-
 .contact-left {
     left: 0;
 }
 
-
 .contact-right {
     right: 0;
 }
-
-
-/* shape created only when they meet */
 
 .contact-meeting {
     position: absolute;
@@ -695,12 +756,12 @@ body {
 
     background: #fff;
 
+    opacity: 0;
+
     transform:
         translate(-50%, -50%)
         rotate(45deg)
         scale(0);
-
-    opacity: 0;
 
     transition:
         transform 0.7s cubic-bezier(.16, 1, .3, 1) 0.35s,
@@ -708,7 +769,7 @@ body {
 }
 
 
-/* CONTACT interaction */
+/* CONTACT DESKTOP HOVER */
 
 .az-art-contact:hover .contact-left {
     left: 72px;
@@ -726,7 +787,6 @@ body {
         rotate(-45deg);
 }
 
-
 .az-art-contact:hover .contact-meeting {
     opacity: 1;
 
@@ -738,36 +798,11 @@ body {
 
 
 /* ==================================================
-   EXTRA MOTION ON WORD
-================================================== */
-
-.az-art-main {
-    transition:
-        transform 1s cubic-bezier(.16, 1, .3, 1);
-}
-
-
-.az-art-work:hover .az-art-main {
-    transform: translateX(8px);
-}
-
-
-.az-art-about:hover .az-art-main {
-    transform: translateX(-8px);
-}
-
-
-.az-art-contact:hover .az-art-main {
-    transform: translateX(8px);
-}
-
-
-/* ==================================================
    FOOTER
 ================================================== */
 
 .az-footer {
-    min-height: 110px;
+    min-height: 75px;
 
     display: flex;
     align-items: center;
@@ -785,10 +820,454 @@ body {
 
 
 /* ==================================================
-   MOBILE
+   TABLET
+   701px — 1100px
 ================================================== */
 
-@media (max-width: 800px) {
+@media (min-width: 701px) and (max-width: 1100px) {
+
+    .az-topbar {
+        height: 68px;
+
+        padding: 0 24px;
+    }
+
+    .az-brand {
+        font-size: 16px;
+    }
+
+    .az-menu {
+        gap: 18px;
+    }
+
+    .az-menu a {
+        font-size: 11px;
+    }
+
+
+    /* HERO */
+
+    .az-hero {
+        height: calc(100svh - 68px);
+    }
+
+    .az-hero-text h1 {
+        font-size: clamp(34px, 5vw, 52px);
+    }
+
+    .az-hero-text p {
+        font-size: 17px;
+    }
+
+
+    /* ART */
+
+    .az-art-item {
+        height: 52vh;
+        min-height: 430px;
+
+        padding: 0 5%;
+    }
+
+    .az-art-main,
+.az-art-outline {
+    font-size: clamp(68px, 10vw, 115px);
+    letter-spacing: -4px;
+}
+
+    .az-symbol-work {
+        width: 140px;
+        height: 140px;
+    }
+
+    .az-symbol-about {
+        width: 150px;
+        height: 150px;
+    }
+
+    .about-shape {
+        width: 120px;
+        height: 120px;
+    }
+
+    .az-symbol-contact {
+        width: 180px;
+        height: 150px;
+    }
+
+    .contact-left,
+    .contact-right {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    /* FOOTER */
+
+    .az-footer {
+        min-height: 70px;
+
+        padding: 0 24px;
+    }
+}
+
+
+/* ==================================================
+   TOUCH / TABLET SCROLL ANIMATION
+
+   SAME TRANSFORMATION AS DESKTOP HOVER.
+   JS ADDS .az-in-view.
+================================================== */
+
+@media (max-width: 1100px), (hover: none) {
+
+    /* ALL THREE TITLES MOVE LEFT */
+
+.az-art-work.az-in-view .az-art-title,
+.az-art-about.az-in-view .az-art-title,
+.az-art-contact.az-in-view .az-art-title {
+    transform: none;
+}
+
+
+    /* WORD OUTLINES */
+
+    .az-art-item.az-in-view .az-art-outline {
+        opacity: 1;
+    }
+
+  .az-art-work.az-in-view .az-art-outline {
+    transform: translate(10px, 10px);
+}
+
+.az-art-about.az-in-view .az-art-outline {
+    transform: translate(-10px, 10px);
+}
+
+.az-art-contact.az-in-view .az-art-outline {
+    transform: translate(0, 11px);
+}
+
+    /* ==================================================
+       WORK
+       EXACT DESKTOP SYMBOL TRANSFORMATION
+    ================================================== */
+
+    .az-art-work.az-in-view .work-top {
+        transform:
+            translateX(-50%)
+            translateY(40px);
+    }
+
+    .az-art-work.az-in-view .work-bottom {
+        transform:
+            translateX(-50%)
+            translateY(-40px);
+    }
+
+    .az-art-work.az-in-view .work-left {
+        transform:
+            translateY(-50%)
+            translateX(40px);
+    }
+
+    .az-art-work.az-in-view .work-right {
+        transform:
+            translateY(-50%)
+            translateX(-40px);
+    }
+
+    .az-art-work.az-in-view .work-center {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotate(45deg);
+    }
+
+
+    /* ==================================================
+       ABOUT
+       EXACT DESKTOP SYMBOL TRANSFORMATION
+    ================================================== */
+
+    .az-art-about.az-in-view .about-cover {
+        transform: translateX(105%);
+    }
+
+    .az-art-about.az-in-view .about-line {
+        top: 5%;
+
+        height: 90%;
+
+        opacity: 0.25;
+    }
+
+
+    /* ==================================================
+       CONTACT
+       MOVE BOTH SHAPES TOWARD CENTER
+    ================================================== */
+
+    .az-art-contact.az-in-view .contact-left {
+        left: calc(50% - 32.5px);
+
+        transform:
+            translateY(-50%)
+            rotate(135deg);
+    }
+
+    .az-art-contact.az-in-view .contact-right {
+        right: calc(50% - 32.5px);
+
+        transform:
+            translateY(-50%)
+            rotate(-45deg);
+    }
+
+    .az-art-contact.az-in-view .contact-meeting {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            rotate(45deg)
+            scale(1);
+    }
+}
+
+
+/* ==================================================
+   MOBILE — MARCELLO STYLE BREAKPOINT
+   700px AND BELOW
+================================================== */
+
+@media (max-width: 700px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+
+    /* ==================================================
+       HEADER
+    ================================================== */
+
+    .az-topbar {
+        position: relative;
+
+        z-index: 1001;
+
+        height: 60px;
+
+        padding: 0 18px;
+
+        background: #000;
+    }
+
+    .az-brand {
+        position: relative;
+
+        z-index: 1003;
+
+        font-size: 14px;
+        letter-spacing: 0.8px;
+    }
+
+
+    /* HIDE DESKTOP NAV */
+
+    .az-menu {
+        display: none;
+    }
+
+
+    /* ==================================================
+       MENU BUTTON
+    ================================================== */
+
+    .az-menu-button {
+        position: relative;
+
+        z-index: 1003;
+
+        display: block;
+
+        width: 30px;
+        height: 30px;
+
+        padding: 0;
+
+        border: 0;
+
+        background: transparent;
+
+        cursor: pointer;
+    }
+
+    .az-menu-button span {
+        position: absolute;
+
+        left: 2px;
+
+        width: 26px;
+        height: 1px;
+
+        background: #fff;
+
+        transition:
+            transform 0.5s cubic-bezier(.16, 1, .3, 1),
+            top 0.5s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .az-menu-button span:first-child {
+        top: 10px;
+    }
+
+    .az-menu-button span:last-child {
+        top: 19px;
+    }
+
+
+    /* HAMBURGER → X */
+
+    body.az-menu-open .az-menu-button span:first-child {
+        top: 15px;
+
+        transform: rotate(45deg);
+    }
+
+    body.az-menu-open .az-menu-button span:last-child {
+        top: 15px;
+
+        transform: rotate(-45deg);
+    }
+
+
+    /* ==================================================
+       SIDE MENU
+    ================================================== */
+
+    .az-mobile-menu {
+        position: fixed;
+
+        top: 0;
+        right: 0;
+
+        z-index: 1000;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        width: min(66vw, 290px);
+        height: 100svh;
+
+        padding: 95px 24px 30px;
+
+        background: #000;
+
+        visibility: hidden;
+
+        transform: translateX(100%);
+
+        transition:
+            transform 0.65s cubic-bezier(.16, 1, .3, 1),
+            visibility 0.65s;
+    }
+
+    body.az-menu-open .az-mobile-menu {
+        visibility: visible;
+
+        transform: translateX(0);
+    }
+
+    body.az-menu-open {
+        overflow: hidden;
+    }
+
+
+    /* MENU LINKS */
+
+    .az-mobile-links {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .az-mobile-links a {
+        display: block;
+
+        padding: 13px 0;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.18);
+
+        color: #fff;
+        text-decoration: none;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 1.2;
+        letter-spacing: 0.5px;
+    }
+
+
+    /* LANGUAGES */
+
+    .az-mobile-languages {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        margin-top: 25px;
+
+        color: #fff;
+    }
+
+    .az-mobile-languages a,
+    .az-mobile-languages span {
+        color: #fff;
+
+        font-size: 11px;
+        letter-spacing: 1px;
+
+        text-decoration: none;
+    }
+
+
+    /* ==================================================
+       MOBILE HERO
+    ================================================== */
+
+    .az-hero {
+        height: calc(100svh - 60px);
+        min-height: 520px;
+    }
+
+    .az-hero-text {
+        width: calc(100% - 36px);
+    }
+
+    .az-hero-text h1 {
+        font-size: clamp(28px, 9vw, 39px);
+
+        line-height: 1.04;
+    }
+
+    .az-hero-text p {
+        margin-top: 11px;
+
+        font-size: 12px;
+    }
+
+
+    /* ==================================================
+       MOBILE ART SECTIONS
+    ================================================== */
 
     .az-art-item {
         height: 48vh;
@@ -800,8 +1279,16 @@ body {
     .az-art-main,
     .az-art-outline {
         font-size: clamp(58px, 18vw, 100px);
+
         letter-spacing: -4px;
     }
+
+
+    /* ==================================================
+       MOBILE SYMBOL CONTAINERS
+
+       SYMBOL DESIGN ITSELF IS NOT CHANGED.
+    ================================================== */
 
     .az-symbol-work {
         width: 85px;
@@ -818,10 +1305,10 @@ body {
         height: 75px;
     }
 
-    .az-symbol-contact {
-        width: 105px;
-        height: 100px;
-    }
+   .az-symbol-contact {
+    width: 80px;
+    height: 100px;
+}
 
     .contact-left,
     .contact-right {
@@ -829,767 +1316,36 @@ body {
         height: 30px;
     }
 
-    .az-art-contact:hover .contact-left {
-        left: 30px;
-    }
-
-    .az-art-contact:hover .contact-right {
-        right: 30px;
-    }
-
     .contact-meeting {
         width: 10px;
         height: 10px;
     }
 
-    .az-footer {
-        padding: 0 18px;
-    }
-}
 
-/* ==================================================
-   HERO — OPENING MOTION
-================================================== */
+    /* ==================================================
+       MOBILE CONTACT CENTER
 
-/* IMAGE ENTERS SLIGHTLY ZOOMED */
+       Uses actual mobile square size so both
+       shapes travel TOWARD the center.
+    ================================================== */
 
-.az-hero-image {
-    transform: scale(1.07);
-
-    animation:
-        azHeroEntrance 2.4s cubic-bezier(.16, 1, .3, 1) forwards,
-        azHeroDrift 16s ease-in-out 2.4s infinite alternate;
-
-    will-change: transform;
-}
-
-
-/* image settles when page opens */
-
-@keyframes azHeroEntrance {
-
-    from {
-        transform: scale(1.07);
+    .az-art-contact.az-in-view .contact-left {
+        left: calc(50% - 15px);
     }
 
-    to {
-        transform: scale(1);
-    }
-}
-
-
-/* very slow movement after entrance */
-
-@keyframes azHeroDrift {
-
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.035);
-    }
-}
-
-
-/* ==================================================
-   DARK OVERLAY ENTERS
-================================================== */
-
-.az-hero-overlay {
-    opacity: 0;
-
-    animation: azOverlayEntrance 1.8s ease 0.2s forwards;
-}
-
-
-@keyframes azOverlayEntrance {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* ==================================================
-   HERO TEXT
-================================================== */
-
-.az-hero-text {
-    overflow: hidden;
-}
-
-
-/* ==================================================
-   HERO TEXT — PURE FADE IN
-================================================== */
-
-.az-hero-text h1 {
-    opacity: 0;
-    transform: none;
-
-    animation: azTitleFade 1.8s ease 0.8s forwards;
-}
-
-@keyframes azTitleFade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* SMALL TEXT FADES IN SLIGHTLY AFTER */
-
-.az-hero-text p {
-    opacity: 0;
-    transform: none;
-
-    animation: azSubtitleFade 1.6s ease 1.35s forwards;
-}
-
-@keyframes azSubtitleFade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/* ==================================================
-   ACCESSIBILITY
-================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .az-hero-image,
-    .az-hero-overlay,
-    .az-hero-text h1,
-    .az-hero-text p {
-        animation: none;
-        transform: none;
-        opacity: 1;
-    }
-}
-
-/* ==================================================
-   TABLET + MOBILE RESPONSIVE
-   Desktop remains unchanged
-================================================== */
-
-
-/* ==================================================
-   MOBILE MENU BUTTON
-   Hidden on desktop
-================================================== */
-
-.az-menu-button {
-    display: none;
-}
-
-
-/* mobile menu hidden on desktop */
-
-.az-mobile-menu {
-    display: none;
-}
-
-
-/* ==================================================
-   TABLET
-================================================== */
-
-@media (max-width: 1100px) and (min-width: 801px) {
-
-    /* HEADER */
-
-    .az-topbar {
-        height: 68px;
-        padding: 0 24px;
-    }
-
-    .az-brand {
-        font-size: 17px;
-        letter-spacing: 1px;
-    }
-
-    .az-menu {
-        gap: 20px;
-    }
-
-    .az-menu a {
-        font-size: 12px;
-    }
-
-    .az-languages {
-        margin-left: 3px;
-    }
-
-
-    /* HERO */
-
-    .az-hero {
-        height: calc(100svh - 68px);
-        min-height: 600px;
-    }
-
-    .az-hero-image {
-        object-position: center 15%;
-    }
-
-    .az-hero-text {
-        width: 86%;
-    }
-
-    .az-hero-text h1 {
-        font-size: clamp(34px, 5vw, 52px);
-    }
-
-    .az-hero-text p {
-        font-size: 17px;
-    }
-
-
-    /* ART SECTIONS */
-
-    .az-art-item {
-        height: 52vh;
-        min-height: 430px;
-        padding: 0 5%;
-    }
-
-    .az-art-main,
-    .az-art-outline {
-        font-size: clamp(76px, 12vw, 135px);
-        letter-spacing: -5px;
-    }
-
-
-    /* WORK SYMBOL */
-
-    .az-symbol-work {
-        width: 140px;
-        height: 140px;
-    }
-
-
-    /* ABOUT SYMBOL */
-
-    .az-symbol-about {
-        width: 150px;
-        height: 150px;
-    }
-
-    .about-shape {
-        width: 120px;
-        height: 120px;
-    }
-
-
-    /* CONTACT SYMBOL */
-
-    .az-symbol-contact {
-        width: 180px;
-        height: 150px;
-    }
-
-    .contact-left,
-    .contact-right {
-        width: 50px;
-        height: 50px;
-    }
-
-    .az-art-contact:hover .contact-left {
-        left: 53px;
-    }
-
-    .az-art-contact:hover .contact-right {
-        right: 53px;
+    .az-art-contact.az-in-view .contact-right {
+        right: calc(50% - 15px);
     }
 
 
     /* FOOTER */
 
     .az-footer {
-        min-height: 90px;
-        padding: 0 24px;
-    }
-}
-
-
-/* ==================================================
-   MOBILE
-================================================== */
-
-@media (max-width: 800px) {
-
-    /* prevent horizontal overflow */
-
-    html,
-    body {
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-
-    /* ==================================================
-       MOBILE HEADER
-    ================================================== */
-
-    .az-topbar {
-        position: relative;
-        z-index: 10001;
-
-        width: 100%;
-        height: 64px;
-
         padding: 0 18px;
-
-        background: #000;
     }
 
 
-    .az-brand {
-        position: relative;
-        z-index: 10003;
-
-        font-size: 15px;
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-
-
-    /* hide desktop navigation */
-
-    .az-menu {
-        display: none;
-    }
-
-
-    /* ==================================================
-       HAMBURGER
-    ================================================== */
-
-    .az-menu-button {
-        position: relative;
-        z-index: 10003;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        width: 34px;
-        height: 34px;
-
-        padding: 0;
-
-        border: 0;
-        background: transparent;
-
-        cursor: pointer;
-    }
-
-
-    .az-menu-button span {
-        position: absolute;
-        left: 3px;
-
-        width: 28px;
-        height: 1px;
-
-        background: #fff;
-
-        transition:
-            transform 0.5s cubic-bezier(.16, 1, .3, 1),
-            top 0.5s cubic-bezier(.16, 1, .3, 1);
-    }
-
-
-    .az-menu-button span:first-child {
-        top: 12px;
-    }
-
-
-    .az-menu-button span:last-child {
-        top: 21px;
-    }
-
-
-    /* hamburger becomes X */
-
-    body.az-menu-open .az-menu-button span:first-child {
-        top: 17px;
-        transform: rotate(45deg);
-    }
-
-
-    body.az-menu-open .az-menu-button span:last-child {
-        top: 17px;
-        transform: rotate(-45deg);
-    }
-
-
-    /* ==================================================
-       FULL SCREEN MOBILE MENU
-    ================================================== */
-
-    .az-mobile-menu {
-        position: fixed;
-
-        left: 0;
-        top: 0;
-
-        z-index: 10000;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        width: 100%;
-        height: 100svh;
-
-        padding: 90px 18px 30px;
-
-        background: #000;
-
-        opacity: 0;
-        visibility: hidden;
-
-        transform: translateY(-10px);
-
-        transition:
-            opacity 0.45s ease,
-            visibility 0.45s ease,
-            transform 0.6s cubic-bezier(.16, 1, .3, 1);
-    }
-
-
-    body.az-menu-open .az-mobile-menu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-
-    /* stop page scrolling while menu is open */
-
-    body.az-menu-open {
-        overflow: hidden;
-    }
-
-
-    /* ==================================================
-       MOBILE MENU LINKS
-    ================================================== */
-
-    .az-mobile-links {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-
-    .az-mobile-links a {
-        color: #fff;
-        text-decoration: none;
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: clamp(42px, 14vw, 70px);
-        font-weight: 700;
-        line-height: 1.05;
-
-        letter-spacing: -2px;
-
-        opacity: 0;
-
-        transform: translateY(15px);
-
-        transition:
-            opacity 0.5s ease,
-            transform 0.7s cubic-bezier(.16, 1, .3, 1);
-    }
-
-
-    body.az-menu-open .az-mobile-links a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-
-    body.az-menu-open .az-mobile-links a:nth-child(1) {
-        transition-delay: 0.08s;
-    }
-
-    body.az-menu-open .az-mobile-links a:nth-child(2) {
-        transition-delay: 0.13s;
-    }
-
-    body.az-menu-open .az-mobile-links a:nth-child(3) {
-        transition-delay: 0.18s;
-    }
-
-    body.az-menu-open .az-mobile-links a:nth-child(4) {
-        transition-delay: 0.23s;
-    }
-
-
-    /* languages */
-
-    .az-mobile-languages {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        margin-top: 38px;
-
-        color: #fff;
-    }
-
-
-    .az-mobile-languages a,
-    .az-mobile-languages span {
-        color: #fff;
-
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: 1px;
-
-        text-decoration: none;
-    }
-
-
-    .az-mobile-languages .active {
-        opacity: 1;
-    }
-
-
-    /* ==================================================
-       MOBILE HERO
-    ================================================== */
-
-    .az-hero {
-        height: calc(100svh - 64px);
-        min-height: 560px;
-    }
-
-
-    .az-hero-image {
-        object-position: center 15%;
-    }
-
-
-    .az-hero-overlay {
-        background: rgba(0, 0, 0, 0.30);
-    }
-
-
-    .az-hero-text {
-        width: calc(100% - 36px);
-    }
-
-
-    .az-hero-text h1 {
-        font-size: clamp(29px, 9vw, 42px);
-        line-height: 1.02;
-
-        letter-spacing: 0.5px;
-    }
-
-
-    .az-hero-text p {
-        margin-top: 12px;
-
-        font-size: 13px;
-        letter-spacing: 1.3px;
-    }
-
-
-    /* ==================================================
-       MOBILE ART SECTIONS
-    ================================================== */
-
-    .az-art-item,
-    .az-art-about {
-        position: relative;
-
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-
-        height: auto;
-        min-height: 390px;
-
-        padding: 55px 18px;
-    }
-
-
-    .az-art-item::after {
-        left: 18px;
-        right: 18px;
-    }
-
-
-    /* WORDS */
-
-    .az-art-title {
-        width: 100%;
-    }
-
-
-    .az-art-main,
-    .az-art-outline {
-        font-size: clamp(62px, 21vw, 100px);
-
-        line-height: 0.86;
-
-        letter-spacing: -4px;
-    }
-
-
-    /* keep outline inside phone */
-
-    .az-art-work:hover .az-art-outline {
-        transform: translate(8px, 10px);
-    }
-
-    .az-art-about:hover .az-art-outline {
-        transform: translate(8px, 10px);
-    }
-
-    .az-art-contact:hover .az-art-outline {
-        transform: translate(8px, 10px);
-    }
-
-
-    /* smaller word movement */
-
-    .az-art-work:hover .az-art-main,
-    .az-art-about:hover .az-art-main,
-    .az-art-contact:hover .az-art-main {
-        transform: translateX(3px);
-    }
-
-
-    /* ==================================================
-       MOBILE SYMBOL POSITION
-    ================================================== */
-
-    .az-symbol {
-        margin-top: 58px;
-        align-self: flex-end;
-    }
-
-
-    /* WORK */
-
-    .az-symbol-work {
-        width: 100px;
-        height: 100px;
-
-        margin-right: 8px;
-    }
-
-
-    .work-top,
-    .work-bottom {
-        height: 32px;
-    }
-
-
-    .work-left,
-    .work-right {
-        width: 32px;
-    }
-
-
-    .az-art-work:hover .work-top {
-        transform: translateX(-50%) translateY(28px);
-    }
-
-    .az-art-work:hover .work-bottom {
-        transform: translateX(-50%) translateY(-28px);
-    }
-
-    .az-art-work:hover .work-left {
-        transform: translateY(-50%) translateX(28px);
-    }
-
-    .az-art-work:hover .work-right {
-        transform: translateY(-50%) translateX(-28px);
-    }
-
-
-    /* ABOUT */
-
-    .az-symbol-about {
-        width: 110px;
-        height: 110px;
-
-        margin-right: 4px;
-    }
-
-
-    .about-shape {
-        width: 92px;
-        height: 92px;
-    }
-
-
-    /* CONTACT */
-
-    .az-symbol-contact {
-        width: 125px;
-        height: 95px;
-    }
-
-
-    .contact-left,
-    .contact-right {
-        width: 34px;
-        height: 34px;
-    }
-
-
-    .az-art-contact:hover .contact-left {
-        left: 36px;
-    }
-
-
-    .az-art-contact:hover .contact-right {
-        right: 36px;
-    }
-
-
-    .contact-meeting {
-        width: 11px;
-        height: 11px;
-    }
-
-
-    /* ==================================================
-       MOBILE FOOTER
-    ================================================== */
-
-    .az-footer {
-        min-height: 90px;
-
-        padding: 0 18px;
-
-        font-size: 9px;
-        letter-spacing: 1.2px;
-    }
-
-
-    /* fingerprint slightly smaller on phone */
+    /* FINGERPRINT */
 
     .az-fingerprint {
         width: 23px;
@@ -1615,58 +1371,24 @@ body {
     .az-art-main,
     .az-art-outline {
         font-size: 58px;
-        letter-spacing: -3px;
-    }
 
-    .az-art-item,
-    .az-art-about {
-        min-height: 360px;
+        letter-spacing: -3px;
     }
 }
 
-/* FORCE MOBILE HEADER ON SMALL SCREENS */
 
-@media (max-width: 900px) {
+/* ==================================================
+   ACCESSIBILITY
+================================================== */
 
-    .az-menu {
-        display: none !important;
-    }
+@media (prefers-reduced-motion: reduce) {
 
-    .az-menu-button {
-        display: flex !important;
-        position: relative;
-        z-index: 10003;
+    .az-hero-image,
+    .az-hero-overlay,
+    .az-hero-text h1,
+    .az-hero-text p {
+        animation: none;
 
-        width: 34px;
-        height: 34px;
-
-        padding: 0;
-        border: 0;
-        background: transparent;
-
-        flex-direction: column;
-        justify-content: center;
-
-        cursor: pointer;
-    }
-
-    .az-menu-button span {
-        position: absolute;
-        left: 3px;
-
-        display: block;
-
-        width: 28px;
-        height: 1px;
-
-        background: #fff;
-    }
-
-    .az-menu-button span:first-child {
-        top: 12px;
-    }
-
-    .az-menu-button span:last-child {
-        top: 21px;
+        opacity: 1;
     }
 }
