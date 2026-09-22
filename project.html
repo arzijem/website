@@ -37,7 +37,6 @@
             color: #ffffff;
         }
 
-        /* Project Title */
         .az-project-title {
             font-size: clamp(36px, 6vw, 68px);
             font-weight: 700;
@@ -46,7 +45,6 @@
             text-transform: uppercase;
         }
 
-        /* Project Story Text */
         .az-project-body {
             font-size: 17px;
             line-height: 1.85;
@@ -56,7 +54,6 @@
             white-space: pre-line;
         }
 
-        /* Photo Gallery */
         .az-project-gallery {
             display: flex;
             flex-direction: column;
@@ -69,35 +66,6 @@
             border-radius: 2px;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        /* Language Switcher Styling */
-        .az-lang-switch {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-left: 20px;
-        }
-
-        .az-lang-btn {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 0;
-            transition: color 0.2s ease;
-        }
-
-        .az-lang-btn:hover,
-        .az-lang-btn.is-active {
-            color: #ffffff;
-        }
-
-        .az-lang-divider {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 12px;
-        }
     </style>
 </head>
 <body>
@@ -105,10 +73,10 @@
     <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
-            <a href="index.html">HOME</a>
-            <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
-            <a href="index.html#about">ABOUT</a>
-            <a href="index.html#contact">CONTACT</a>
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" style="opacity: 1; font-weight: 700;" data-i18n="nav_work">WORK</a>
+            <a href="index.html#about" data-i18n="nav_about">ABOUT</a>
+            <a href="index.html#contact" data-i18n="nav_contact">CONTACT</a>
             <span class="az-lang-switch">
                 <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
                 <span class="az-lang-divider">/</span>
@@ -118,7 +86,7 @@
     </header>
 
     <main class="az-project-container">
-        <a href="work.html" class="az-back-btn">&larr; BACK TO WORK</a>
+        <a href="work.html" class="az-back-btn" data-i18n="back_btn">&larr; BACK TO WORK</a>
 
         <h1 id="proj-title" class="az-project-title">Loading...</h1>
         <div id="proj-body" class="az-project-body"></div>
@@ -126,11 +94,14 @@
     </main>
 
     <footer class="az-footer">
-        <span>© 2026 AZZURRA ZINGONI</span>
+        <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
+    <!-- Universal Translation Script -->
+    <script src="i18n.js"></script>
+
+    <!-- Project Detail Loader Script -->
     <script>
-        let currentLang = localStorage.getItem('az_lang') || 'en';
         let projectData = null;
 
         function cleanPath(path) {
@@ -139,29 +110,12 @@
             return '/' + String(path).replace(/^\.?\//, '');
         }
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('az_lang', lang);
-            updateLangButtons();
-            renderContent();
-        }
-
-        function updateLangButtons() {
-            document.querySelectorAll('.az-lang-btn').forEach(btn => {
-                btn.classList.toggle('is-active', btn.getAttribute('data-lang') === currentLang);
-            });
-        }
-
         function renderContent() {
             if (!projectData) return;
 
-            const backBtn = document.querySelector('.az-back-btn');
-            if (backBtn) {
-                backBtn.innerHTML = currentLang === 'it' ? '&larr; TORNA AI PROGETTI' : '&larr; BACK TO WORK';
-            }
-
-            const title = (currentLang === 'it' ? (projectData.title_it || projectData.title_en) : (projectData.title_en || projectData.title_it)) || projectData.title || '';
-            const body = (currentLang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
+            const lang = localStorage.getItem('az_lang') || 'en';
+            const title = (lang === 'it' ? (projectData.title_it || projectData.title_en) : (projectData.title_en || projectData.title_it)) || projectData.title || '';
+            const body = (lang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
 
             document.title = `${title} — Azzurra Zingoni`;
             document.getElementById('proj-title').textContent = title;
@@ -169,7 +123,6 @@
         }
 
         async function loadProjectDetails() {
-            updateLangButtons();
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('id');
 
@@ -207,9 +160,13 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('proj-title').textContent = currentLang === 'it' ? 'Progetto Non Trovato' : 'Project Not Found';
+                document.getElementById('proj-title').textContent = 'Project Not Found';
             }
         }
+
+        window.addEventListener('languageChanged', () => {
+            renderContent();
+        });
 
         document.addEventListener('DOMContentLoaded', loadProjectDetails);
     </script>
