@@ -586,10 +586,27 @@
         let artworks = [];
         let currentIndex = 0;
 
-        function cleanPath(path) {
-            if (!path) return '';
-            if (typeof path === 'object' && path.image) path = path.image;
-            return '/' + String(path).replace(/^\.?\//, '');
+       function cleanPath(item) {
+            if (!item) return '';
+
+            let raw = '';
+            if (typeof item === 'string') {
+                raw = item;
+            } else if (typeof item === 'object') {
+                raw = item.image || item.url || item.photo || item.src || '';
+            }
+
+            if (!raw) return '';
+            
+            // Clean away any leading dots or slashes
+            let cleaned = String(raw).trim().replace(/^\.?\/+/, '');
+
+            // If it's already an external absolute URL (http/https), leave it as is
+            if (cleaned.startsWith('http://') || cleaned.startsWith('https://')) {
+                return cleaned;
+            }
+
+            return '/' + cleaned;
         }
 
         function renderContent() {
@@ -665,31 +682,35 @@
             previewContainer.innerHTML = '';
             fullContainer.innerHTML = '';
 
-            // If there are no additional gallery images, hide the gallery unlock block
-            if (!photos || photos.length === 0) {
+            // Extract valid clean image URL strings
+            const validPhotos = (Array.isArray(photos) ? photos : [])
+                .map(item => cleanPath(item))
+                .filter(url => url.length > 1);
+
+            // If there are no additional gallery images, hide the gallery section completely
+            if (validPhotos.length === 0) {
                 if (gallerySection) gallerySection.style.display = 'none';
                 return;
             }
             if (gallerySection) gallerySection.style.display = 'block';
 
-            // Preview items (up to 4)
-            photos.slice(0, 4).forEach(src => {
+            // Preview items (up to 4 blurred)
+            validPhotos.slice(0, 4).forEach(src => {
                 const item = document.createElement('div');
                 item.className = 'az-gallery-preview-item';
-                item.innerHTML = `<img src="${cleanPath(src)}" alt="">`;
+                item.innerHTML = `<img src="${src}" alt="Gallery preview" loading="lazy">`;
                 previewContainer.appendChild(item);
             });
 
             // Full gallery items
-            photos.forEach(src => {
-                const path = cleanPath(src);
+            validPhotos.forEach(src => {
                 const a = document.createElement('a');
                 a.className = 'az-artwork';
-                a.href = path;
-                a.setAttribute('data-full', path);
+                a.href = src;
+                a.setAttribute('data-full', src);
                 a.innerHTML = `
                     <div class="az-artwork-frame">
-                        <img src="${path}" alt="">
+                        <img src="${src}" alt="Project artwork" loading="lazy">
                     </div>
                 `;
                 fullContainer.appendChild(a);
