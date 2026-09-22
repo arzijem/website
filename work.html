@@ -51,7 +51,6 @@
         .az-project-item {
             display: flex;
             flex-direction: column;
-            cursor: pointer;
             user-select: none;
         }
 
@@ -64,10 +63,16 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: border-color 0.3s ease;
+            cursor: default;
         }
 
-        .az-project-item:hover .az-project-card {
-            border-color: rgba(255, 255, 255, 0.3);
+        /* Once unlocked, the card cursor changes to a pointer to invite clicking */
+        .az-project-item.is-unlocked .az-project-card {
+            cursor: pointer;
+        }
+
+        .az-project-item.is-unlocked:hover .az-project-card {
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         .az-project-bg {
@@ -171,6 +176,7 @@
             100% { transform: translateY(0px); }
         }
 
+        /* Unlocked State: Reveals cover, removes shield */
         .az-project-item.is-unlocked .az-project-bg {
             filter: blur(0px) grayscale(0%) brightness(1);
             transform: scale(1);
@@ -229,10 +235,8 @@
         <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
-    <!-- Universal Translation Script -->
     <script src="i18n.js"></script>
 
-    <!-- Work Grid Script -->
     <script>
         const GITHUB_REPO = 'arzijem/website';
         const GITHUB_BRANCH = 'main';
@@ -328,6 +332,7 @@
                 const slug = item.getAttribute('data-slug');
                 let timer = null;
 
+                // Step 2: Clicking the card ONLY navigates if already unlocked
                 item.addEventListener('click', (e) => {
                     if (e.target.closest('.az-fingerprint-btn')) return;
 
@@ -338,6 +343,7 @@
 
                 if (!btn) return;
 
+                // Step 1: Holding button ONLY unblurs the image in place
                 const startScan = (e) => {
                     e.preventDefault();
                     if (item.classList.contains('is-unlocked')) return;
@@ -345,7 +351,7 @@
                     item.classList.add('is-scanning');
                     timer = setTimeout(() => {
                         item.classList.remove('is-scanning');
-                        item.classList.add('is-unlocked');
+                        item.classList.add('is-unlocked'); // Just reveals the cover
                     }, 1200);
                 };
 
