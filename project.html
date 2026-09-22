@@ -16,8 +16,8 @@
             overflow-x: hidden;
         }
 
-        .az-project-container {
-            max-width: 1100px;
+        .mv-project-page {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 60px 6% 120px;
         }
@@ -37,34 +37,268 @@
             color: #ffffff;
         }
 
-        .az-project-title {
-            font-size: clamp(36px, 6vw, 68px);
+        /* =========================================
+           AMAZONIEN INTRO: TITLE LEFT / TEXT RIGHT
+           ========================================= */
+        .mv-project-intro.mv-amazonien-intro {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            padding-bottom: 60px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .mv-project-intro.mv-amazonien-intro {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .mv-amazonien-title h1 {
+            font-size: clamp(38px, 5.5vw, 68px);
             font-weight: 700;
             letter-spacing: -1.5px;
-            margin: 0 0 32px;
+            line-height: 1.05;
+            margin: 0;
             text-transform: uppercase;
         }
 
-        .az-project-body {
-            font-size: 17px;
+        .mv-project-summary {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .mv-project-body {
+            font-size: 16px;
             line-height: 1.85;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 780px;
-            margin-bottom: 70px;
+            color: rgba(255, 255, 255, 0.75);
             white-space: pre-line;
         }
 
-        .az-project-gallery {
+        /* =========================================
+           ARTWORK GALLERY (PREVIEW & EXPAND)
+           ========================================= */
+        .mv-gallery-area {
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .mv-gallery-switch {
+            display: none;
+        }
+
+        .mv-gallery-button-wrap {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            margin: 40px 0 60px;
+        }
+
+        .mv-gallery-toggle {
+            cursor: pointer;
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .mv-gallery-toggle:hover {
+            border-color: #ffffff;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .mv-gallery-close-text { display: none; }
+        .mv-gallery-open-text { display: inline; }
+
+        /* Blurred Preview */
+        .mv-gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            filter: blur(14px) brightness(0.4);
+            opacity: 0.7;
+            transition: filter 0.5s ease, opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        @media (max-width: 800px) {
+            .mv-gallery-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .mv-gallery-preview-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Full Gallery Grid */
+        .mv-artworks.mv-gallery-full {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
             gap: 40px;
         }
 
-        .az-project-gallery img {
+        @media (max-width: 768px) {
+            .mv-artworks.mv-gallery-full {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Gallery Switch State */
+        .mv-gallery-switch:checked ~ .mv-gallery-preview {
+            display: none;
+        }
+
+        .mv-gallery-switch:checked ~ .mv-artworks.mv-gallery-full {
+            display: grid;
+        }
+
+        .mv-gallery-switch:checked ~ .mv-gallery-button-wrap .mv-gallery-open-text {
+            display: none;
+        }
+
+        .mv-gallery-switch:checked ~ .mv-gallery-button-wrap .mv-gallery-close-text {
+            display: inline;
+        }
+
+        .mv-artwork {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .mv-artwork-frame {
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0d0d12;
+            border-radius: 2px;
+        }
+
+        .mv-artwork-frame img {
             width: 100%;
             display: block;
-            border-radius: 2px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .mv-artwork:hover .mv-artwork-frame img {
+            transform: scale(1.03);
+        }
+
+        .mv-artwork-caption {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .mv-gallery-navigation-bottom {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .mv-gallery-navigation-bottom a {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .mv-gallery-navigation-bottom a:hover {
+            color: #ffffff;
+        }
+
+        /* =========================================
+           FULLSCREEN VIEWER LIGHTBOX
+           ========================================= */
+        .mv-viewer {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.94);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mv-viewer.is-open {
+            display: flex;
+        }
+
+        .mv-viewer-center {
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mv-viewer-image {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .mv-viewer-caption {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .mv-viewer-close,
+        .mv-viewer-prev,
+        .mv-viewer-next {
+            position: absolute;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            outline: none;
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
+            font-size: 32px;
+            padding: 16px;
+        }
+
+        .mv-viewer-close:hover,
+        .mv-viewer-prev:hover,
+        .mv-viewer-next:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .mv-viewer-close {
+            top: 24px;
+            right: 28px;
+            font-size: 40px;
+        }
+
+        .mv-viewer-prev {
+            left: 20px;
+        }
+
+        .mv-viewer-next {
+            right: 20px;
         }
     </style>
 </head>
@@ -85,24 +319,65 @@
         </nav>
     </header>
 
-    <main class="az-project-container">
+    <div class="mv-project-page">
         <a href="work.html" class="az-back-btn" data-i18n="back_btn">&larr; BACK TO WORK</a>
 
-        <h1 id="proj-title" class="az-project-title">Loading...</h1>
-        <div id="proj-body" class="az-project-body"></div>
-        <div id="proj-gallery" class="az-project-gallery"></div>
-    </main>
+        <main class="mv-project-content">
+            <!-- AMAZONIEN INTRO (TITLE LEFT / TEXT RIGHT) -->
+            <section class="mv-project-intro mv-amazonien-intro">
+                <div class="mv-amazonien-title">
+                    <h1 id="proj-title">Loading...</h1>
+                </div>
+
+                <div class="mv-amazonien-text">
+                    <div id="proj-summary" class="mv-project-summary"></div>
+                    <div id="proj-body" class="mv-project-body"></div>
+                </div>
+            </section>
+
+            <!-- ARTWORK GALLERY AREA -->
+            <div class="mv-gallery-area" id="gallery-start">
+                <input type="checkbox" id="mv-gallery-switch" class="mv-gallery-switch">
+
+                <div class="mv-gallery-button-wrap">
+                    <label for="mv-gallery-switch" class="mv-gallery-toggle">
+                        <span class="mv-gallery-open-text" id="gallery-btn-open">VIEW GALLERY</span>
+                        <span class="mv-gallery-close-text" id="gallery-btn-close">CLOSE GALLERY</span>
+                    </label>
+                </div>
+
+                <!-- BLURRED PREVIEW -->
+                <div class="mv-gallery-preview" id="gallery-preview"></div>
+
+                <!-- FULL GALLERY -->
+                <section class="mv-artworks mv-gallery-full" id="mv-artworks">
+                    <!-- Artwork items injected dynamically -->
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- FULLSCREEN VIEWER -->
+    <div class="mv-viewer" id="mv-viewer">
+        <button class="mv-viewer-close" type="button" aria-label="Close">&times;</button>
+        <button class="mv-viewer-prev" type="button" aria-label="Previous">&larr;</button>
+        <div class="mv-viewer-center">
+            <img class="mv-viewer-image" src="" alt="">
+            <div class="mv-viewer-caption"></div>
+        </div>
+        <button class="mv-viewer-next" type="button" aria-label="Next">&rarr;</button>
+    </div>
 
     <footer class="az-footer">
         <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
-    <!-- Universal Translation Script -->
     <script src="i18n.js"></script>
 
-    <!-- Project Detail Loader Script -->
     <script>
         let projectData = null;
+        let artworks = [];
+        let currentIndex = 0;
 
         function cleanPath(path) {
             if (!path) return '';
@@ -115,11 +390,105 @@
 
             const lang = localStorage.getItem('az_lang') || 'en';
             const title = (lang === 'it' ? (projectData.title_it || projectData.title_en) : (projectData.title_en || projectData.title_it)) || projectData.title || '';
+            const summary = (lang === 'it' ? (projectData.summary_it || projectData.summary_en) : (projectData.summary_en || projectData.summary_it)) || projectData.summary || '';
             const body = (lang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
 
             document.title = `${title} — Azzurra Zingoni`;
             document.getElementById('proj-title').textContent = title;
+            document.getElementById('proj-summary').textContent = summary;
             document.getElementById('proj-body').textContent = body;
+
+            // Gallery Toggle labels
+            document.getElementById('gallery-btn-open').textContent = lang === 'it' ? 'MOSTRA GALLERIA' : 'VIEW GALLERY';
+            document.getElementById('gallery-btn-close').textContent = lang === 'it' ? 'CHIUDI GALLERIA' : 'CLOSE GALLERY';
+        }
+
+        function buildGalleries(photos) {
+            const previewContainer = document.getElementById('gallery-preview');
+            const fullContainer = document.getElementById('mv-artworks');
+            previewContainer.innerHTML = '';
+            fullContainer.innerHTML = '';
+
+            // 1. Preview items (up to 4 blurred)
+            photos.slice(0, 4).forEach(src => {
+                const item = document.createElement('div');
+                item.className = 'mv-gallery-preview-item';
+                item.innerHTML = `<img src="${cleanPath(src)}" alt="">`;
+                previewContainer.appendChild(item);
+            });
+
+            // 2. Full artwork items
+            photos.forEach(src => {
+                const path = cleanPath(src);
+                const a = document.createElement('a');
+                a.className = 'mv-artwork';
+                a.href = path;
+                a.setAttribute('data-full', path);
+                a.innerHTML = `
+                    <div class="mv-artwork-frame">
+                        <img src="${path}" alt="">
+                    </div>
+                `;
+                fullContainer.appendChild(a);
+            });
+
+            // Add bottom return button
+            const navBottom = document.createElement('div');
+            navBottom.className = 'mv-gallery-navigation mv-gallery-navigation-bottom';
+            const lang = localStorage.getItem('az_lang') || 'en';
+            navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
+            fullContainer.appendChild(navBottom);
+
+            // Bind lightbox viewer
+            setupViewer();
+        }
+
+        function setupViewer() {
+            artworks = Array.from(document.querySelectorAll('.mv-artwork'));
+            const viewer = document.getElementById('mv-viewer');
+            if (!artworks.length || !viewer) return;
+
+            const viewerImage = viewer.querySelector('.mv-viewer-image');
+            const closeBtn = viewer.querySelector('.mv-viewer-close');
+            const prevBtn = viewer.querySelector('.mv-viewer-prev');
+            const nextBtn = viewer.querySelector('.mv-viewer-next');
+
+            function showArtwork(index) {
+                if (index < 0) index = artworks.length - 1;
+                if (index >= artworks.length) index = 0;
+                currentIndex = index;
+
+                viewerImage.src = artworks[currentIndex].getAttribute('data-full');
+                viewer.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeViewer() {
+                viewer.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
+
+            artworks.forEach((art, idx) => {
+                art.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showArtwork(idx);
+                });
+            });
+
+            closeBtn.onclick = closeViewer;
+            prevBtn.onclick = () => showArtwork(currentIndex - 1);
+            nextBtn.onclick = () => showArtwork(currentIndex + 1);
+
+            viewer.onclick = (e) => {
+                if (e.target === viewer) closeViewer();
+            };
+
+            document.onkeydown = (e) => {
+                if (!viewer.classList.contains('is-open')) return;
+                if (e.key === 'Escape') closeViewer();
+                if (e.key === 'ArrowLeft') showArtwork(currentIndex - 1);
+                if (e.key === 'ArrowRight') showArtwork(currentIndex + 1);
+            };
         }
 
         async function loadProjectDetails() {
@@ -138,9 +507,6 @@
 
                 renderContent();
 
-                const galleryContainer = document.getElementById('proj-gallery');
-                galleryContainer.innerHTML = '';
-
                 let photos = [];
                 if (Array.isArray(projectData.gallery) && projectData.gallery.length > 0) {
                     photos = projectData.gallery;
@@ -148,15 +514,7 @@
                     photos = [projectData.cover];
                 }
 
-                photos.forEach(item => {
-                    const src = cleanPath(item);
-                    if (src) {
-                        const img = document.createElement('img');
-                        img.src = src;
-                        img.alt = 'Project gallery image';
-                        galleryContainer.appendChild(img);
-                    }
-                });
+                buildGalleries(photos);
 
             } catch (err) {
                 console.error(err);
