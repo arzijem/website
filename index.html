@@ -15,23 +15,16 @@
     <a class="az-brand" href="/">AZZURRA ZINGONI</a>
 
     <nav class="az-menu">
-        <a href="/">HOME</a>
-        <a href="work.html">WORK</a>
-        <a href="/about/">ABOUT</a>
-        <a href="/contact/">CONTACT</a>
-
-        <div class="az-languages">
-            <a href="#" class="active">EN</a>
-            <span>/</span>
-            <a href="#">IT</a>
-        </div>
-
-        <span class="az-lang-switch">
-    <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-    <span class="az-lang-divider">/</span>
-    <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
-</span>
-    </nav>
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="#about" data-i18n="nav_about">ABOUT</a>
+            <a href="#contact" data-i18n="nav_contact">CONTACT</a>
+            <span class="az-lang-switch">
+                <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <span class="az-lang-divider">/</span>
+                <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+            </span>
+        </nav>
 
     <button class="az-menu-button" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span>
@@ -242,10 +235,9 @@
 })();
 </script>
 
-<!-- FOOTER -->
 <footer class="az-footer">
-    <span>© 2026 AZZURRA ZINGONI</span>
-</footer>
+        <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
+    </footer>
 
 <!-- NETLIFY IDENTITY -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -485,6 +477,6 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
     artSections.forEach((section) => observer.observe(section));
 })();
 </script>
-
+<script src="i18n.js"></script>
 </body>
 </html>
