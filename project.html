@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details — Azzurra Zingoni</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .az-project-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 7% 120px;
+        }
+
+        .az-back-btn {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.45);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            transition: color 0.3s ease;
+        }
+
+        .az-back-btn:hover {
+            color: #ffffff;
+        }
+
+        .az-project-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            padding-bottom: 30px;
+            margin-bottom: 48px;
+        }
+
+        .az-project-title {
+            font-size: clamp(38px, 6vw, 72px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin: 0 0 16px;
+        }
+
+        .az-project-meta-row {
+            display: flex;
+            gap: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .az-project-body {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 800px;
+            margin-bottom: 60px;
+            white-space: pre-line;
+        }
+
+        .az-project-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .az-project-gallery img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="az-topbar">
+        <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
+        <nav class="az-menu">
+            <a href="index.html">HOME</a>
+            <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
+            <a href="index.html#about">ABOUT</a>
+            <a href="index.html#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <main class="az-project-container">
+        <a href="work.html" class="az-back-btn">&larr; BACK TO WORK</a>
+
+        <div class="az-project-header">
+            <h1 id="proj-title" class="az-project-title">Loading...</h1>
+            <div class="az-project-meta-row">
+                <span id="proj-year"></span>
+                <span id="proj-subtitle"></span>
+            </div>
+        </div>
+
+        <div id="proj-body" class="az-project-body"></div>
+
+        <div id="proj-gallery" class="az-project-gallery"></div>
+    </main>
+
+    <footer class="az-footer">
+        <span>© 2026 AZZURRA ZINGONI</span>
+    </footer>
+
+    <script>
+        function cleanPath(path) {
+            if (!path) return '';
+            return '/' + path.replace(/^\.?\//, '');
+        }
+
+        async function loadProjectDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('id');
+
+            if (!slug) {
+                window.location.href = 'work.html';
+                return;
+            }
+
+            try {
+                // Fetch directly from the raw content folder
+                const res = await fetch(`content/projects/${slug}.json`);
+                if (!res.ok) throw new Error('Project not found');
+                const data = await res.json();
+
+                document.title = `${data.title || 'Project'} — Azzurra Zingoni`;
+                document.getElementById('proj-title').textContent = data.title || 'Untitled';
+                document.getElementById('proj-year').textContent = data.year || '';
+                document.getElementById('proj-subtitle').textContent = data.subtitle || '';
+                document.getElementById('proj-body').textContent = data.body || '';
+
+                // Build image gallery
+                const galleryContainer = document.getElementById('proj-gallery');
+                galleryContainer.innerHTML = '';
+
+                let imagesToRender = [];
+                if (Array.isArray(data.gallery) && data.gallery.length > 0) {
+                    imagesToRender = data.gallery;
+                } else if (data.cover) {
+                    imagesToRender = [data.cover];
+                }
+
+                imagesToRender.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = cleanPath(imgSrc);
+                    img.alt = data.title || 'Project artwork';
+                    galleryContainer.appendChild(img);
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('proj-title').textContent = 'Project Not Found';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProjectDetails);
+    </script>
+</body>
+</html>
