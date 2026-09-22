@@ -602,7 +602,7 @@
         let currentIndex = 0;
 
         // Extracts path from string, object, or CMS upload wrapper and resolves it safely
-        function cleanPath(item) {
+       function cleanPath(item) {
             if (!item) return '';
 
             let raw = '';
@@ -619,8 +619,20 @@
                 return raw;
             }
 
-            // Remove any leading slashes or relative dots so it's a clean relative path
-            return raw.replace(/^(\.\/|\/)+/, '');
+            // Strip leading slashes
+            let cleaned = raw.replace(/^(\.\/|\/)+/, '');
+
+            // Encode spaces and parentheses for static hosting compatibility
+            try {
+                cleaned = decodeURI(cleaned)
+                    .split('/')
+                    .map(segment => encodeURIComponent(segment))
+                    .join('/');
+            } catch (e) {
+                cleaned = encodeURI(cleaned);
+            }
+
+            return cleaned;
         }
 
         function renderContent() {
