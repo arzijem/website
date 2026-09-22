@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work — Azzurra Zingoni</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Work Header */
+        .az-work-header {
+            padding: 80px 7% 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .az-work-title {
+            font-size: clamp(54px, 9vw, 120px);
+            font-weight: 700;
+            letter-spacing: -3.5px;
+            margin: 0;
+            line-height: 0.85;
+        }
+
+        /* 3 Squares Grid */
+        .az-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            padding: 60px 7% 120px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 950px) {
+            .az-projects-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+        }
+
+        /* Wrapper for square + title & year below */
+        .az-project-item {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Square Card */
+        .az-project-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            background: #08080a;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: border-color 0.4s ease;
+        }
+
+        .az-project-card:hover {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Project Artwork */
+        .az-project-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+            filter: grayscale(100%) contrast(110%);
+        }
+
+        /* Blurry Security Shield */
+        .az-project-lock-shield {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.8s ease;
+        }
+
+        /* Unlocked State */
+        .az-project-item.is-unlocked .az-project-lock-shield {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            pointer-events: none;
+        }
+
+        .az-project-item.is-unlocked .az-project-bg {
+            transform: scale(1.06);
+            filter: grayscale(20%) contrast(105%);
+        }
+
+        /* Fingerprint Scanner */
+        .az-scanner-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .az-fingerprint-btn {
+            position: relative;
+            width: 74px;
+            height: 94px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .az-fingerprint-btn svg {
+            width: 58px;
+            height: 78px;
+            stroke: rgba(255, 255, 255, 0.4);
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s ease, filter 0.3s ease;
+        }
+
+        .az-scanner-wrap:hover .az-fingerprint-btn svg {
+            stroke: rgba(255, 255, 255, 0.85);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+        }
+
+        /* Glowing Laser Scan Beam */
+        .az-scan-beam {
+            position: absolute;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: #ffffff;
+            box-shadow: 0 0 12px 2px #ffffff;
+            top: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .az-scanner-wrap.is-scanning .az-scan-beam {
+            opacity: 1;
+            animation: laserScan 1.1s ease-in-out infinite alternate;
+        }
+
+        .az-scanner-wrap.is-scanning .az-fingerprint-btn svg {
+            stroke: #ffffff;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
+        }
+
+        @keyframes laserScan {
+            0% { top: 8%; opacity: 0.4; }
+            100% { top: 90%; opacity: 1; }
+        }
+
+        .az-scan-instruction {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .az-scanner-wrap.is-scanning .az-scan-instruction {
+            color: #ffffff;
+        }
+
+        /* Title and Year below each square */
+        .az-project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 2px;
+        }
+
+        .az-project-title-text {
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .az-project-year {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="az-topbar">
+        <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
+        <nav class="az-menu">
+            <a href="index.html">HOME</a>
+            <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
+            <a href="index.html#about">ABOUT</a>
+            <a href="index.html#contact">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- WORK HEADER -->
+    <section class="az-work-header">
+        <h1 class="az-work-title">WORK</h1>
+    </section>
+
+    <!-- DYNAMIC PROJECTS GRID -->
+    <main class="az-projects-grid" id="projects-container">
+        <!-- Projects will load here automatically -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="az-footer">
+        <span>© 2026 AZZURRA ZINGONI</span>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        function createProjectCard(project, index) {
+            const coverImage = project.cover || '(pannello 2).jpg';
+            const title = project.title || 'Untitled Project';
+            const year = project.year || '2026';
+
+            return `
+            <div class="az-project-item" data-project="${index}">
+                <div class="az-project-card">
+                    <img class="az-project-bg" src="${coverImage}" alt="${title}">
+                    
+                    <div class="az-project-lock-shield">
+                        <div class="az-scanner-wrap">
+                            <button class="az-fingerprint-btn" aria-label="Authenticate Fingerprint">
+                                <div class="az-scan-beam"></div>
+                                <svg viewBox="0 0 60 80">
+                                    <path d="M12 25 C16 8, 44 5, 50 25" />
+                                    <path d="M9 34 C9 13, 48 5, 53 32" />
+                                    <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
+                                    <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
+                                    <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
+                                    <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
+                                    <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
+                                </svg>
+                            </button>
+                            <span class="az-scan-instruction">HOLD TO UNLOCK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="az-project-meta">
+                    <h2 class="az-project-title-text">${title}</h2>
+                    <span class="az-project-year">${year}</span>
+                </div>
+            </div>`;
+        }
+
+        function attachScannerListeners() {
+            document.querySelectorAll(".az-scanner-wrap").forEach(scanner => {
+                const item = scanner.closest(".az-project-item");
+                const label = scanner.querySelector(".az-scan-instruction");
+                let scanTimer = null;
+
+                function startScan(e) {
+                    e.preventDefault();
+                    if (item.classList.contains("is-unlocked")) return;
+
+                    scanner.classList.add("is-scanning");
+                    label.textContent = "VERIFYING...";
+
+                    scanTimer = setTimeout(() => {
+                        scanner.classList.remove("is-scanning");
+                        item.classList.add("is-unlocked");
+                    }, 750);
+                }
+
+                function stopScan() {
+                    if (!item.classList.contains("is-unlocked")) {
+                        clearTimeout(scanTimer);
+                        scanner.classList.remove("is-scanning");
+                        label.textContent = "HOLD TO UNLOCK";
+                    }
+                }
+
+                scanner.addEventListener("mousedown", startScan);
+                window.addEventListener("mouseup", stopScan);
+                scanner.addEventListener("touchstart", startScan, { passive: false });
+                window.addEventListener("touchend", stopScan);
+            });
+        }
+
+        async function loadProjects() {
+            const container = document.getElementById("projects-container");
+            const repoOwner = "arzijem";
+            const repoName = "website";
+            
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/content/projects`);
+                if (!response.ok) {
+                    container.innerHTML = `<p style="grid-column: 1/-1; color: rgba(255,255,255,0.4); letter-spacing: 1px;">NO PROJECTS FOUND</p>`;
+                    return;
+                }
+                
+                const files = await response.json();
+                const projectFiles = files.filter(file => file.name.endsWith(".json"));
+
+                if (projectFiles.length === 0) {
+                    container.innerHTML = `<p style="grid-column: 1/-1; color: rgba(255,255,255,0.4); letter-spacing: 1px;">NO PROJECTS FOUND</p>`;
+                    return;
+                }
+
+                const projectDataPromises = projectFiles.map(file => fetch(file.download_url).then(res => res.json()));
+                const projects = await Promise.all(projectDataPromises);
+
+                container.innerHTML = projects.map((proj, idx) => createProjectCard(proj, idx)).join("");
+                attachScannerListeners();
+
+            } catch (err) {
+                console.error("Error loading projects:", err);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProjects);
+    </script>
+</body>
+
+</html>

@@ -4,26 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Azzurra Zingoni</title>
-
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-
 <body>
 
-   <!-- TOP BAR -->
+<!-- TOP BAR -->
 <header class="az-topbar">
+    <a class="az-brand" href="/">AZZURRA ZINGONI</a>
 
-    <a class="az-brand" href="/">
-        AZZURRA ZINGONI
-    </a>
-
-    <!-- DESKTOP / TABLET MENU -->
     <nav class="az-menu">
-
         <a href="/">HOME</a>
-        <a href="/work/">WORK</a>
+        <a href="work.html">WORK</a>
         <a href="/about/">ABOUT</a>
         <a href="/contact/">CONTACT</a>
 
@@ -32,236 +25,460 @@
             <span>/</span>
             <a href="#">IT</a>
         </div>
-
     </nav>
 
-
-    <!-- MOBILE MENU BUTTON -->
-    <button
-        class="az-menu-button"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-    >
+    <button class="az-menu-button" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span>
         <span></span>
     </button>
-
 </header>
-
 
 <!-- MOBILE MENU -->
 <div class="az-mobile-menu">
-
     <nav class="az-mobile-links">
         <a href="/">HOME</a>
-        <a href="/work/">WORK</a>
+        <a href="work.html">WORK</a>
         <a href="/about/">ABOUT</a>
         <a href="/contact/">CONTACT</a>
     </nav>
-
     <div class="az-mobile-languages">
         <a href="#" class="active">EN</a>
         <span>/</span>
         <a href="#">IT</a>
     </div>
-
 </div>
 
-    <!-- HERO -->
-    <main class="az-hero">
+<!-- HERO -->
+<main class="az-hero">
+    <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
+    <source src="hero-video.mp4" type="video/mp4">
+</video>
+    <div class="az-hero-overlay"></div>
+    <div class="az-hero-text">
+        <h1>TRACES OF THE UNSEEN</h1>
+        <p>AZZURRA ZINGONI</p>
+    </div>
+</main>
 
-        <img
-            class="az-hero-image"
-            src="(pannello%202).jpg"
-            alt=""
-        >
-
-        <div class="az-hero-overlay"></div>
-
-        <div class="az-hero-text">
-            <h1>TRACES OF THE UNSEEN</h1>
-            <p>AZZURRA ZINGONI</p>
-        </div>
-
-    </main>
+<!-- SVG Liquid Viscosity Filter (Invisible utility) -->
+<svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <defs>
+        <filter id="liquid-filter">
+            <!-- Blurs the points together like water droplets -->
+            <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur" />
+            <!-- Clamps the blur into a crisp, fluid surface boundary -->
+            <feColorMatrix in="blur" mode="matrix" 
+                values="1 0 0 0 0  
+                        0 1 0 0 0  
+                        0 0 1 0 0  
+                        0 0 0 35 -14" result="liquid" />
+            <feComposite in="SourceGraphic" in2="liquid" operator="atop" />
+        </filter>
+    </defs>
+</svg>
 
 <!-- INTERACTIVE HOME LINKS -->
-
 <section class="az-art-nav">
 
-    <!-- WORK -->
-    <a href="/work/" class="az-art-item az-art-work">
+    <!-- Fluid Water Canvas -->
+    <canvas id="az-water-canvas"></canvas>
 
+    <!-- WORK -->
+    <a href="work.html" class="az-art-item az-art-work">
         <div class="az-art-title">
-            <span class="az-art-outline">WORK</span>
             <span class="az-art-main">WORK</span>
         </div>
-
-        <div class="az-symbol az-symbol-work" aria-hidden="true">
-            <span class="work-line work-top"></span>
-            <span class="work-line work-right"></span>
-            <span class="work-line work-bottom"></span>
-            <span class="work-line work-left"></span>
-            <span class="work-center"></span>
-        </div>
-
     </a>
-
 
     <!-- ABOUT -->
     <a href="/about/" class="az-art-item az-art-about">
-
-        <div class="az-symbol az-symbol-about" aria-hidden="true">
-
-            <div class="about-shape">
-                <span class="about-circle"></span>
-                <span class="about-cover"></span>
-                <span class="about-line"></span>
-            </div>
-
-        </div>
-
         <div class="az-art-title">
-            <span class="az-art-outline">ABOUT</span>
             <span class="az-art-main">ABOUT</span>
         </div>
-
     </a>
-
 
     <!-- CONTACT -->
     <a href="/contact/" class="az-art-item az-art-contact">
-
         <div class="az-art-title">
-            <span class="az-art-outline">CONTACT</span>
             <span class="az-art-main">CONTACT</span>
         </div>
-
-        <div class="az-symbol az-symbol-contact" aria-hidden="true">
-
-            <span class="contact-left"></span>
-            <span class="contact-right"></span>
-
-            <span class="contact-meeting"></span>
-
-        </div>
-
     </a>
 
 </section>
 
+<!-- REAL-TIME FLUID WATER PHYSICS SCRIPT -->
+<script>
+(function() {
+    const navSection = document.querySelector(".az-art-nav");
+    const canvas = document.getElementById("az-water-canvas");
+    if (!navSection || !canvas) return;
 
+    const ctx = canvas.getContext("2d");
+    let dpr = window.devicePixelRatio || 1;
+    let width, height;
+
+    function resize() {
+        width = navSection.clientWidth;
+        height = navSection.clientHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    const points = [];
+    let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
+    let isHovering = false;
+
+   function updateCoordinates(clientX, clientY) {
+        const rect = navSection.getBoundingClientRect();
+        mouse.targetX = clientX - rect.left;
+        mouse.targetY = clientY - rect.top;
+        isHovering = true;
+    }
+
+    // Desktop mouse tracking
+    navSection.addEventListener("mousemove", (e) => {
+        updateCoordinates(e.clientX, e.clientY);
+    });
+
+    navSection.addEventListener("mouseleave", () => {
+        isHovering = false;
+    });
+
+    // Mobile swipe tracking
+    navSection.addEventListener("touchstart", (e) => {
+        if (e.touches.length > 0) {
+            updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+            // Snap current position immediately so water doesn't jump across the screen
+            mouse.x = mouse.targetX;
+            mouse.y = mouse.targetY;
+        }
+    }, { passive: true });
+
+    navSection.addEventListener("touchmove", (e) => {
+        if (e.touches.length > 0) {
+            updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: true });
+
+    navSection.addEventListener("touchend", () => {
+        isHovering = false;
+    });
+
+    function spawnLiquidDrops(x, y, vx, vy) {
+        // Main water body node
+        points.push({
+            x: x,
+            y: y,
+            radius: Math.min(85, Math.max(45, Math.hypot(vx, vy) * 2.2)),
+            alpha: 1,
+            decay: 0.016
+        });
+
+        // Occasional liquid separation droplet
+        if (Math.random() > 0.45 && Math.hypot(vx, vy) > 3) {
+            points.push({
+                x: x + (Math.random() - 0.5) * 35,
+                y: y + (Math.random() - 0.5) * 35,
+                radius: 18 + Math.random() * 20,
+                alpha: 0.9,
+                decay: 0.024
+            });
+        }
+    }
+
+    let lastX = 0, lastY = 0;
+
+    function render() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Smooth liquid spring easing
+        const dx = mouse.targetX - mouse.x;
+        const dy = mouse.targetY - mouse.y;
+        mouse.x += dx * 0.16;
+        mouse.y += dy * 0.16;
+
+        const velocityX = mouse.x - lastX;
+        const velocityY = mouse.y - lastY;
+
+        if (isHovering || Math.hypot(velocityX, velocityY) > 0.5) {
+            spawnLiquidDrops(mouse.x, mouse.y, velocityX, velocityY);
+        }
+
+        lastX = mouse.x;
+        lastY = mouse.y;
+
+        // Render pure white liquid into the filter (difference mode will invert it)
+        ctx.fillStyle = "#ffffff";
+
+        for (let i = points.length - 1; i >= 0; i--) {
+            const p = points[i];
+            p.radius *= 0.982; // Gently shrinking water volume
+            p.alpha -= p.decay;
+
+            if (p.alpha <= 0 || p.radius <= 3) {
+                points.splice(i, 1);
+                continue;
+            }
+
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        requestAnimationFrame(render);
+    }
+
+    render();
+})();
+</script>
+
+<!-- FOOTER -->
 <footer class="az-footer">
     <span>© 2026 AZZURRA ZINGONI</span>
 </footer>
 
-    <!-- NETLIFY IDENTITY -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", function (user) {
-                if (!user) {
-                    window.netlifyIdentity.on("login", function () {
-                        document.location.href = "/admin/";
-                    });
-                }
+<!-- NETLIFY IDENTITY -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function(user) {
+        if (!user) {
+            window.netlifyIdentity.on("login", function() {
+                document.location.href = "/admin/";
             });
         }
-    </script>
+    });
+}
+</script>
+
+<!-- FINGERPRINT CLICK EFFECT -->
 <script>
 document.addEventListener("click", function(event) {
-
     const fingerprint = document.createElement("div");
     fingerprint.className = "az-fingerprint";
-
     fingerprint.style.left = event.clientX + "px";
     fingerprint.style.top = event.clientY + "px";
 
     fingerprint.innerHTML = `
         <svg viewBox="0 0 60 80" aria-hidden="true">
-
             <path d="M12 25 C16 8, 44 5, 50 25" />
             <path d="M9 34 C9 13, 48 5, 53 32" />
             <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
-
             <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
-
             <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
-
             <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
-
             <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
-
             <path d="M47 62 C45 66, 43 69, 41 72" />
-
         </svg>
     `;
-
     document.body.appendChild(fingerprint);
-
-    setTimeout(function() {
-        fingerprint.remove();
-    }, 8000);
-
+    setTimeout(() => fingerprint.remove(), 8000);
 });
 </script>
-    <script>
+
+<!-- MOBILE MENU -->
+<script>
 const menuButton = document.querySelector(".az-menu-button");
 const mobileMenu = document.querySelector(".az-mobile-menu");
 
-menuButton.addEventListener("click", function () {
-
+menuButton.addEventListener("click", function() {
     const isOpen = document.body.classList.toggle("az-menu-open");
-
     menuButton.setAttribute("aria-expanded", isOpen);
-
-    if (isOpen) {
-        menuButton.setAttribute("aria-label", "Close menu");
-    } else {
-        menuButton.setAttribute("aria-label", "Open menu");
-    }
-
+    menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
 });
 
 document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
-
     link.addEventListener("click", function() {
         document.body.classList.remove("az-menu-open");
         menuButton.setAttribute("aria-expanded", "false");
         menuButton.setAttribute("aria-label", "Open menu");
     });
-
 });
 </script>
+
+<!-- THREE.JS INTERACTIVE FLUID BLOB -->
 <script>
-const artSections = document.querySelectorAll(".az-art-item");
+(function() {
+    const navSection = document.querySelector(".az-art-nav");
+    const canvas = document.getElementById("az-fluid-canvas");
+    if (!navSection || !canvas) return;
 
-const artObserver = new IntersectionObserver(
-    function(entries) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.z = 5.0;
 
-        entries.forEach(function(entry) {
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+    function resize() {
+        const width = navSection.clientWidth || window.innerWidth;
+        const height = navSection.clientHeight || window.innerHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
+    
+    resize();
+    window.addEventListener("resize", resize);
+    setTimeout(resize, 150);
+
+    const vertexShader = `
+        uniform float uTime;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        varying float vNoise;
+
+        vec4 permute(vec4 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+        vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+        float snoise(vec3 v) {
+            const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+            const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+            vec3 i  = floor(v + dot(v, C.yyy));
+            vec3 x0 = v - i + dot(i, C.xxx);
+            vec3 g = step(x0.yzx, x0.xyz);
+            vec3 l = 1.0 - g;
+            vec3 i1 = min(g.xyz, l.zxy);
+            vec3 i2 = max(g.xyz, l.zxy);
+            vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+            vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+            vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+            i = mod(i, 289.0);
+            vec4 p = permute(permute(permute(
+                    i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                    + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                    + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+            vec3 ns = 0.142857142857 * D.wyz - D.xzx;
+            vec4 j = p - 49.0 * floor(p * ns.z.xxxx);
+            vec4 x_ = floor(j * ns.z);
+            vec4 y_ = floor(j - 7.0 * x_);
+            vec4 x = x_ *ns.x + ns.yyyy;
+            vec4 y = y_ *ns.x + ns.yyyy;
+            vec4 h = 1.0 - abs(x) - abs(y);
+            vec4 b0 = vec4(x.xy, y.xy);
+            vec4 b1 = vec4(x.zw, y.zw);
+            vec4 s0 = floor(b0)*2.0 + 1.0;
+            vec4 s1 = floor(b1)*2.0 + 1.0;
+            vec4 sh = -step(h, vec4(0.0));
+            vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+            vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+            vec3 p0 = vec3(a0.xy, h.x);
+            vec3 p1 = vec3(a0.zw, h.y);
+            vec3 p2 = vec3(a1.xy, h.z);
+            vec3 p3 = vec3(a1.zw, h.w);
+            vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+            p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+            vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+            m = m * m;
+            return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+        }
+
+        void main() {
+            vNormal = normal;
+            vPosition = position;
+            float noise = snoise(position * 1.1 + vec3(uTime * 0.4));
+            vNoise = noise;
+            vec3 displaced = position + normal * (noise * 0.48);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(displaced, 1.0);
+        }
+    `;
+
+    const fragmentShader = `
+        uniform float uTime;
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        varying float vNoise;
+
+        void main() {
+            // Iridescent liquid palette
+            vec3 cBlue    = vec3(0.12, 0.42, 1.0);
+            vec3 cMagenta = vec3(0.98, 0.15, 0.6);
+            vec3 cGold    = vec3(1.0, 0.85, 0.25);
+            vec3 cCyan    = vec3(0.0, 0.95, 0.85);
+
+            float flow = sin(vNoise * 4.0 + uTime * 0.7) * 0.5 + 0.5;
+            vec3 col = mix(cBlue, cMagenta, flow);
+            col = mix(col, cGold, vNormal.z * 0.5 + 0.5);
+            col = mix(col, cCyan, vNormal.y * 0.4 + 0.4);
+
+            float specular = pow(max(dot(vNormal, vec3(0.0, 1.0, 1.0)), 0.0), 28.0);
+            vec3 finalColor = col + vec3(specular * 0.5);
+
+            gl_FragColor = vec4(finalColor, 1.0);
+        }
+    `;
+
+    const uniforms = { uTime: { value: 0 } };
+
+    // Increased size to 1.7 so it comfortably cuts through the large typography
+    const geometry = new THREE.IcosahedronGeometry(1.7, 64);
+    const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms
+    });
+
+    const blobMesh = new THREE.Mesh(geometry, material);
+    scene.add(blobMesh);
+
+    // Track mouse within the navigation boundaries
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+    navSection.addEventListener("mousemove", (e) => {
+        const rect = navSection.getBoundingClientRect();
+        mouse.targetX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.targetY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    });
+
+    const clock = new THREE.Clock();
+
+    function render() {
+        requestAnimationFrame(render);
+        const elapsed = clock.getElapsedTime();
+        uniforms.uTime.value = elapsed;
+
+        // Smooth follow physics
+        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+        // Map movement across section coordinates
+        blobMesh.position.x = mouse.x * 3.2;
+        blobMesh.position.y = mouse.y * 2.2;
+
+        blobMesh.rotation.y = mouse.x * 0.5 + elapsed * 0.2;
+        blobMesh.rotation.x = -mouse.y * 0.5 + elapsed * 0.15;
+
+        renderer.render(scene, camera);
+    }
+
+    render();
+})();
+</script>
+
+<script>
+(function() {
+    const artSections = document.querySelectorAll(".az-art-item");
+    if (!artSections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("az-in-view");
             } else {
                 entry.target.classList.remove("az-in-view");
             }
-
         });
+    }, {
+        rootMargin: "-15% 0px -15% 0px",
+        threshold: 0.25
+    });
 
-    },
-    {
-        threshold: 0.45
-    }
-);
-
-artSections.forEach(function(section) {
-    artObserver.observe(section);
-});
+    artSections.forEach((section) => observer.observe(section));
+})();
 </script>
 
 </body>
-
 </html>
