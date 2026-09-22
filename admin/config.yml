@@ -7,15 +7,6 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-collections:backend:
-  name: github
-  repo: arzijem/website
-  branch: main
-  base_url: https://sveltia-auth.arrzije-m.workers.dev
-
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
-
 collections:
   - name: "projects"
     label: "Projects"
@@ -32,17 +23,3 @@ collections:
       - { label: "Full Project Story (English)", name: "body_en", widget: "markdown", required: false }
       - { label: "Full Project Story (Italian)", name: "body_it", widget: "markdown", required: false }
       - { label: "Gallery Pictures", name: "gallery", widget: "list", field: { label: "Photo", name: "image", widget: "image" }, required: false }
-  - name: "projects"
-    label: "Projects"
-    folder: "content/projects"
-    create: true
-    slug: "{{slug}}"
-    format: "json"
-
-    fields:
-      - { label: "Project Title", name: "title", widget: "string" }
-      - { label: "Year", name: "year", widget: "string", required: false }
-      - { label: "Subtitle / Role", name: "subtitle", widget: "string", required: false }
-      - { label: "Grid Cover Image", name: "cover", widget: "image", required: false }
-      - { label: "Project Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
-      - { label: "Full Project Story", name: "body", widget: "markdown", required: false }
