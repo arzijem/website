@@ -408,6 +408,11 @@
 
     <script src="i18n.js"></script>
 
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="i18n.js"></script>
+    
+
     <script>
         let projectData = null;
         let artworks = [];
@@ -429,8 +434,17 @@
 
             document.title = `${title} — Azzurra Zingoni`;
             document.getElementById('proj-title').textContent = title;
-            document.getElementById('proj-summary').textContent = summary;
-            document.getElementById('proj-body').textContent = body;
+            
+            // Render text with markdown support (italics, bold, line breaks)
+            const summaryEl = document.getElementById('proj-summary');
+            if (summaryEl) {
+                summaryEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(summary) : summary;
+            }
+
+            const bodyEl = document.getElementById('proj-body');
+            if (bodyEl) {
+                bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(body) : body;
+            }
 
             const scanInstruction = document.getElementById('gallery-scan-text');
             if (scanInstruction) {
