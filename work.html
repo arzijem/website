@@ -30,7 +30,6 @@
             text-transform: uppercase;
         }
 
-        /* 3-Column Grid */
         .az-work-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -49,7 +48,6 @@
             }
         }
 
-        /* Project Card Item */
         .az-project-item {
             display: flex;
             flex-direction: column;
@@ -83,7 +81,6 @@
             transition: filter 0.8s ease, transform 0.8s ease;
         }
 
-        /* Lock Shield & Scanner */
         .az-project-lock-shield {
             position: absolute;
             inset: 0;
@@ -138,7 +135,6 @@
             transition: color 0.3s ease;
         }
 
-        /* Scan Beam Effect */
         .az-scan-beam {
             position: absolute;
             top: 0;
@@ -151,7 +147,6 @@
             transform: translateY(-10px);
         }
 
-        /* Active Scanning State */
         .az-project-item.is-scanning .az-scan-beam {
             opacity: 1;
             animation: scanAnim 1.2s infinite ease-in-out;
@@ -176,7 +171,6 @@
             100% { transform: translateY(0px); }
         }
 
-        /* Unlocked State */
         .az-project-item.is-unlocked .az-project-bg {
             filter: blur(0px) grayscale(0%) brightness(1);
             transform: scale(1);
@@ -187,7 +181,6 @@
             pointer-events: none;
         }
 
-        /* Meta Information */
         .az-project-meta {
             display: flex;
             justify-content: space-between;
@@ -210,13 +203,13 @@
 </head>
 <body>
 
-   <header class="az-topbar">
+    <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
-            <a href="index.html">HOME</a>
-            <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
-            <a href="index.html#about">ABOUT</a>
-            <a href="index.html#contact">CONTACT</a>
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" style="opacity: 1; font-weight: 700;" data-i18n="nav_work">WORK</a>
+            <a href="index.html#about" data-i18n="nav_about">ABOUT</a>
+            <a href="index.html#contact" data-i18n="nav_contact">CONTACT</a>
             <span class="az-lang-switch">
                 <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
                 <span class="az-lang-divider">/</span>
@@ -226,22 +219,25 @@
     </header>
 
     <main class="az-work-container">
-        <h1 class="az-work-heading">Selected Work</h1>
+        <h1 class="az-work-heading" data-i18n="work_title">Selected Work</h1>
         <div class="az-work-grid" id="projects-grid">
             <p style="color: rgba(255,255,255,0.4); text-align: center; grid-column: 1/-1;">Loading projects...</p>
         </div>
     </main>
 
     <footer class="az-footer">
-        <span>© 2026 AZZURRA ZINGONI</span>
+        <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
-  <script>
+    <!-- Universal Translation Script -->
+    <script src="i18n.js"></script>
+
+    <!-- Work Grid Script -->
+    <script>
         const GITHUB_REPO = 'arzijem/website';
         const GITHUB_BRANCH = 'main';
         const PROJECTS_DIR = 'content/projects';
 
-        let currentLang = localStorage.getItem('az_lang') || 'en';
         let cachedProjects = [];
 
         function cleanPath(path) {
@@ -249,24 +245,12 @@
             return '/' + String(path).replace(/^\.?\//, '');
         }
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('az_lang', lang);
-            updateLangButtons();
-            renderGrid();
-        }
-
-        function updateLangButtons() {
-            document.querySelectorAll('.az-lang-btn').forEach(btn => {
-                btn.classList.toggle('is-active', btn.getAttribute('data-lang') === currentLang);
-            });
-        }
-
         function createProjectCard(project, slug) {
             const coverImage = cleanPath(project.cover || '');
-            const title = (currentLang === 'it' ? (project.title_it || project.title_en) : (project.title_en || project.title_it)) || project.title || 'Untitled Project';
+            const lang = localStorage.getItem('az_lang') || 'en';
+            const title = (lang === 'it' ? (project.title_it || project.title_en) : (project.title_en || project.title_it)) || project.title || 'Untitled Project';
             const year = project.year || '2026';
-            const scanLabel = currentLang === 'it' ? 'TIENI PREMUTO' : 'HOLD TO UNLOCK';
+            const scanLabel = lang === 'it' ? 'TIENI PREMUTO' : 'HOLD TO UNLOCK';
 
             return `
             <div class="az-project-item" data-slug="${slug}">
@@ -308,7 +292,6 @@
         }
 
         async function loadProjects() {
-            updateLangButtons();
             const grid = document.getElementById('projects-grid');
             if (!grid) return;
 
@@ -381,6 +364,10 @@
                 btn.addEventListener('touchend', cancelScan);
             });
         }
+
+        window.addEventListener('languageChanged', () => {
+            renderGrid();
+        });
 
         document.addEventListener('DOMContentLoaded', loadProjects);
     </script>
