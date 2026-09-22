@@ -16,7 +16,9 @@ collections:
     format: "json"
 
     fields:
-      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Project Title", name: "title", widget: "string" }
       - { label: "Year", name: "year", widget: "string", required: false }
-      - { label: "Description", name: "body", widget: "markdown", required: false }
-      - { label: "Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Subtitle / Role", name: "subtitle", widget: "string", required: false }
+      - { label: "Grid Cover Image", name: "cover", widget: "image", required: false }
+      - { label: "Project Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+      - { label: "Full Project Story", name: "body", widget: "markdown", required: false }
