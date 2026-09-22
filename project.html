@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details — Azzurra Zingoni</title>
+    <title>Project — Azzurra Zingoni</title>
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -17,66 +17,86 @@
         }
 
         .az-project-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 7% 120px;
+            padding: 60px 6% 120px;
         }
 
         .az-back-btn {
             display: inline-block;
-            color: rgba(255, 255, 255, 0.45);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 2px;
-            margin-bottom: 40px;
-            transition: color 0.3s ease;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            transition: color 0.3s;
         }
 
         .az-back-btn:hover {
             color: #ffffff;
         }
 
-        .az-project-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            padding-bottom: 30px;
-            margin-bottom: 48px;
-        }
-
+        /* Project Title */
         .az-project-title {
-            font-size: clamp(38px, 6vw, 72px);
+            font-size: clamp(36px, 6vw, 68px);
             font-weight: 700;
-            letter-spacing: -2px;
-            margin: 0 0 16px;
-        }
-
-        .az-project-meta-row {
-            display: flex;
-            gap: 24px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 15px;
+            letter-spacing: -1.5px;
+            margin: 0 0 32px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
+        /* Project Story Text */
         .az-project-body {
-            font-size: 18px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 800px;
-            margin-bottom: 60px;
+            font-size: 17px;
+            line-height: 1.85;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 780px;
+            margin-bottom: 70px;
             white-space: pre-line;
         }
 
+        /* Photo Gallery */
         .az-project-gallery {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 40px;
         }
 
         .az-project-gallery img {
             width: 100%;
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: block;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Language Switcher Styling */
+        .az-lang-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 20px;
+        }
+
+        .az-lang-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .az-lang-btn:hover,
+        .az-lang-btn.is-active {
+            color: #ffffff;
+        }
+
+        .az-lang-divider {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 12px;
         }
     </style>
 </head>
@@ -89,22 +109,19 @@
             <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
             <a href="index.html#about">ABOUT</a>
             <a href="index.html#contact">CONTACT</a>
+            <span class="az-lang-switch">
+                <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <span class="az-lang-divider">/</span>
+                <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+            </span>
         </nav>
     </header>
 
     <main class="az-project-container">
         <a href="work.html" class="az-back-btn">&larr; BACK TO WORK</a>
 
-        <div class="az-project-header">
-            <h1 id="proj-title" class="az-project-title">Loading...</h1>
-            <div class="az-project-meta-row">
-                <span id="proj-year"></span>
-                <span id="proj-subtitle"></span>
-            </div>
-        </div>
-
+        <h1 id="proj-title" class="az-project-title">Loading...</h1>
         <div id="proj-body" class="az-project-body"></div>
-
         <div id="proj-gallery" class="az-project-gallery"></div>
     </main>
 
@@ -113,12 +130,46 @@
     </footer>
 
     <script>
+        let currentLang = localStorage.getItem('az_lang') || 'en';
+        let projectData = null;
+
         function cleanPath(path) {
             if (!path) return '';
-            return '/' + path.replace(/^\.?\//, '');
+            if (typeof path === 'object' && path.image) path = path.image;
+            return '/' + String(path).replace(/^\.?\//, '');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('az_lang', lang);
+            updateLangButtons();
+            renderContent();
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.az-lang-btn').forEach(btn => {
+                btn.classList.toggle('is-active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+
+        function renderContent() {
+            if (!projectData) return;
+
+            const backBtn = document.querySelector('.az-back-btn');
+            if (backBtn) {
+                backBtn.innerHTML = currentLang === 'it' ? '&larr; TORNA AI PROGETTI' : '&larr; BACK TO WORK';
+            }
+
+            const title = (currentLang === 'it' ? (projectData.title_it || projectData.title_en) : (projectData.title_en || projectData.title_it)) || projectData.title || '';
+            const body = (currentLang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
+
+            document.title = `${title} — Azzurra Zingoni`;
+            document.getElementById('proj-title').textContent = title;
+            document.getElementById('proj-body').textContent = body;
         }
 
         async function loadProjectDetails() {
+            updateLangButtons();
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('id');
 
@@ -128,38 +179,35 @@
             }
 
             try {
-                // Fetch directly from the raw content folder
                 const res = await fetch(`content/projects/${slug}.json`);
-                if (!res.ok) throw new Error('Project not found');
-                const data = await res.json();
+                if (!res.ok) throw new Error('File not found');
+                projectData = await res.json();
 
-                document.title = `${data.title || 'Project'} — Azzurra Zingoni`;
-                document.getElementById('proj-title').textContent = data.title || 'Untitled';
-                document.getElementById('proj-year').textContent = data.year || '';
-                document.getElementById('proj-subtitle').textContent = data.subtitle || '';
-                document.getElementById('proj-body').textContent = data.body || '';
+                renderContent();
 
-                // Build image gallery
                 const galleryContainer = document.getElementById('proj-gallery');
                 galleryContainer.innerHTML = '';
 
-                let imagesToRender = [];
-                if (Array.isArray(data.gallery) && data.gallery.length > 0) {
-                    imagesToRender = data.gallery;
-                } else if (data.cover) {
-                    imagesToRender = [data.cover];
+                let photos = [];
+                if (Array.isArray(projectData.gallery) && projectData.gallery.length > 0) {
+                    photos = projectData.gallery;
+                } else if (projectData.cover) {
+                    photos = [projectData.cover];
                 }
 
-                imagesToRender.forEach(imgSrc => {
-                    const img = document.createElement('img');
-                    img.src = cleanPath(imgSrc);
-                    img.alt = data.title || 'Project artwork';
-                    galleryContainer.appendChild(img);
+                photos.forEach(item => {
+                    const src = cleanPath(item);
+                    if (src) {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = 'Project gallery image';
+                        galleryContainer.appendChild(img);
+                    }
                 });
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('proj-title').textContent = 'Project Not Found';
+                document.getElementById('proj-title').textContent = currentLang === 'it' ? 'Progetto Non Trovato' : 'Project Not Found';
             }
         }
 
