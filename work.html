@@ -210,13 +210,18 @@
 </head>
 <body>
 
-    <header class="az-topbar">
+   <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
             <a href="index.html">HOME</a>
             <a href="work.html" style="opacity: 1; font-weight: 700;">WORK</a>
             <a href="index.html#about">ABOUT</a>
             <a href="index.html#contact">CONTACT</a>
+            <span class="az-lang-switch">
+                <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <span class="az-lang-divider">/</span>
+                <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+            </span>
         </nav>
     </header>
 
@@ -231,20 +236,37 @@
         <span>© 2026 AZZURRA ZINGONI</span>
     </footer>
 
-    <script>
+  <script>
         const GITHUB_REPO = 'arzijem/website';
         const GITHUB_BRANCH = 'main';
         const PROJECTS_DIR = 'content/projects';
 
+        let currentLang = localStorage.getItem('az_lang') || 'en';
+        let cachedProjects = [];
+
         function cleanPath(path) {
             if (!path) return '';
-            return '/' + path.replace(/^\.?\//, '');
+            return '/' + String(path).replace(/^\.?\//, '');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('az_lang', lang);
+            updateLangButtons();
+            renderGrid();
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.az-lang-btn').forEach(btn => {
+                btn.classList.toggle('is-active', btn.getAttribute('data-lang') === currentLang);
+            });
         }
 
         function createProjectCard(project, slug) {
             const coverImage = cleanPath(project.cover || '');
-            const title = project.title || 'Untitled Project';
+            const title = (currentLang === 'it' ? (project.title_it || project.title_en) : (project.title_en || project.title_it)) || project.title || 'Untitled Project';
             const year = project.year || '2026';
+            const scanLabel = currentLang === 'it' ? 'TIENI PREMUTO' : 'HOLD TO UNLOCK';
 
             return `
             <div class="az-project-item" data-slug="${slug}">
@@ -265,7 +287,7 @@
                                     <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
                                 </svg>
                             </button>
-                            <span class="az-scan-instruction">HOLD TO UNLOCK</span>
+                            <span class="az-scan-instruction">${scanLabel}</span>
                         </div>
                     </div>
                 </div>
@@ -277,21 +299,28 @@
             </div>`;
         }
 
+        function renderGrid() {
+            const grid = document.getElementById('projects-grid');
+            if (!grid || cachedProjects.length === 0) return;
+
+            grid.innerHTML = cachedProjects.map(({ data, slug }) => createProjectCard(data, slug)).join('');
+            setupScanners();
+        }
+
         async function loadProjects() {
+            updateLangButtons();
             const grid = document.getElementById('projects-grid');
             if (!grid) return;
 
             try {
                 const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${PROJECTS_DIR}?ref=${GITHUB_BRANCH}`;
                 const res = await fetch(apiUrl);
-                
                 if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
                 const files = await res.json();
 
                 const jsonFiles = files.filter(f => f.name.endsWith('.json'));
-
                 if (jsonFiles.length === 0) {
-                    grid.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center; grid-column: 1/-1;">No projects published yet.</p>';
+                    grid.innerHTML = '<p style="color: rgba(255,255,255,0.4); text-align: center; grid-column: 1/-1;">No projects published yet.</p>';
                     return;
                 }
 
@@ -302,15 +331,11 @@
                     return { data, slug };
                 });
 
-                const loadedProjects = await Promise.all(projectDataPromises);
-
-                grid.innerHTML = loadedProjects.map(({ data, slug }) => createProjectCard(data, slug)).join('');
-
-                setupScanners();
-
+                cachedProjects = await Promise.all(projectDataPromises);
+                renderGrid();
             } catch (err) {
                 console.error('Failed to load projects:', err);
-                grid.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center; grid-column: 1/-1;">Unable to load projects right now.</p>';
+                grid.innerHTML = '<p style="color: rgba(255,255,255,0.4); text-align: center; grid-column: 1/-1;">Unable to load projects right now.</p>';
             }
         }
 
@@ -321,7 +346,9 @@
                 let timer = null;
 
                 item.addEventListener('click', (e) => {
-                    if (item.classList.contains('is-unlocked') && !e.target.closest('.az-fingerprint-btn')) {
+                    if (e.target.closest('.az-fingerprint-btn')) return;
+
+                    if (item.classList.contains('is-unlocked')) {
                         window.location.href = `project.html?id=${slug}`;
                     }
                 });
