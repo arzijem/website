@@ -236,6 +236,33 @@
     <script src="i18n.js"></script>
     <script src="fingerprint.js"></script>
 
+    <!-- FINGERPRINT CLICK SCRIPT (AUTO-REMOVAL ON 2S ANIMATION END) -->
+    <script>
+    document.addEventListener("click", function(event) {
+        if (event.target.closest("button") || event.target.closest("a") || event.target.closest(".az-project-card")) return;
+
+        const fingerprint = document.createElement("div");
+        fingerprint.className = "az-fingerprint";
+        fingerprint.style.left = event.clientX + "px";
+        fingerprint.style.top = event.clientY + "px";
+        fingerprint.innerHTML = `
+            <svg viewBox="0 0 60 80" aria-hidden="true">
+                <path d="M12 25 C16 8, 44 5, 50 25" />
+                <path d="M9 34 C9 13, 48 5, 53 32" />
+                <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
+                <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
+                <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
+                <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
+                <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
+                <path d="M47 62 C45 66, 43 69, 41 72" />
+            </svg>
+        `;
+
+        fingerprint.addEventListener("animationend", () => fingerprint.remove());
+        document.body.appendChild(fingerprint);
+    });
+    </script>
+
     <script>
         const GITHUB_REPO = 'arzijem/website';
         const GITHUB_BRANCH = 'main';
