@@ -242,48 +242,48 @@
 
     <!-- LOGIC -->
     <script>
-        function createProjectCard(project, index) {
-            let coverImage = project.cover || '';
-if (coverImage) {
-    // Strip any leading slash or dot-slash
-    coverImage = coverImage.replace(/^\.?\//, '');
-    // Ensure it points to the root of your site
-    coverImage = '/' + coverImage;
+       function createProjectCard(project, slug) {
+    let coverImage = project.cover || '';
+    if (coverImage) coverImage = '/' + coverImage.replace(/^\.?\//, '');
+    const title = project.title || 'Untitled Project';
+    const year = project.year || '2026';
+
+    return `
+    <div class="az-project-item" onclick="handleCardClick(this, '${slug}')">
+        <div class="az-project-card">
+            <img class="az-project-bg" src="${coverImage}" alt="${title}">
+            
+            <div class="az-project-lock-shield">
+                <div class="az-scanner-wrap">
+                    <button class="az-fingerprint-btn" aria-label="Authenticate Fingerprint">
+                        <div class="az-scan-beam"></div>
+                        <svg viewBox="0 0 60 80">
+                            <path d="M12 25 C16 8, 44 5, 50 25" />
+                            <path d="M9 34 C9 13, 48 5, 53 32" />
+                            <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
+                            <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
+                            <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
+                            <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
+                            <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
+                        </svg>
+                    </button>
+                    <span class="az-scan-instruction">HOLD TO UNLOCK</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="az-project-meta">
+            <h2 class="az-project-title-text">${title}</h2>
+            <span class="az-project-year">${year}</span>
+        </div>
+    </div>`;
 }
-            const title = project.title || 'Untitled Project';
-            const year = project.year || '2026';
 
-            return `
-            <div class="az-project-item" data-project="${index}">
-                <div class="az-project-card">
-                    <img class="az-project-bg" src="${coverImage}" alt="${title}">
-                    
-                    <div class="az-project-lock-shield">
-                        <div class="az-scanner-wrap">
-                            <button class="az-fingerprint-btn" aria-label="Authenticate Fingerprint">
-                                <div class="az-scan-beam"></div>
-                                <svg viewBox="0 0 60 80">
-                                    <path d="M12 25 C16 8, 44 5, 50 25" />
-                                    <path d="M9 34 C9 13, 48 5, 53 32" />
-                                    <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
-                                    <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
-                                    <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
-                                    <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
-                                    <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
-                                </svg>
-                            </button>
-                            <span class="az-scan-instruction">HOLD TO UNLOCK</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="az-project-meta">
-                    <h2 class="az-project-title-text">${title}</h2>
-                    <span class="az-project-year">${year}</span>
-                </div>
-            </div>`;
-        }
-
+function handleCardClick(element, slug) {
+    if (element.classList.contains('is-unlocked')) {
+        window.location.href = `project.html?id=${slug}`;
+    }
+}
         function attachScannerListeners() {
             document.querySelectorAll(".az-scanner-wrap").forEach(scanner => {
                 const item = scanner.closest(".az-project-item");
@@ -329,6 +329,10 @@ if (coverImage) {
                     container.innerHTML = `<p style="grid-column: 1/-1; color: rgba(255,255,255,0.4); letter-spacing: 1px;">NO PROJECTS FOUND</p>`;
                     return;
                 }
+                container.innerHTML = projectFiles.map((file, idx) => {
+    const slug = file.name.replace('.json', '');
+    return createProjectCard(projects[idx], slug);
+}).join("");
                 
                 const files = await response.json();
                 const projectFiles = files.filter(file => file.name.endsWith(".json"));
