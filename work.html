@@ -63,16 +63,14 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: border-color 0.3s ease;
-            cursor: default;
         }
 
-        /* Once unlocked, the card cursor changes to a pointer to invite clicking */
         .az-project-item.is-unlocked .az-project-card {
             cursor: pointer;
         }
 
         .az-project-item.is-unlocked:hover .az-project-card {
-            border-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.45);
         }
 
         .az-project-bg {
@@ -176,7 +174,7 @@
             100% { transform: translateY(0px); }
         }
 
-        /* Unlocked State: Reveals cover, removes shield */
+        /* Unlocked: reveals the photo only */
         .az-project-item.is-unlocked .az-project-bg {
             filter: blur(0px) grayscale(0%) brightness(1);
             transform: scale(1);
@@ -332,7 +330,7 @@
                 const slug = item.getAttribute('data-slug');
                 let timer = null;
 
-                // Step 2: Clicking the card ONLY navigates if already unlocked
+                // CLICK: Only navigates to project.html if already unlocked
                 item.addEventListener('click', (e) => {
                     if (e.target.closest('.az-fingerprint-btn')) return;
 
@@ -343,7 +341,7 @@
 
                 if (!btn) return;
 
-                // Step 1: Holding button ONLY unblurs the image in place
+                // HOLD SCANNER: Only unblurs the image on the grid
                 const startScan = (e) => {
                     e.preventDefault();
                     if (item.classList.contains('is-unlocked')) return;
@@ -351,7 +349,7 @@
                     item.classList.add('is-scanning');
                     timer = setTimeout(() => {
                         item.classList.remove('is-scanning');
-                        item.classList.add('is-unlocked'); // Just reveals the cover
+                        item.classList.add('is-unlocked'); // Unblurs cover only
                     }, 1200);
                 };
 
