@@ -94,7 +94,33 @@ body {
     color: #fff;
     font-size: 13px;
 }
+.az-lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 20px;
+}
 
+.az-lang-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.az-lang-btn:hover,
+.az-lang-btn.is-active {
+    color: #ffffff;
+}
+
+.az-lang-divider {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 12px;
+}
 
 /* MOBILE MENU HIDDEN BY DEFAULT */
 
