@@ -609,7 +609,13 @@
             if (typeof item === 'string') {
                 raw = item;
             } else if (typeof item === 'object') {
-                raw = item.image || item.url || item.photo || item.src || (item.fields ? item.fields.image : '') || '';
+                // Check all possible keys Sveltia CMS might write
+                raw = item.image || item.photo || item.url || item.src || item.file || '';
+                
+                // If it's a nested object like { fields: { image: "..." } }
+                if (!raw && item.fields) {
+                    raw = item.fields.image || item.fields.photo || '';
+                }
             }
 
             if (!raw || typeof raw !== 'string') return '';
@@ -619,10 +625,9 @@
                 return raw;
             }
 
-            // Strip leading slashes
+            // Remove any leading slashes or ./
             let cleaned = raw.replace(/^(\.\/|\/)+/, '');
 
-            // Encode spaces and parentheses for static hosting compatibility
             try {
                 cleaned = decodeURI(cleaned)
                     .split('/')
@@ -633,6 +638,69 @@
             }
 
             return cleaned;
+        }
+
+        function buildGalleries(photos) {
+            console.log("Raw gallery items:", photos);
+
+            const gallerySection = document.getElementById('gallery-start');
+            const previewContainer = document.getElementById('gallery-preview');
+            const fullContainer = document.getElementById('az-artworks');
+            
+            previewContainer.innerHTML = '';
+            fullContainer.innerHTML = '';
+
+            // Normalize photos into a clean flat array
+            let rawList = [];
+            if (Array.isArray(photos)) {
+                rawList = photos.flat();
+            } else if (photos && typeof photos === 'object') {
+                rawList = Object.values(photos);
+            }
+
+            // Resolve paths and filter out any empty or broken values
+            const validPhotos = rawList
+                .map(item => cleanPath(item))
+                .filter(url => url && url.length > 0);
+
+            console.log("Successfully resolved photo list:", validPhotos);
+
+            if (validPhotos.length === 0) {
+                if (gallerySection) gallerySection.style.display = 'none';
+                return;
+            }
+            if (gallerySection) gallerySection.style.display = 'block';
+
+            // Preview items (up to 4)
+            validPhotos.slice(0, 4).forEach(src => {
+                const item = document.createElement('div');
+                item.className = 'az-gallery-preview-item';
+                item.innerHTML = `<img src="${src}" alt="Preview">`;
+                previewContainer.appendChild(item);
+            });
+
+            // Full gallery items
+            validPhotos.forEach((src, idx) => {
+                const a = document.createElement('a');
+                a.className = 'az-artwork';
+                a.href = src;
+                a.setAttribute('data-full', src);
+                a.innerHTML = `
+                    <div class="az-artwork-frame">
+                        <img src="${src}" alt="Artwork ${idx + 1}">
+                    </div>
+                `;
+                fullContainer.appendChild(a);
+            });
+
+            const navBottom = document.createElement('div');
+            navBottom.className = 'az-gallery-navigation-bottom';
+            const lang = localStorage.getItem('az_lang') || 'en';
+            navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
+            fullContainer.appendChild(navBottom);
+
+            setupGalleryScanner();
+            setupViewer();
         }
 
         function renderContent() {
