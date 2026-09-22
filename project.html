@@ -16,7 +16,7 @@
             overflow-x: hidden;
         }
 
-        .mv-project-page {
+        .az-project-page {
             max-width: 1400px;
             margin: 0 auto;
             padding: 60px 6% 120px;
@@ -37,68 +37,97 @@
             color: #ffffff;
         }
 
-        /* TITLE */
-        .mv-project-intro.mv-amazonien-intro {
+        /* =========================================
+           PROJECT INTRO: VERTICAL TITLE & TEXT
+           ========================================= */
+        .az-project-intro {
             display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 60px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            grid-template-columns: 90px 1fr;
+            gap: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             padding-bottom: 60px;
             margin-bottom: 60px;
+            align-items: start;
         }
 
-        @media (max-width: 900px) {
-            .mv-project-intro.mv-amazonien-intro {
+        .az-project-vertical-title {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .az-project-vertical-title h1 {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: clamp(20px, 2.2vw, 30px);
+            font-weight: 600;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin: 0;
+            text-transform: uppercase;
+            color: #ffffff !important;
+            white-space: nowrap;
+        }
+
+        .az-project-summary {
+            font-size: 19px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #ffffff !important;
+            margin-bottom: 16px;
+        }
+
+        .az-project-body {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #ffffff !important;
+        }
+
+        .az-project-body p,
+        .az-project-summary p {
+            color: #ffffff !important;
+            margin: 0 0 0.65em 0;
+        }
+
+        .az-project-body em,
+        .az-project-summary em,
+        .az-project-body i,
+        .az-project-summary i {
+            font-style: italic !important;
+            color: #ffffff !important;
+        }
+
+        .az-project-body strong,
+        .az-project-summary strong,
+        .az-project-body b,
+        .az-project-summary b {
+            font-weight: 700 !important;
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 768px) {
+            .az-project-intro {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 24px;
+            }
+
+            .az-project-vertical-title {
+                position: static;
+            }
+
+            .az-project-vertical-title h1 {
+                writing-mode: horizontal-tb;
+                transform: none;
+                white-space: normal;
+                font-size: 26px;
             }
         }
 
-        .mv-amazonien-title h1 {
-            font-size: clamp(38px, 5.5vw, 68px);
-            font-weight: 700;
-            letter-spacing: -1.5px;
-            line-height: 1.05;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .mv-project-summary {
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 1.6;
-            color: #ffffff;
-            margin-bottom: 24px;
-        }
-
-        .mv-project-body {
-            font-size: 16px;
-            line-height: 1.85;
-            color: rgba(255, 255, 255, 0.75);
-            white-space: pre-line;
-        }
-        .mv-project-body em,
-        .mv-project-summary em,
-        .mv-project-body i,
-        .mv-project-summary i {
-            font-style: italic !important;
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .mv-project-body strong,
-        .mv-project-summary strong,
-        .mv-project-body b,
-        .mv-project-summary b {
-            font-weight: 700 !important;
-            color: #ffffff;
-        }
-
-        .mv-project-body p {
-            margin: 0 0 1.2em 0;
-        }
-
-        /* GALLERY AREA & FINGERPRINT UNLOCK */
-        .mv-gallery-area {
+        /* =========================================
+           GALLERY AREA & FINGERPRINT UNLOCK
+           ========================================= */
+        .az-gallery-area {
             position: relative;
             margin-top: 40px;
         }
@@ -109,7 +138,7 @@
             align-items: center;
             justify-content: center;
             gap: 16px;
-            padding: 50px 0 60px;
+            padding: 40px 0 50px;
             transition: opacity 0.5s ease;
         }
 
@@ -187,7 +216,7 @@
         }
 
         /* Blurred Preview */
-        .mv-gallery-preview {
+        .az-gallery-preview {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
@@ -197,12 +226,12 @@
         }
 
         @media (max-width: 800px) {
-            .mv-gallery-preview {
+            .az-gallery-preview {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        .mv-gallery-preview-item img {
+        .az-gallery-preview-item img {
             width: 100%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
@@ -210,32 +239,32 @@
         }
 
         /* Full Gallery */
-        .mv-artworks.mv-gallery-full {
+        .az-artworks.az-gallery-full {
             display: none;
             grid-template-columns: repeat(2, 1fr);
             gap: 40px;
         }
 
         @media (max-width: 768px) {
-            .mv-artworks.mv-gallery-full {
+            .az-artworks.az-gallery-full {
                 grid-template-columns: 1fr;
             }
         }
 
         /* Unlocked State */
-        .mv-gallery-area.is-unlocked .mv-gallery-preview {
+        .az-gallery-area.is-unlocked .az-gallery-preview {
             display: none;
         }
 
-        .mv-gallery-area.is-unlocked .az-gallery-scanner-wrap {
+        .az-gallery-area.is-unlocked .az-gallery-scanner-wrap {
             display: none;
         }
 
-        .mv-gallery-area.is-unlocked .mv-artworks.mv-gallery-full {
+        .az-gallery-area.is-unlocked .az-artworks.az-gallery-full {
             display: grid;
         }
 
-        .mv-artwork {
+        .az-artwork {
             display: flex;
             flex-direction: column;
             text-decoration: none;
@@ -243,31 +272,31 @@
             cursor: pointer;
         }
 
-        .mv-artwork-frame {
+        .az-artwork-frame {
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: #0d0d12;
             border-radius: 2px;
         }
 
-        .mv-artwork-frame img {
+        .az-artwork-frame img {
             width: 100%;
             display: block;
             object-fit: cover;
             transition: transform 0.6s ease;
         }
 
-        .mv-artwork:hover .mv-artwork-frame img {
+        .az-artwork:hover .az-artwork-frame img {
             transform: scale(1.03);
         }
 
-        .mv-gallery-navigation-bottom {
+        .az-gallery-navigation-bottom {
             grid-column: 1 / -1;
             text-align: center;
             padding: 40px 0 20px;
         }
 
-        .mv-gallery-navigation-bottom a {
+        .az-gallery-navigation-bottom a {
             color: rgba(255, 255, 255, 0.4);
             font-size: 11px;
             letter-spacing: 2px;
@@ -275,12 +304,14 @@
             text-transform: uppercase;
         }
 
-        .mv-gallery-navigation-bottom a:hover {
+        .az-gallery-navigation-bottom a:hover {
             color: #ffffff;
         }
 
-        /* FULLSCREEN VIEWER */
-        .mv-viewer {
+        /* =========================================
+           FULLSCREEN VIEWER
+           ========================================= */
+        .az-viewer {
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.94);
@@ -291,11 +322,11 @@
             justify-content: center;
         }
 
-        .mv-viewer.is-open {
+        .az-viewer.is-open {
             display: flex;
         }
 
-        .mv-viewer-center {
+        .az-viewer-center {
             max-width: 90vw;
             max-height: 85vh;
             display: flex;
@@ -303,23 +334,23 @@
             align-items: center;
         }
 
-        .mv-viewer-image {
+        .az-viewer-image {
             max-width: 90vw;
             max-height: 80vh;
             object-fit: contain;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
         }
 
-        .mv-viewer-caption {
+        .az-viewer-caption {
             color: rgba(255, 255, 255, 0.7);
             font-size: 14px;
             margin-top: 14px;
             text-align: center;
         }
 
-        .mv-viewer-close,
-        .mv-viewer-prev,
-        .mv-viewer-next {
+        .az-viewer-close,
+        .az-viewer-prev,
+        .az-viewer-next {
             position: absolute;
             background: transparent;
             border: none;
@@ -332,21 +363,21 @@
             padding: 16px;
         }
 
-        .mv-viewer-close:hover,
-        .mv-viewer-prev:hover,
-        .mv-viewer-next:hover {
+        .az-viewer-close:hover,
+        .az-viewer-prev:hover,
+        .az-viewer-next:hover {
             opacity: 1;
             transform: scale(1.1);
         }
 
-        .mv-viewer-close {
+        .az-viewer-close {
             top: 24px;
             right: 28px;
             font-size: 40px;
         }
 
-        .mv-viewer-prev { left: 20px; }
-        .mv-viewer-next { right: 20px; }
+        .az-viewer-prev { left: 20px; }
+        .az-viewer-next { right: 20px; }
     </style>
 </head>
 <body>
@@ -366,24 +397,24 @@
         </nav>
     </header>
 
-    <div class="mv-project-page">
+    <div class="az-project-page">
         <a href="work.html" class="az-back-btn" data-i18n="back_btn">&larr; BACK TO WORK</a>
 
-        <main class="mv-project-content">
-            <!-- AMAZONIEN INTRO -->
-            <section class="mv-project-intro mv-amazonien-intro">
-                <div class="mv-amazonien-title">
+        <main class="az-project-content">
+            <!-- PROJECT INTRO -->
+            <section class="az-project-intro">
+                <div class="az-project-vertical-title">
                     <h1 id="proj-title">Loading...</h1>
                 </div>
 
-                <div class="mv-amazonien-text">
-                    <div id="proj-summary" class="mv-project-summary"></div>
-                    <div id="proj-body" class="mv-project-body"></div>
+                <div class="az-project-text">
+                    <div id="proj-summary" class="az-project-summary"></div>
+                    <div id="proj-body" class="az-project-body"></div>
                 </div>
             </section>
 
             <!-- ARTWORK GALLERY WITH FINGERPRINT UNLOCK -->
-            <div class="mv-gallery-area" id="gallery-start">
+            <div class="az-gallery-area" id="gallery-start">
 
                 <div class="az-gallery-scanner-wrap" id="gallery-scanner">
                     <button class="az-fingerprint-btn" type="button" aria-label="Authenticate Fingerprint">
@@ -402,35 +433,32 @@
                 </div>
 
                 <!-- BLURRED PREVIEW -->
-                <div class="mv-gallery-preview" id="gallery-preview"></div>
+                <div class="az-gallery-preview" id="gallery-preview"></div>
 
                 <!-- FULL GALLERY -->
-                <section class="mv-artworks mv-gallery-full" id="mv-artworks"></section>
+                <section class="az-artworks az-gallery-full" id="az-artworks"></section>
             </div>
         </main>
     </div>
 
     <!-- FULLSCREEN VIEWER -->
-    <div class="mv-viewer" id="mv-viewer">
-        <button class="mv-viewer-close" type="button" aria-label="Close">&times;</button>
-        <button class="mv-viewer-prev" type="button" aria-label="Previous">&larr;</button>
-        <div class="mv-viewer-center">
-            <img class="mv-viewer-image" src="" alt="">
-            <div class="mv-viewer-caption"></div>
+    <div class="az-viewer" id="az-viewer">
+        <button class="az-viewer-close" type="button" aria-label="Close">&times;</button>
+        <button class="az-viewer-prev" type="button" aria-label="Previous">&larr;</button>
+        <div class="az-viewer-center">
+            <img class="az-viewer-image" src="" alt="">
+            <div class="az-viewer-caption"></div>
         </div>
-        <button class="mv-viewer-next" type="button" aria-label="Next">&rarr;</button>
+        <button class="az-viewer-next" type="button" aria-label="Next">&rarr;</button>
     </div>
 
     <footer class="az-footer">
         <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
-    <script src="i18n.js"></script>
-
     <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="i18n.js"></script>
-    
 
     <script>
         let projectData = null;
@@ -453,8 +481,7 @@
 
             document.title = `${title} — Azzurra Zingoni`;
             document.getElementById('proj-title').textContent = title;
-            
-            // Render text with markdown support (italics, bold, line breaks)
+
             const summaryEl = document.getElementById('proj-summary');
             if (summaryEl) {
                 summaryEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(summary) : summary;
@@ -473,36 +500,35 @@
 
         function buildGalleries(photos) {
             const previewContainer = document.getElementById('gallery-preview');
-            const fullContainer = document.getElementById('mv-artworks');
+            const fullContainer = document.getElementById('az-artworks');
             previewContainer.innerHTML = '';
             fullContainer.innerHTML = '';
 
-            // 1. Preview items (up to 4 blurred)[cite: 1]
+            // 1. Preview items (up to 4 blurred)
             photos.slice(0, 4).forEach(src => {
                 const item = document.createElement('div');
-                item.className = 'mv-gallery-preview-item';
+                item.className = 'az-gallery-preview-item';
                 item.innerHTML = `<img src="${cleanPath(src)}" alt="">`;
                 previewContainer.appendChild(item);
             });
 
-            // 2. Full artwork items[cite: 1]
+            // 2. Full artwork items
             photos.forEach(src => {
                 const path = cleanPath(src);
                 const a = document.createElement('a');
-                a.className = 'mv-artwork';
+                a.className = 'az-artwork';
                 a.href = path;
                 a.setAttribute('data-full', path);
                 a.innerHTML = `
-                    <div class="mv-artwork-frame">
+                    <div class="az-artwork-frame">
                         <img src="${path}" alt="">
                     </div>
                 `;
                 fullContainer.appendChild(a);
             });
 
-            // Bottom return link[cite: 1]
             const navBottom = document.createElement('div');
-            navBottom.className = 'mv-gallery-navigation mv-gallery-navigation-bottom';
+            navBottom.className = 'az-gallery-navigation-bottom';
             const lang = localStorage.getItem('az_lang') || 'en';
             navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
             fullContainer.appendChild(navBottom);
@@ -513,7 +539,7 @@
 
         function setupGalleryScanner() {
             const scannerWrap = document.getElementById('gallery-scanner');
-            const galleryArea = document.querySelector('.mv-gallery-area');
+            const galleryArea = document.querySelector('.az-gallery-area');
             const btn = scannerWrap.querySelector('.az-fingerprint-btn');
             let timer = null;
 
@@ -526,7 +552,7 @@
                 scannerWrap.classList.add('is-scanning');
                 timer = setTimeout(() => {
                     scannerWrap.classList.remove('is-scanning');
-                    galleryArea.classList.add('is-unlocked'); // Reveals full gallery
+                    galleryArea.classList.add('is-unlocked');
                 }, 1200);
             };
 
@@ -546,14 +572,14 @@
         }
 
         function setupViewer() {
-            artworks = Array.from(document.querySelectorAll('.mv-artwork'));
-            const viewer = document.getElementById('mv-viewer');
+            artworks = Array.from(document.querySelectorAll('.az-artwork'));
+            const viewer = document.getElementById('az-viewer');
             if (!artworks.length || !viewer) return;
 
-            const viewerImage = viewer.querySelector('.mv-viewer-image');
-            const closeBtn = viewer.querySelector('.mv-viewer-close');
-            const prevBtn = viewer.querySelector('.mv-viewer-prev');
-            const nextBtn = viewer.querySelector('.mv-viewer-next');
+            const viewerImage = viewer.querySelector('.az-viewer-image');
+            const closeBtn = viewer.querySelector('.az-viewer-close');
+            const prevBtn = viewer.querySelector('.az-viewer-prev');
+            const nextBtn = viewer.querySelector('.az-viewer-next');
 
             function showArtwork(index) {
                 if (index < 0) index = artworks.length - 1;
