@@ -6,14 +6,20 @@
     <title>Project — Azzurra Zingoni</title>
     <link rel="stylesheet" href="styles.css">
 
+    <!-- Clean Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
         body {
             background-color: #050507;
             color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         .az-docket-page {
@@ -28,7 +34,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 24px;
             margin-bottom: 48px;
         }
@@ -37,7 +43,7 @@
             color: rgba(255, 255, 255, 0.45);
             text-decoration: none;
             font-size: 11px;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             font-weight: 600;
             transition: color 0.3s ease;
@@ -56,97 +62,86 @@
         }
 
         /* =========================================
-           FORENSIC DOCKET HEADER
+           PROJECT HEADER
            ========================================= */
         .az-docket-header {
             display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 40px;
-            margin-bottom: 50px;
+            grid-template-columns: 70px 1fr;
+            gap: 36px;
+            margin-bottom: 44px;
             align-items: start;
         }
 
-        /* Vertical Classification Spine */
+        /* Vertical Tag */
         .az-vertical-spine {
             writing-mode: vertical-rl;
             transform: rotate(180deg);
             font-family: monospace;
-            font-size: 12px;
-            letter-spacing: 5px;
+            font-size: 11px;
+            letter-spacing: 4px;
             color: #00ffcc;
             text-transform: uppercase;
-            opacity: 0.8;
+            opacity: 0.85;
             white-space: nowrap;
-            padding-top: 10px;
+            padding-top: 6px;
         }
 
         .az-docket-title-block {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
+        /* Moderately Scaled Acronym Title */
         .az-title-acronym {
-            font-size: clamp(48px, 9vw, 110px);
-            font-weight: 900;
-            line-height: 0.88;
-            letter-spacing: -3px;
+            font-size: clamp(38px, 6vw, 76px);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -1.5px;
             text-transform: uppercase;
             color: #ffffff;
             margin: 0;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
         }
 
+        /* Subtitle / Expansion */
         .az-title-expansion {
-            font-size: clamp(14px, 1.8vw, 22px);
-            font-weight: 600;
-            letter-spacing: 3px;
+            font-size: clamp(13px, 1.4vw, 18px);
+            font-weight: 500;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.65);
-            max-width: 900px;
-            line-height: 1.35;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 860px;
+            line-height: 1.45;
             border-left: 2px solid #00ffcc;
-            padding-left: 18px;
+            padding-left: 16px;
         }
 
         /* =========================================
-           SPLIT DOSSIER GRID: SPECS LEFT / BODY RIGHT
+           CLEAN EDITORIAL GRID (NO BOXES / FRAMES)
            ========================================= */
         .az-dossier-grid {
             display: grid;
-            grid-template-columns: 310px 1fr;
-            gap: 70px;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 48px 0 60px;
+            padding: 44px 0 54px;
             margin-bottom: 70px;
         }
 
-        /* Technical Metadata Box (Dibond, Sizes) */
+        /* Left Side Specs: Clean, Frameless */
         .az-spec-hud {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 24px 22px;
-            position: relative;
-        }
-
-        .az-spec-hud::before {
-            content: "SPECS // EXH";
-            position: absolute;
-            top: -9px;
-            left: 16px;
-            background: #050507;
-            padding: 0 8px;
-            font-family: monospace;
-            font-size: 9px;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.4);
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .az-project-summary {
             font-size: 13.5px;
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 1px solid rgba(255, 255, 255, 0.18);
+            padding-left: 16px;
         }
 
         .az-project-summary p {
@@ -156,19 +151,20 @@
         .az-project-summary em,
         .az-project-summary i {
             font-style: italic;
-            color: #00ffcc;
+            color: #ffffff;
         }
 
-        /* Curatorial Story Body */
+        /* Right Side Curatorial Body */
         .az-project-body {
-            font-size: 15.5px;
-            line-height: 1.85;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.88);
             max-width: 720px;
         }
 
         .az-project-body p {
-            margin: 0 0 18px 0;
+            margin: 0 0 16px 0;
         }
 
         .az-project-body p:last-child {
@@ -177,7 +173,7 @@
 
         .az-project-body strong,
         .az-project-body b {
-            font-weight: 700;
+            font-weight: 600;
             color: #ffffff;
         }
 
@@ -188,7 +184,7 @@
         }
 
         /* =========================================
-           EVIDENCE GALLERY & FINGERPRINT SCAN
+           GALLERY & SCANNER
            ========================================= */
         .az-gallery-area {
             position: relative;
@@ -201,15 +197,15 @@
             align-items: center;
             justify-content: center;
             gap: 18px;
-            padding: 50px 0 70px;
+            padding: 40px 0 65px;
         }
 
         .az-fingerprint-btn {
             position: relative;
-            width: 76px;
-            height: 76px;
+            width: 74px;
+            height: 74px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -235,7 +231,7 @@
         .az-scan-instruction {
             font-size: 11px;
             letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.45);
             text-transform: uppercase;
             font-weight: 600;
             transition: color 0.3s ease;
@@ -273,7 +269,7 @@
 
         @keyframes scanAnim {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(76px); }
+            50% { transform: translateY(74px); }
             100% { transform: translateY(0px); }
         }
 
@@ -352,7 +348,7 @@
         }
 
         .az-artwork:hover .az-artwork-frame img {
-            transform: scale(1.04);
+            transform: scale(1.03);
         }
 
         .az-gallery-navigation-bottom {
@@ -441,8 +437,12 @@
 
             .az-dossier-grid {
                 grid-template-columns: 1fr;
-                gap: 36px;
-                padding: 32px 0 40px;
+                gap: 32px;
+                padding: 30px 0 36px;
+            }
+
+            .az-project-summary {
+                border-left: 2px solid rgba(255, 255, 255, 0.25);
             }
         }
     </style>
@@ -465,23 +465,23 @@
     </header>
 
     <div class="az-docket-page">
-        <!-- TOP DOCKET BAR -->
+        <!-- TOP NAV -->
         <div class="az-docket-nav">
             <a href="work.html" class="az-back-btn" data-i18n="back_btn">&larr; BACK TO WORK</a>
             <span class="az-docket-tag" id="docket-year">SERIES // 2026</span>
         </div>
 
         <main>
-            <!-- FORENSIC HEADER -->
+            <!-- REFINED HEADER -->
             <section class="az-docket-header">
-                <div class="az-vertical-spine">// EVIDENCE DOSSIER</div>
+                <div class="az-vertical-spine" id="proj-category">// PROJECT</div>
                 <div class="az-docket-title-block">
                     <h1 class="az-title-acronym" id="proj-acronym">AFIS</h1>
                     <div class="az-title-expansion" id="proj-expansion">AUTOMATED FINGERPRINTING OF IDIOTS SCROLLING</div>
                 </div>
             </section>
 
-            <!-- DOSSIER SPEC & BODY GRID -->
+            <!-- EDITORIAL GRID (SPECS LEFT / STORY RIGHT) -->
             <section class="az-dossier-grid">
                 <div class="az-spec-hud">
                     <div id="proj-summary" class="az-project-summary"></div>
@@ -505,7 +505,7 @@
                             <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
                         </svg>
                     </button>
-                    <span class="az-scan-instruction" id="gallery-scan-text">HOLD TO UNLOCK EVIDENCE</span>
+                    <span class="az-scan-instruction" id="gallery-scan-text">HOLD TO UNLOCK GALLERY</span>
                 </div>
 
                 <div class="az-gallery-preview" id="gallery-preview"></div>
@@ -514,7 +514,7 @@
         </main>
     </div>
 
-    <!-- LIGHTBOX -->
+    <!-- LIGHTBOX VIEWER -->
     <div class="az-viewer" id="az-viewer">
         <button class="az-viewer-close" type="button" aria-label="Close">&times;</button>
         <button class="az-viewer-prev" type="button" aria-label="Previous">&larr;</button>
@@ -578,7 +578,7 @@
             const summary = (lang === 'it' ? (projectData.summary_it || projectData.summary_en) : (projectData.summary_en || projectData.summary_it)) || projectData.summary || '';
             const body = (lang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
 
-            // Split title if it contains parentheses, e.g. "AFIS (AUTOMATED FINGERPRINTING...)"
+            // Split title if formatted as "ACRONYM (EXPANSION...)"
             let acronym = rawTitle;
             let expansion = '';
             const match = rawTitle.match(/^([^(]+)(?:\((.*)\))?$/);
@@ -598,6 +598,11 @@
                 expEl.style.display = 'none';
             }
 
+            const categoryEl = document.getElementById('proj-category');
+            if (categoryEl) {
+                categoryEl.textContent = lang === 'it' ? '// PROGETTO' : '// PROJECT';
+            }
+
             if (projectData.year) {
                 document.getElementById('docket-year').textContent = `SERIES // ${projectData.year}`;
             }
@@ -614,7 +619,7 @@
 
             const scanInstruction = document.getElementById('gallery-scan-text');
             if (scanInstruction) {
-                scanInstruction.textContent = lang === 'it' ? 'TIENI PREMUTO PER SBLOCCARE LE IMMAGINI' : 'HOLD TO UNLOCK EVIDENCE';
+                scanInstruction.textContent = lang === 'it' ? 'TIENI PREMUTO PER SBLOCCARE LA GALLERIA' : 'HOLD TO UNLOCK GALLERY';
             }
         }
 
