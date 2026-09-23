@@ -770,7 +770,7 @@ body {
 }
 
 /* ==========================================================================
-   ABOUT PAGE EDITORIAL LAYOUT
+   DOCKET HEADER (Shared between Project and About pages)
    ========================================================================== */
 
 .az-about-page {
@@ -780,36 +780,51 @@ body {
     box-sizing: border-box;
 }
 
-.az-about-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    padding-bottom: 24px;
-    margin-bottom: 50px;
+.az-project-header {
+    margin-bottom: 48px;
 }
 
-.az-about-tag {
+.az-project-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.az-project-category {
     font-family: monospace;
     font-size: 11px;
     letter-spacing: 2px;
     opacity: 0.6;
-    display: block;
-    margin-bottom: 12px;
-}
-
-.az-about-title {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: -0.03em;
-    font-weight: 300;
-    line-height: 1;
-    margin: 0;
+    color: inherit;
     text-transform: uppercase;
 }
 
-/* 2-Column Responsive Grid */
+.az-project-title {
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 24px 0;
+    text-transform: uppercase;
+}
+
+.az-project-docket-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+   ABOUT PAGE EDITORIAL GRID & FRAMING
+   ========================================================================== */
+
 .az-about-grid {
     display: grid;
     grid-template-columns: 380px 1fr;
-    gap: 70px;
+    gap: 60px;
     align-items: start;
+    margin-top: 40px;
 }
 
 /* Framed Portrait Box */
@@ -832,7 +847,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(10%) contrast(105%);
+    filter: grayscale(15%) contrast(102%);
     transition: filter 0.4s ease;
 }
 
@@ -845,7 +860,7 @@ body {
     position: absolute;
     width: 8px;
     height: 8px;
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.5);
     pointer-events: none;
 }
 .az-fc-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
@@ -863,39 +878,25 @@ body {
     opacity: 0.55;
 }
 
-/* Text & Markdown Body */
-.az-about-lead-marker {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    opacity: 0.5;
-    margin-bottom: 30px;
-}
-
-.az-record-line {
-    flex-grow: 1;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.15);
+/* Markdown Content Area */
+.az-about-text-col {
+    padding-top: 4px;
 }
 
 .az-about-markdown {
     font-size: 1.05rem;
-    line-height: 1.75;
+    line-height: 1.8;
     color: rgba(255, 255, 255, 0.88);
     font-weight: 300;
 }
 
 .az-about-markdown p {
-    margin-top: 0;
-    margin-bottom: 24px;
+    margin: 0 0 24px 0;
 }
 
 .az-about-markdown strong {
     font-weight: 600;
-    color: #fff;
+    color: #ffffff;
 }
 
 .az-about-markdown a {
@@ -904,13 +905,23 @@ body {
     text-underline-offset: 4px;
 }
 
+.az-about-markdown h2,
+.az-about-markdown h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin: 40px 0 16px 0;
+    color: #ffffff;
+}
+
+/* Footer Signature Marker */
 .az-about-footer-sig {
-    margin-top: 60px;
-    padding-top: 24px;
+    margin-top: 50px;
+    padding-top: 20px;
 }
 
 .az-sig-line {
-    width: 60px;
+    width: 50px;
     height: 1px;
     background: rgba(255, 255, 255, 0.3);
     margin-bottom: 12px;
@@ -923,8 +934,12 @@ body {
     opacity: 0.4;
 }
 
-/* Mobile Breakpoint */
+/* Responsive Breakpoints */
 @media (max-width: 900px) {
+    .az-about-page {
+        padding: 90px 20px 60px;
+    }
+
     .az-about-grid {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -933,11 +948,7 @@ body {
     .az-about-media-col {
         position: relative;
         top: 0;
-        max-width: 340px;
+        max-width: 320px;
         margin: 0 auto;
-    }
-
-    .az-about-page {
-        padding: 90px 20px 60px;
     }
 }
