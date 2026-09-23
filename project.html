@@ -602,17 +602,14 @@
         let currentIndex = 0;
 
         // Extracts path from string, object, or CMS upload wrapper and resolves it safely
-       function cleanPath(item) {
+     function cleanPath(item) {
             if (!item) return '';
 
             let raw = '';
             if (typeof item === 'string') {
                 raw = item;
             } else if (typeof item === 'object') {
-                // Check all possible keys Sveltia CMS might write
                 raw = item.image || item.photo || item.url || item.src || item.file || '';
-                
-                // If it's a nested object like { fields: { image: "..." } }
                 if (!raw && item.fields) {
                     raw = item.fields.image || item.fields.photo || '';
                 }
@@ -625,9 +622,15 @@
                 return raw;
             }
 
-            // Remove any leading slashes or ./
+            // Remove any leading slashes or relative ./
             let cleaned = raw.replace(/^(\.\/|\/)+/, '');
 
+            // Ensure the uploads directory prefix is present
+            if (!cleaned.startsWith('assets/uploads/') && !cleaned.includes('/')) {
+                cleaned = 'assets/uploads/' + cleaned;
+            }
+
+            // Encode URI components safely (handling spaces, special chars)
             try {
                 cleaned = decodeURI(cleaned)
                     .split('/')
@@ -637,7 +640,7 @@
                 cleaned = encodeURI(cleaned);
             }
 
-            return cleaned;
+            return '/' + cleaned;
         }
 
         function buildGalleries(photos) {
