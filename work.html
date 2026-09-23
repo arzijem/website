@@ -230,7 +230,8 @@
     </main>
 
     <footer class="az-footer">
-        <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
+        <span>© <span class="az-year-green">2026</span> AZZURRA ZINGONI</span>
+        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
     </footer>
 
     <script src="i18n.js"></script>
@@ -402,6 +403,17 @@
         });
 
         document.addEventListener('DOMContentLoaded', loadProjects);
+
+        function updateWorkLabels() {
+        const lang = localStorage.getItem('az_lang') || 'en';
+        const titleEl = document.getElementById('work-title');
+        const catEl = document.getElementById('work-category');
+        if (titleEl) titleEl.textContent = lang === 'it' ? 'PROGETTI' : 'WORK';
+        if (catEl) catEl.textContent = lang === 'it' ? '// PROGETTI' : '// WORK';
+    }
+
+    window.addEventListener('languageChanged', updateWorkLabels);
+    document.addEventListener('DOMContentLoaded', updateWorkLabels);
     </script>
 </body>
 </html>
