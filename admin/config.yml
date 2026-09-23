@@ -43,6 +43,20 @@ collections:
           - { label: "About Text (English)", name: "text_en", widget: "markdown" }
           - { label: "About Text (Italian)", name: "text_it", widget: "markdown" }
 
+  - name: "contact"
+    label: "Contact Page"
+    files:
+      - label: "Contact Information"
+        name: "contact"
+        file: "content/contact.json"
+        fields:
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Phone Number", name: "phone", widget: "string", required: false }
+          - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
+          - { label: "City / Studio Location", name: "location", widget: "string", default: "MILAN, ITALY" }
+          - { label: "Note / Availability (English)", name: "note_en", widget: "string", required: false }
+          - { label: "Note / Availability (Italian)", name: "note_it", widget: "string", required: false }
+
   - name: "settings"
     label: "Site Translations"
     files:
@@ -66,15 +80,3 @@ collections:
           - { label: "Project Back Button (Italian)", name: "back_btn_it", widget: "string", default: "← TORNA AI PROGETTI" }
           - { label: "Footer (English)", name: "footer_text_en", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
           - { label: "Footer (Italian)", name: "footer_text_it", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
-
-- name: "contact"
-    label: "Contact Page"
-    files:
-      - label: "Contact Details"
-        name: "contact"
-        file: "content/contact.json"
-        fields:
-          - { label: "Email Address", name: "email", widget: "string" }
-          - { label: "Phone Number", name: "phone", widget: "string", required: false }
-          - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
-          - { label: "City / Studio Location", name: "location", widget: "string", default: "MILAN, ITALY" }
