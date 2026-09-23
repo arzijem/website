@@ -8,54 +8,130 @@
 </head>
 <body>
 
-    <!-- Standard Site Navigation -->
-    <header class="site-header">
-        <a href="index.html" class="logo">AZZURRA ZINGONI</a>
-        <nav class="nav-links">
+    <!-- Exact Top Bar Matching styles.css -->
+    <header class="az-topbar">
+        <a href="index.html" class="az-brand">AZZURRA ZINGONI</a>
+        <nav class="az-menu">
             <a href="index.html" data-i18n="nav_home">HOME</a>
             <a href="work.html" data-i18n="nav_work">WORK</a>
             <a href="about.html" class="active" data-i18n="nav_about">ABOUT</a>
             <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
-            <button id="lang-switch" class="lang-toggle" type="button">IT</button>
+            <div class="az-lang-switch">
+                <button type="button" class="az-lang-btn is-active" id="lang-btn-en">EN</button>
+                <span class="az-lang-divider">/</span>
+                <button type="button" class="az-lang-btn" id="lang-btn-it">IT</button>
+            </div>
         </nav>
+        <button class="az-menu-button" aria-label="Toggle menu" type="button">
+            <span></span>
+            <span></span>
+        </button>
     </header>
 
-    <!-- Main Container -->
-    <main class="page-container">
-        <!-- Project-Style Header / Docket -->
-        <section class="project-header">
-            <div class="project-meta-top">
-                <span id="about-category" class="project-category">// PROFILE</span>
-            </div>
-            <h1 id="about-title" class="project-title">ABOUT</h1>
-            <div class="docket-divider"></div>
-        </section>
+    <!-- Mobile Drawer Menu -->
+    <aside class="az-mobile-menu">
+        <nav class="az-mobile-links">
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="about.html" data-i18n="nav_about">ABOUT</a>
+            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+        </nav>
+        <div class="az-mobile-languages">
+            <span id="mobile-lang-en">EN</span>
+            <span>/</span>
+            <span id="mobile-lang-it">IT</span>
+        </div>
+    </aside>
 
-        <!-- Content Area: Image + Text -->
-        <section class="about-content-wrap">
-            <div class="about-image-col">
-                <div class="about-image-frame">
+    <!-- Main About Page Docket -->
+    <main class="az-about-page">
+        <header class="az-project-header">
+            <div class="az-project-meta-top">
+                <span id="about-category" class="az-project-category">// PROFILE</span>
+            </div>
+            <h1 id="about-title" class="az-project-title">ABOUT</h1>
+            <div class="az-project-docket-line"></div>
+        </header>
+
+        <section class="az-about-grid">
+            <!-- Portrait Column -->
+            <aside class="az-about-media-col">
+                <div class="az-about-frame">
                     <img id="about-img" src="" alt="Azzurra Zingoni" style="display:none;" />
+                    <div class="az-frame-corner az-fc-tl"></div>
+                    <div class="az-frame-corner az-fc-tr"></div>
+                    <div class="az-frame-corner az-fc-bl"></div>
+                    <div class="az-frame-corner az-fc-br"></div>
                 </div>
-            </div>
+                <div class="az-about-meta">
+                    <span>IDENTITY //</span>
+                    <span>AZZURRA ZINGONI</span>
+                </div>
+            </aside>
 
-            <div class="about-text-col">
-                <div id="about-body" class="about-markdown-body"></div>
-            </div>
+            <!-- Biography Column -->
+            <article class="az-about-text-col">
+                <div id="about-body" class="az-about-markdown"></div>
+
+                <div class="az-about-footer-sig">
+                    <div class="az-sig-line"></div>
+                    <span class="az-sig-date">PORTFOLIO ARCHIVE // 2026</span>
+                </div>
+            </article>
         </section>
     </main>
 
-    <!-- Site Footer -->
-    <footer class="site-footer">
+    <!-- Global Footer -->
+    <footer class="az-footer">
         <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="i18n.js"></script>
+
     <script>
         let aboutData = null;
 
+        // Interactive Fingerprint Click Stamp (Matches .az-fingerprint CSS exactly)
+        function initFingerprintStamps() {
+            const svgMarkup = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 1a10 10 0 0 0-10 10c0 3.5 1.5 6.5 4 8.5"/>
+                    <path d="M12 5a6 6 0 0 0-6 6c0 2 1 4 2.5 5.5"/>
+                    <path d="M12 9a2 2 0 0 0-2 2c0 1 .5 2 1.5 2.5"/>
+                    <path d="M12 13a2 2 0 0 1 2-2 2 2 0 0 1 2 2c0 2-1.5 4-3 5.5"/>
+                    <path d="M16 7a6 6 0 0 1 2 4c0 3-1.5 5.5-3.5 7"/>
+                    <path d="M20 11c0 4.5-2.5 8-5.5 10"/>
+                </svg>
+            `;
+
+            window.addEventListener('click', (e) => {
+                if (e.target.closest('a, button, input, textarea')) return;
+
+                const stamp = document.createElement('div');
+                stamp.className = 'az-fingerprint';
+                stamp.innerHTML = svgMarkup;
+                stamp.style.left = `${e.clientX}px`;
+                stamp.style.top = `${e.clientY}px`;
+
+                document.body.appendChild(stamp);
+
+                setTimeout(() => {
+                    stamp.remove();
+                }, 2000);
+            });
+        }
+
+        // Mobile Menu Toggle
+        const menuBtn = document.querySelector('.az-menu-button');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                document.body.classList.toggle('az-menu-open');
+            });
+        }
+
+        // Dynamic CMS Data Render
         function renderAbout() {
             if (!aboutData) return;
             const lang = localStorage.getItem('az_lang') || 'en';
@@ -106,7 +182,10 @@
         }
 
         window.addEventListener('languageChanged', renderAbout);
-        document.addEventListener('DOMContentLoaded', loadAbout);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAbout();
+            initFingerprintStamps();
+        });
     </script>
 </body>
 </html>
