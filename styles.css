@@ -452,19 +452,27 @@ body {
    DOCKET HEADER (Shared between Project and About)
 ================================================== */
 
+/* ==================================================
+   ABOUT PAGE CONTAINER SPACING (TIGHTER TO TOP)
+================================================== */
+
 .az-about-page {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 120px 32px 80px;
+    padding: 40px 32px 80px; /* Reduced from 120px to sit close to header */
     box-sizing: border-box;
+}
 
+/* ==================================================
+   PROJECT & ABOUT DOCKET BANNER
+================================================== */
 
 .az-docket-banner {
     position: relative;
     width: 100%;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    padding: 38px 0;
+    margin-top: 10px; /* Minimal space below top bar */
+    margin-bottom: 40px;
+    padding: 34px 0;
     
     display: flex;
     align-items: center;
@@ -478,11 +486,11 @@ body {
 /* Vertical Rotated Green Badge on the Left */
 .az-docket-badge {
     position: absolute;
-    left: 0;
+    left: 4px;
     top: 50%;
     transform: translateY(-50%) rotate(-90deg);
     transform-origin: center center;
-    width: 100px;
+    width: 90px;
     text-align: center;
     pointer-events: none;
 }
@@ -492,14 +500,14 @@ body {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 3px;
-    color: #00ffcc; /* Bright technical cyan/green accent */
+    color: #00ffcc;
     text-transform: uppercase;
     white-space: nowrap;
 }
 
-/* Main Heading Container with offset for the vertical badge */
+/* Main Heading Container with more breathing room from badge */
 .az-docket-title-wrap {
-    padding-left: 72px; /* Clears space for the rotated badge */
+    padding-left: 95px; /* Increased so text is not too close to the green badge */
     width: 100%;
 }
 
@@ -512,6 +520,38 @@ body {
     line-height: 0.95;
     color: #ffffff;
     text-transform: uppercase;
+}
+
+/* Mobile adjustments */
+@media (max-width: 700px) {
+    .az-about-page {
+        padding: 24px 20px 60px;
+    }
+
+    .az-docket-banner {
+        padding: 24px 0;
+        margin-top: 5px;
+        margin-bottom: 30px;
+    }
+
+    .az-docket-title-wrap {
+        padding-left: 72px; /* Sufficient space on small screens */
+    }
+
+    .az-docket-badge {
+        left: -4px;
+        width: 70px;
+    }
+
+    .az-docket-badge span {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .az-docket-heading {
+        font-size: clamp(28px, 8vw, 44px);
+        letter-spacing: -0.8px;
+    }
 }
 
 /* Mobile adjustments */
