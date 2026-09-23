@@ -64,13 +64,16 @@
 
 <!-- HERO -->
 <main class="az-hero" id="hero">
-    <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
-        <source src="hero-video.mp4" type="video/mp4">
-    </video>
+    <!-- Media container: JS will insert either <video> or <img> depending on what is uploaded in CMS -->
+    <div id="az-hero-media-wrap">
+        <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
+            <source src="hero-video.mp4" type="video/mp4">
+        </video>
+    </div>
     <div class="az-hero-overlay"></div>
     <div class="az-hero-text">
-        <h1>TRACES OF THE UNSEEN</h1>
-        <p>AZZURRA ZINGONI</p>
+        <h1 id="hero-title">TRACES OF THE UNSEEN</h1>
+        <p id="hero-subtitle">AZZURRA ZINGONI</p>
     </div>
 </main>
 
