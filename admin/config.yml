@@ -34,14 +34,14 @@ collections:
       - { label: "Short Summary (Italian)", name: "summary_it", widget: "string", required: false }
       - { label: "Full Project Story (English)", name: "body_en", widget: "markdown", required: false }
       - { label: "Full Project Story (Italian)", name: "body_it", widget: "markdown", required: false }
-      - label: "Gallery Pictures"
+      - label: "Gallery Media (Images & Videos)"
         name: "gallery"
         widget: "list"
         required: false
         fields:
-          - label: "Photo"
+          - label: "Media File (Image or MP4/WebM Video)"
             name: "image"
-            widget: "image"
+            widget: "file"
 
   - name: "settings"
     label: "Site Translations"
