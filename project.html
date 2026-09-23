@@ -597,21 +597,26 @@
     </script>
 
     <script>
-        let projectData = null;
+       let projectData = null;
         let artworks = [];
         let currentIndex = 0;
 
-        // Extracts path from string, object, or CMS upload wrapper and resolves it safely
-     function cleanPath(item) {
+        function isVideo(path) {
+            if (!path || typeof path !== 'string') return false;
+            const clean = path.split('?')[0].split('#')[0].toLowerCase();
+            return clean.endsWith('.mp4') || clean.endsWith('.webm') || clean.endsWith('.mov') || clean.endsWith('.ogg');
+        }
+
+        function cleanPath(item) {
             if (!item) return '';
 
             let raw = '';
             if (typeof item === 'string') {
                 raw = item;
             } else if (typeof item === 'object') {
-                raw = item.image || item.photo || item.url || item.src || item.file || '';
+                raw = item.image || item.file || item.video || item.photo || item.url || item.src || '';
                 if (!raw && item.fields) {
-                    raw = item.fields.image || item.fields.photo || '';
+                    raw = item.fields.image || item.fields.file || item.fields.video || '';
                 }
             }
 
@@ -622,15 +627,12 @@
                 return raw;
             }
 
-            // Remove any leading slashes or relative ./
             let cleaned = raw.replace(/^(\.\/|\/)+/, '');
 
-            // Ensure the uploads directory prefix is present
             if (!cleaned.startsWith('assets/uploads/') && !cleaned.includes('/')) {
                 cleaned = 'assets/uploads/' + cleaned;
             }
 
-            // Encode URI components safely (handling spaces, special chars)
             try {
                 cleaned = decodeURI(cleaned)
                     .split('/')
@@ -643,69 +645,6 @@
             return '/' + cleaned;
         }
 
-        function buildGalleries(photos) {
-            console.log("Raw gallery items:", photos);
-
-            const gallerySection = document.getElementById('gallery-start');
-            const previewContainer = document.getElementById('gallery-preview');
-            const fullContainer = document.getElementById('az-artworks');
-            
-            previewContainer.innerHTML = '';
-            fullContainer.innerHTML = '';
-
-            // Normalize photos into a clean flat array
-            let rawList = [];
-            if (Array.isArray(photos)) {
-                rawList = photos.flat();
-            } else if (photos && typeof photos === 'object') {
-                rawList = Object.values(photos);
-            }
-
-            // Resolve paths and filter out any empty or broken values
-            const validPhotos = rawList
-                .map(item => cleanPath(item))
-                .filter(url => url && url.length > 0);
-
-            console.log("Successfully resolved photo list:", validPhotos);
-
-            if (validPhotos.length === 0) {
-                if (gallerySection) gallerySection.style.display = 'none';
-                return;
-            }
-            if (gallerySection) gallerySection.style.display = 'block';
-
-            // Preview items (up to 4)
-            validPhotos.slice(0, 4).forEach(src => {
-                const item = document.createElement('div');
-                item.className = 'az-gallery-preview-item';
-                item.innerHTML = `<img src="${src}" alt="Preview">`;
-                previewContainer.appendChild(item);
-            });
-
-            // Full gallery items
-            validPhotos.forEach((src, idx) => {
-                const a = document.createElement('a');
-                a.className = 'az-artwork';
-                a.href = src;
-                a.setAttribute('data-full', src);
-                a.innerHTML = `
-                    <div class="az-artwork-frame">
-                        <img src="${src}" alt="Artwork ${idx + 1}">
-                    </div>
-                `;
-                fullContainer.appendChild(a);
-            });
-
-            const navBottom = document.createElement('div');
-            navBottom.className = 'az-gallery-navigation-bottom';
-            const lang = localStorage.getItem('az_lang') || 'en';
-            navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
-            fullContainer.appendChild(navBottom);
-
-            setupGalleryScanner();
-            setupViewer();
-        }
-
         function renderContent() {
             if (!projectData) return;
 
@@ -714,7 +653,6 @@
             const summary = (lang === 'it' ? (projectData.summary_it || projectData.summary_en) : (projectData.summary_en || projectData.summary_it)) || projectData.summary || '';
             const body = (lang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
 
-            // Split title if formatted as "ACRONYM (EXPANSION...)"
             let acronym = rawTitle;
             let expansion = '';
             const match = rawTitle.match(/^([^(]+)(?:\((.*)\))?$/);
@@ -743,12 +681,18 @@
                 document.getElementById('docket-year').textContent = `SERIES // ${projectData.year}`;
             }
 
-            // Render Anchor Cover Picture
+            // Cover Media (handles both video and image cover)
             const coverWrap = document.getElementById('hero-cover-wrap');
             if (coverWrap) {
                 const coverPath = cleanPath(projectData.cover);
                 if (coverPath) {
-                    coverWrap.innerHTML = `<img src="${coverPath}" alt="${acronym}">`;
+                    if (isVideo(coverPath)) {
+                        coverWrap.innerHTML = `
+                            <video src="${coverPath}" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+                        `;
+                    } else {
+                        coverWrap.innerHTML = `<img src="${coverPath}" alt="${acronym}">`;
+                    }
                     coverWrap.style.display = 'flex';
                 } else {
                     coverWrap.style.display = 'none';
@@ -779,35 +723,57 @@
             previewContainer.innerHTML = '';
             fullContainer.innerHTML = '';
 
-            const validPhotos = (Array.isArray(photos) ? photos : [])
-                .map(item => cleanPath(item))
-                .filter(url => url.length > 0);
+            let rawList = [];
+            if (Array.isArray(photos)) {
+                rawList = photos.flat();
+            } else if (photos && typeof photos === 'object') {
+                rawList = Object.values(photos);
+            }
 
-            if (validPhotos.length === 0) {
+            const validMedia = rawList
+                .map(item => cleanPath(item))
+                .filter(url => url && url.length > 0);
+
+            if (validMedia.length === 0) {
                 if (gallerySection) gallerySection.style.display = 'none';
                 return;
             }
             if (gallerySection) gallerySection.style.display = 'block';
 
             // Preview items (up to 4)
-            validPhotos.slice(0, 4).forEach(src => {
+            validMedia.slice(0, 4).forEach(src => {
                 const item = document.createElement('div');
                 item.className = 'az-gallery-preview-item';
-                item.innerHTML = `<img src="${src}" alt="Preview">`;
+                if (isVideo(src)) {
+                    item.innerHTML = `<video src="${src}" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover;"></video>`;
+                } else {
+                    item.innerHTML = `<img src="${src}" alt="Preview">`;
+                }
                 previewContainer.appendChild(item);
             });
 
             // Full gallery items
-            validPhotos.forEach(src => {
+            validMedia.forEach((src, idx) => {
                 const a = document.createElement('a');
                 a.className = 'az-artwork';
                 a.href = src;
                 a.setAttribute('data-full', src);
-                a.innerHTML = `
-                    <div class="az-artwork-frame">
-                        <img src="${src}" alt="Artwork">
-                    </div>
-                `;
+                a.setAttribute('data-type', isVideo(src) ? 'video' : 'image');
+
+                if (isVideo(src)) {
+                    a.innerHTML = `
+                        <div class="az-artwork-frame" style="position:relative;">
+                            <video src="${src}" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:block;"></video>
+                            <span style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:4px 8px; font-size:10px; letter-spacing:1px; border-radius:2px; font-family:monospace; color:#00ffcc;">VIDEO</span>
+                        </div>
+                    `;
+                } else {
+                    a.innerHTML = `
+                        <div class="az-artwork-frame">
+                            <img src="${src}" alt="Artwork ${idx + 1}">
+                        </div>
+                    `;
+                }
                 fullContainer.appendChild(a);
             });
 
@@ -858,9 +824,9 @@
         function setupViewer() {
             artworks = Array.from(document.querySelectorAll('.az-artwork'));
             const viewer = document.getElementById('az-viewer');
-            if (!artworks.length || !viewer) return;
+            const center = viewer ? viewer.querySelector('.az-viewer-center') : null;
+            if (!artworks.length || !viewer || !center) return;
 
-            const viewerImage = viewer.querySelector('.az-viewer-image');
             const closeBtn = viewer.querySelector('.az-viewer-close');
             const prevBtn = viewer.querySelector('.az-viewer-prev');
             const nextBtn = viewer.querySelector('.az-viewer-next');
@@ -870,13 +836,34 @@
                 if (index >= artworks.length) index = 0;
                 currentIndex = index;
 
-                viewerImage.src = artworks[currentIndex].getAttribute('data-full');
+                const item = artworks[currentIndex];
+                const src = item.getAttribute('data-full');
+                const isVid = item.getAttribute('data-type') === 'video' || isVideo(src);
+
+                center.innerHTML = '';
+                if (isVid) {
+                    const video = document.createElement('video');
+                    video.src = src;
+                    video.controls = true;
+                    video.autoplay = true;
+                    video.playsInline = true;
+                    video.style.maxWidth = '90vw';
+                    video.style.maxHeight = '80vh';
+                    center.appendChild(video);
+                } else {
+                    const img = document.createElement('img');
+                    img.className = 'az-viewer-image';
+                    img.src = src;
+                    center.appendChild(img);
+                }
+
                 viewer.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
             }
 
             function closeViewer() {
                 viewer.classList.remove('is-open');
+                center.innerHTML = ''; // Stops any audio/video playing
                 document.body.style.overflow = '';
             }
 
@@ -919,12 +906,12 @@
 
                 renderContent();
 
-                let additionalPhotos = [];
+                let additionalMedia = [];
                 if (Array.isArray(projectData.gallery)) {
-                    additionalPhotos = projectData.gallery;
+                    additionalMedia = projectData.gallery;
                 }
 
-                buildGalleries(additionalPhotos);
+                buildGalleries(additionalMedia);
 
             } catch (err) {
                 console.error(err);
