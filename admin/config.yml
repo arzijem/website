@@ -66,3 +66,14 @@ collections:
           - { label: "Project Back Button (Italian)", name: "back_btn_it", widget: "string", default: "← TORNA AI PROGETTI" }
           - { label: "Footer (English)", name: "footer_text_en", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
           - { label: "Footer (Italian)", name: "footer_text_it", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
+
+- name: "about"
+    label: "About Page"
+    files:
+      - label: "About Content"
+        name: "about"
+        file: "content/about.json"
+        fields:
+          - { label: "Profile Picture", name: "photo", widget: "image", required: false }
+          - { label: "About Text (English)", name: "text_en", widget: "markdown" }
+          - { label: "About Text (Italian)", name: "text_it", widget: "markdown" }
