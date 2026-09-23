@@ -45,7 +45,7 @@
 
     <!-- Main About Page -->
     <main class="az-about-page">
-        <!-- Exact Project-Style Docket Header -->
+        <!-- Docket Header with Rotated Green Badge -->
         <header class="az-docket-banner">
             <div class="az-docket-badge">
                 <span id="about-category">// PROFILE</span>
@@ -78,15 +78,16 @@
 
                 <div class="az-about-footer-sig">
                     <div class="az-sig-line"></div>
-                    <span class="az-sig-date">//PORTFOLIO ARCHIVE</span>
+                    <span class="az-sig-date">PORTFOLIO ARCHIVE // 2026</span>
                 </div>
             </article>
         </section>
     </main>
 
-    <!-- Global Footer -->
+    <!-- Original Two-Sided Footer Structure -->
     <footer class="az-footer">
         <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
+        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
     </footer>
 
     <!-- Scripts -->
@@ -173,7 +174,6 @@
             }
         }
 
-        // Fetch Data from content/about.json
         async function loadAbout() {
             try {
                 const res = await fetch('content/about.json');
