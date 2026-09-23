@@ -6,50 +6,74 @@
     <title>About — Azzurra Zingoni</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="az-body">
 
-    <!-- Main Navigation / Header (Keep your site navigation here) -->
+    <!-- Global Navigation -->
+    <header class="az-nav-header">
+        <div class="az-nav-inner">
+            <a href="index.html" class="az-logo">AZZURRA ZINGONI</a>
+            <nav class="az-nav-menu">
+                <a href="index.html" data-i18n="nav_home">HOME</a>
+                <a href="work.html" data-i18n="nav_work">WORK</a>
+                <a href="about.html" class="active" data-i18n="nav_about">ABOUT</a>
+                <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+                <button id="lang-switch" class="az-lang-toggle" type="button">IT</button>
+            </nav>
+        </div>
+    </header>
 
-   <main class="az-about-page">
-    <div class="az-about-header">
-        <span class="az-about-tag">// PROFILE // 01</span>
-        <h1 id="about-title" class="az-about-title">ABOUT</h1>
-    </div>
-
-    <div class="az-about-grid">
-        <!-- Portrait Column -->
-        <aside class="az-about-media-col">
-            <div class="az-about-frame">
-                <img id="about-img" src="" alt="Portrait" style="display:none;" />
-                <div class="az-frame-corner az-fc-tl"></div>
-                <div class="az-frame-corner az-fc-tr"></div>
-                <div class="az-frame-corner az-fc-bl"></div>
-                <div class="az-frame-corner az-fc-br"></div>
+    <!-- Main About Page Docket -->
+    <main class="az-about-page">
+        <!-- Header Matching Project Page Docket -->
+        <header class="az-project-header">
+            <div class="az-project-meta-top">
+                <span id="about-category" class="az-project-category">// PROFILE</span>
             </div>
-            <div class="az-about-meta">
-                <span class="az-meta-label">IDENTITY //</span>
-                <span class="az-meta-val">AZZURRA ZINGONI</span>
-            </div>
-        </aside>
 
-        <!-- Biography Column -->
-        <article class="az-about-text-col">
-            <div class="az-about-lead-marker">
-                <span>FILE RECORD: STATEMENT</span>
-                <span class="az-record-line"></span>
-            </div>
-            
-            <div id="about-body" class="az-about-markdown"></div>
+            <h1 id="about-title" class="az-project-title">
+                <span class="az-proj-acronym">ABOUT</span>
+            </h1>
 
-            <div class="az-about-footer-sig">
-                <div class="az-sig-line"></div>
-                <span class="az-sig-date">PORTFOLIO ARCHIVE // 2026</span>
-            </div>
-        </article>
-    </div>
-</main>
+            <div class="az-project-docket-line"></div>
+        </header>
 
-    <!-- Markdown Parser & Site Language Engine -->
+        <!-- Main Content Grid -->
+        <section class="az-about-grid">
+            <!-- Portrait / Media Column -->
+            <aside class="az-about-media-col">
+                <div class="az-about-frame">
+                    <img id="about-img" src="" alt="Azzurra Zingoni" style="display:none;" />
+                    <div class="az-frame-corner az-fc-tl"></div>
+                    <div class="az-frame-corner az-fc-tr"></div>
+                    <div class="az-frame-corner az-fc-bl"></div>
+                    <div class="az-frame-corner az-fc-br"></div>
+                </div>
+                <div class="az-about-meta">
+                    <span class="az-meta-label">IDENTITY //</span>
+                    <span class="az-meta-val">AZZURRA ZINGONI</span>
+                </div>
+            </aside>
+
+            <!-- Biography Column -->
+            <article class="az-about-text-col">
+                <div id="about-body" class="az-about-markdown"></div>
+
+                <div class="az-about-footer-sig">
+                    <div class="az-sig-line"></div>
+                    <span class="az-sig-date">PORTFOLIO ARCHIVE</span>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="az-footer">
+        <div class="az-footer-inner">
+            <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
+        </div>
+    </footer>
+
+    <!-- Markdown Parser & Internationalization -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="i18n.js"></script>
 
@@ -60,10 +84,15 @@
             if (!aboutData) return;
             const lang = localStorage.getItem('az_lang') || 'en';
 
-            // Set Title to ABOUT (or CHI SONO if in Italian)
-            const titleEl = document.getElementById('about-title');
-            if (titleEl) {
-                titleEl.textContent = lang === 'it' ? 'CHI SONO' : 'ABOUT';
+            // Synchronize Docket Title and Category
+            const titleSpan = document.querySelector('#about-title .az-proj-acronym');
+            if (titleSpan) {
+                titleSpan.textContent = lang === 'it' ? 'CHI SONO' : 'ABOUT';
+            }
+
+            const catEl = document.getElementById('about-category');
+            if (catEl) {
+                catEl.textContent = lang === 'it' ? '// PROFILO' : '// PROFILE';
             }
 
             // Render Markdown text
@@ -76,7 +105,7 @@
                 bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(textContent) : textContent;
             }
 
-            // Render Image with safe pathing
+            // Render portrait image with safe path resolution
             const imgEl = document.getElementById('about-img');
             if (imgEl && aboutData.photo) {
                 let photoSrc = String(aboutData.photo).trim();
@@ -95,7 +124,7 @@
         async function loadAbout() {
             try {
                 const res = await fetch('content/about.json');
-                if (!res.ok) throw new Error('Could not load about.json');
+                if (!res.ok) throw new Error('Could not load content/about.json');
                 aboutData = await res.json();
                 renderAbout();
             } catch (err) {
