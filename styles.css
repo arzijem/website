@@ -768,3 +768,176 @@ body {
         transform: translate(-50%, -50%) scale(1.04);
     }
 }
+
+/* ==========================================================================
+   ABOUT PAGE EDITORIAL LAYOUT
+   ========================================================================== */
+
+.az-about-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 120px 32px 80px;
+    box-sizing: border-box;
+}
+
+.az-about-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 24px;
+    margin-bottom: 50px;
+}
+
+.az-about-tag {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.az-about-title {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: -0.03em;
+    font-weight: 300;
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 2-Column Responsive Grid */
+.az-about-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 70px;
+    align-items: start;
+}
+
+/* Framed Portrait Box */
+.az-about-media-col {
+    position: sticky;
+    top: 100px;
+}
+
+.az-about-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+}
+
+.az-about-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(10%) contrast(105%);
+    transition: filter 0.4s ease;
+}
+
+.az-about-frame:hover img {
+    filter: grayscale(0%) contrast(100%);
+}
+
+/* Technical Corner Brackets */
+.az-frame-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+}
+.az-fc-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+.az-fc-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+.az-fc-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+.az-fc-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.az-about-meta {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    opacity: 0.55;
+}
+
+/* Text & Markdown Body */
+.az-about-lead-marker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: 0.5;
+    margin-bottom: 30px;
+}
+
+.az-record-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.az-about-markdown {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 300;
+}
+
+.az-about-markdown p {
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.az-about-markdown strong {
+    font-weight: 600;
+    color: #fff;
+}
+
+.az-about-markdown a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.az-about-footer-sig {
+    margin-top: 60px;
+    padding-top: 24px;
+}
+
+.az-sig-line {
+    width: 60px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-bottom: 12px;
+}
+
+.az-sig-date {
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.4;
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 900px) {
+    .az-about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .az-about-media-col {
+        position: relative;
+        top: 0;
+        max-width: 340px;
+        margin: 0 auto;
+    }
+
+    .az-about-page {
+        padding: 90px 20px 60px;
+    }
+}
