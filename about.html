@@ -10,18 +10,44 @@
 
     <!-- Main Navigation / Header (Keep your site navigation here) -->
 
-    <main class="az-about-container">
-        <!-- Profile Picture Container -->
-        <div class="az-about-image-wrap">
-            <img id="about-img" src="" alt="About" style="display:none;" />
-        </div>
+   <main class="az-about-page">
+    <div class="az-about-header">
+        <span class="az-about-tag">// PROFILE // 01</span>
+        <h1 id="about-title" class="az-about-title">ABOUT</h1>
+    </div>
 
-        <!-- Text Container -->
-        <div class="az-about-text">
-            <h1 id="about-title" class="az-about-title">ABOUT</h1>
-            <div id="about-body"></div>
-        </div>
-    </main>
+    <div class="az-about-grid">
+        <!-- Portrait Column -->
+        <aside class="az-about-media-col">
+            <div class="az-about-frame">
+                <img id="about-img" src="" alt="Portrait" style="display:none;" />
+                <div class="az-frame-corner az-fc-tl"></div>
+                <div class="az-frame-corner az-fc-tr"></div>
+                <div class="az-frame-corner az-fc-bl"></div>
+                <div class="az-frame-corner az-fc-br"></div>
+            </div>
+            <div class="az-about-meta">
+                <span class="az-meta-label">IDENTITY //</span>
+                <span class="az-meta-val">AZZURRA ZINGONI</span>
+            </div>
+        </aside>
+
+        <!-- Biography Column -->
+        <article class="az-about-text-col">
+            <div class="az-about-lead-marker">
+                <span>FILE RECORD: STATEMENT</span>
+                <span class="az-record-line"></span>
+            </div>
+            
+            <div id="about-body" class="az-about-markdown"></div>
+
+            <div class="az-about-footer-sig">
+                <div class="az-sig-line"></div>
+                <span class="az-sig-date">PORTFOLIO ARCHIVE // 2026</span>
+            </div>
+        </article>
+    </div>
+</main>
 
     <!-- Markdown Parser & Site Language Engine -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
