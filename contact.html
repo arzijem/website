@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Azzurra Zingoni</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Top Bar Navigation -->
+    <header class="az-topbar">
+        <a href="index.html" class="az-brand">AZZURRA ZINGONI</a>
+        <nav class="az-menu">
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="about.html" data-i18n="nav_about">ABOUT</a>
+            <a href="contact.html" class="active" data-i18n="nav_contact">CONTACT</a>
+            <div class="az-lang-switch">
+                <button type="button" class="az-lang-btn is-active" id="lang-btn-en">EN</button>
+                <span class="az-lang-divider">/</span>
+                <button type="button" class="az-lang-btn" id="lang-btn-it">IT</button>
+            </div>
+        </nav>
+        <button class="az-menu-button" aria-label="Toggle menu" type="button">
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <aside class="az-mobile-menu">
+        <nav class="az-mobile-links">
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="about.html" data-i18n="nav_about">ABOUT</a>
+            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+        </nav>
+        <div class="az-mobile-languages">
+            <span id="mobile-lang-en">EN</span>
+            <span>/</span>
+            <span id="mobile-lang-it">IT</span>
+        </div>
+    </aside>
+
+    <!-- Main Terminal Page -->
+    <main class="az-about-page">
+        <!-- Exact Docket Header with Green Badge -->
+        <header class="az-docket-banner">
+            <div class="az-docket-badge">
+                <span id="contact-category">// CONTACT</span>
+            </div>
+            <div class="az-docket-title-wrap">
+                <h1 id="contact-title" class="az-docket-heading">CONTACT</h1>
+            </div>
+        </header>
+
+        <!-- Live Technical Status Bar -->
+        <div class="az-terminal-status-bar">
+            <div class="az-status-left">
+                <span class="az-status-pulse"></span>
+                <span class="az-status-text" id="terminal-mode">DISPATCH // STANDBY</span>
+            </div>
+            <div class="az-status-right">
+                <span id="terminal-location">MILAN, IT</span>
+                <span class="az-status-divider">|</span>
+                <span id="terminal-clock">00:00:00 CEST</span>
+            </div>
+        </div>
+
+        <!-- Interactive Transmission Channels -->
+        <section class="az-channels-wrap">
+            <!-- Channel 01: Email -->
+            <div class="az-channel-card" id="card-email" data-action="copy">
+                <div class="az-channel-meta">
+                    <span class="az-channel-num">CHANNEL // 01</span>
+                    <span class="az-channel-action-badge">[ CLICK TO COPY ]</span>
+                </div>
+                <div class="az-channel-label" id="label-email">PRIMARY DISPATCH (EMAIL)</div>
+                <div class="az-channel-value cipher-text" id="val-email">—</div>
+            </div>
+
+            <!-- Channel 02: Telephone -->
+            <div class="az-channel-card" id="card-phone" data-action="copy">
+                <div class="az-channel-meta">
+                    <span class="az-channel-num">CHANNEL // 02</span>
+                    <span class="az-channel-action-badge">[ CLICK TO COPY ]</span>
+                </div>
+                <div class="az-channel-label" id="label-phone">DIRECT VOICE LINE</div>
+                <div class="az-channel-value cipher-text" id="val-phone">—</div>
+            </div>
+
+            <!-- Channel 03: Instagram -->
+            <a class="az-channel-card az-channel-link" id="card-instagram" href="#" target="_blank" rel="noopener noreferrer">
+                <div class="az-channel-meta">
+                    <span class="az-channel-num">CHANNEL // 03</span>
+                    <span class="az-channel-action-badge">[ OPEN DISPATCH ↗ ]</span>
+                </div>
+                <div class="az-channel-label" id="label-instagram">VISUAL FEED (INSTAGRAM)</div>
+                <div class="az-channel-value cipher-text" id="val-instagram">—</div>
+            </a>
+        </section>
+
+        <!-- Notification Toast -->
+        <div class="az-terminal-toast" id="terminal-toast">
+            <span class="az-toast-icon">✓</span>
+            <span id="toast-msg">COPIED TO CLIPBOARD // READY TO COMPOSE</span>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="az-footer">
+        <span data-i18n="footer_text">© 2026 AZZURRA ZINGONI</span>
+        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="i18n.js"></script>
+    <script>
+        let contactData = null;
+        const CIPHER_CHARS = "ABCDEF0123456789!<>-_\\/[]{}—=+*^?#";
+
+        // Live Real-Time Milan Clock
+        function startTerminalClock() {
+            const clockEl = document.getElementById('terminal-clock');
+            const update = () => {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-GB', {
+                    timeZone: 'Europe/Rome',
+                    hour12: false
+                });
+                if (clockEl) clockEl.textContent = `${timeStr} CEST`;
+            };
+            update();
+            setInterval(update, 1000);
+        }
+
+        // Cipher Decryption Text Effect
+        function scrambleText(element, finalString) {
+            if (!element || !finalString) return;
+            let iteration = 0;
+            const original = finalString;
+            clearInterval(element.scrambleInterval);
+
+            element.scrambleInterval = setInterval(() => {
+                element.textContent = original
+                    .split("")
+                    .map((char, index) => {
+                        if (index < iteration) return original[index];
+                        if (char === " " || char === "/" || char === "+" || char === "@" || char === ".") return char;
+                        return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+                    })
+                    .join("");
+
+                if (iteration >= original.length) {
+                    clearInterval(element.scrambleInterval);
+                }
+                iteration += 1 / 2;
+            }, 25);
+        }
+
+        // Toast Alert Trigger
+        function showToast(message) {
+            const toast = document.getElementById('terminal-toast');
+            const msgEl = document.getElementById('toast-msg');
+            if (!toast || !msgEl) return;
+
+            msgEl.textContent = message;
+            toast.classList.add('is-active');
+
+            clearTimeout(toast.timeout);
+            toast.timeout = setTimeout(() => {
+                toast.classList.remove('is-active');
+            }, 2500);
+        }
+
+        // Stamp fingerprint at specific coordinate
+        function spawnStamp(x, y) {
+            const svgMarkup = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 1a10 10 0 0 0-10 10c0 3.5 1.5 6.5 4 8.5"/>
+                    <path d="M12 5a6 6 0 0 0-6 6c0 2 1 4 2.5 5.5"/>
+                    <path d="M12 9a2 2 0 0 0-2 2c0 1 .5 2 1.5 2.5"/>
+                    <path d="M12 13a2 2 0 0 1 2-2 2 2 0 0 1 2 2c0 2-1.5 4-3 5.5"/>
+                    <path d="M16 7a6 6 0 0 1 2 4c0 3-1.5 5.5-3.5 7"/>
+                    <path d="M20 11c0 4.5-2.5 8-5.5 10"/>
+                </svg>
+            `;
+            const stamp = document.createElement('div');
+            stamp.className = 'az-fingerprint';
+            stamp.innerHTML = svgMarkup;
+            stamp.style.left = `${x}px`;
+            stamp.style.top = `${y}px`;
+            document.body.appendChild(stamp);
+            setTimeout(() => stamp.remove(), 2000);
+        }
+
+        // Click Copy Setup
+        function setupCopyTriggers() {
+            const emailCard = document.getElementById('card-email');
+            const phoneCard = document.getElementById('card-phone');
+
+            const handleCopy = (card, rawVal, label) => {
+                if (!card || !rawVal) return;
+                card.addEventListener('click', (e) => {
+                    spawnStamp(e.clientX, e.clientY);
+                    navigator.clipboard.writeText(rawVal).then(() => {
+                        const lang = localStorage.getItem('az_lang') || 'en';
+                        const toastTxt = lang === 'it' 
+                            ? `${label} COPIATO // PRONTO` 
+                            : `${label} COPIED // READY TO DISPATCH`;
+                        showToast(toastTxt);
+                    });
+                });
+            };
+
+            if (contactData) {
+                if (contactData.email) handleCopy(emailCard, contactData.email, 'EMAIL');
+                if (contactData.phone) handleCopy(phoneCard, contactData.phone, 'PHONE NUMBER');
+            }
+        }
+
+        // Render Data
+        function renderContact() {
+            if (!contactData) return;
+            const lang = localStorage.getItem('az_lang') || 'en';
+
+            // Docket Title & Category
+            const titleEl = document.getElementById('contact-title');
+            if (titleEl) titleEl.textContent = lang === 'it' ? 'CONTATTI' : 'CONTACT';
+
+            const catEl = document.getElementById('contact-category');
+            if (catEl) catEl.textContent = lang === 'it' ? '// CONTATTI' : '// CONTACT';
+
+            // Status Bar Text
+            const modeEl = document.getElementById('terminal-mode');
+            if (modeEl) {
+                modeEl.textContent = lang === 'it' ? 'CANALE // IN ATTESA' : 'DISPATCH // STANDBY';
+            }
+
+            // Labels
+            const lEmail = document.getElementById('label-email');
+            const lPhone = document.getElementById('label-phone');
+            const lIg = document.getElementById('label-instagram');
+            if (lEmail) lEmail.textContent = lang === 'it' ? 'INDIRIZZO PRINCIPALE (EMAIL)' : 'PRIMARY DISPATCH (EMAIL)';
+            if (lPhone) lPhone.textContent = lang === 'it' ? 'LINEA DIRETTA VOCALE' : 'DIRECT VOICE LINE';
+            if (lIg) lIg.textContent = lang === 'it' ? 'FEED VISIVO (INSTAGRAM)' : 'VISUAL FEED (INSTAGRAM)';
+
+            // Values with Scramble Effect
+            const valEmail = document.getElementById('val-email');
+            if (valEmail && contactData.email) {
+                scrambleText(valEmail, contactData.email);
+            }
+
+            const valPhone = document.getElementById('val-phone');
+            if (valPhone && contactData.phone) {
+                scrambleText(valPhone, contactData.phone);
+            }
+
+            const valIg = document.getElementById('val-instagram');
+            const cardIg = document.getElementById('card-instagram');
+            if (contactData.instagram) {
+                let handle = contactData.instagram.replace(/\/$/, "");
+                if (handle.includes('instagram.com/')) {
+                    handle = '@' + handle.split('instagram.com/')[1];
+                } else if (!handle.startsWith('@')) {
+                    handle = '@' + handle;
+                }
+                if (valIg) scrambleText(valIg, handle);
+                if (cardIg) {
+                    cardIg.href = contactData.instagram.startsWith('http') 
+                        ? contactData.instagram 
+                        : `https://instagram.com/${handle.replace('@','')}`;
+                }
+            }
+
+            // Location
+            const locEl = document.getElementById('terminal-location');
+            if (locEl && contactData.location) {
+                locEl.textContent = contactData.location.toUpperCase();
+            }
+        }
+
+        // Global background click stamp
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('a, button, input, textarea, .az-channel-card')) return;
+            spawnStamp(e.clientX, e.clientY);
+        });
+
+        // Mobile drawer toggle
+        const menuBtn = document.querySelector('.az-menu-button');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                document.body.classList.toggle('az-menu-open');
+            });
+        }
+
+        async function loadContact() {
+            try {
+                const res = await fetch('content/contact.json');
+                if (!res.ok) throw new Error('Could not load content/contact.json');
+                contactData = await res.json();
+                renderContact();
+                setupCopyTriggers();
+                startTerminalClock();
+            } catch (err) {
+                console.error('Contact load error:', err);
+            }
+        }
+
+        window.addEventListener('languageChanged', renderContact);
+        document.addEventListener('DOMContentLoaded', loadContact);
+    </script>
+</body>
+</html>
