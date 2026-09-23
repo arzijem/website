@@ -199,19 +199,20 @@
             letter-spacing: 0.5px;
         }
 
+        /* Technical green year */
         .az-project-year {
-    font-size: 13px;
-    font-family: monospace, "Courier New", Courier;
-    color: #00ffcc;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.35);
-}
+            font-size: 13px;
+            font-family: monospace, "Courier New", Courier;
+            color: #00ffcc;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.35);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Top Bar Navigation -->
+    <!-- Top Bar Navigation (Desktop) -->
     <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
@@ -225,11 +226,32 @@
                 <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
             </span>
         </nav>
+        
+        <!-- Mobile Drawer Toggle Button -->
+        <button class="az-menu-button" type="button" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+        </button>
     </header>
+
+    <!-- Mobile Drawer Menu (Mobile & Tablets) -->
+    <aside class="az-mobile-menu">
+        <nav class="az-mobile-links">
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="about.html" data-i18n="nav_about">ABOUT</a>
+            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+        </nav>
+        <div class="az-mobile-languages az-lang-switch">
+            <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <span class="az-lang-divider">/</span>
+            <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+        </div>
+    </aside>
 
     <!-- Main Container with Docket Header Banner -->
     <main class="az-work-container">
-        <!-- Exact Matching Docket Header -->
+        <!-- Exact Matching Docket Header with Green Badge -->
         <header class="az-docket-banner">
             <div class="az-docket-badge">
                 <span id="work-category">// WORK</span>
@@ -245,25 +267,18 @@
         </div>
     </main>
 
-    <!-- Clean Footer with White Year & Two-Sided Alignment -->
+    <!-- Clean Footer with White 2026 and All Rights Reserved -->
     <footer class="az-footer">
         <span>© 2026 AZZURRA ZINGONI</span>
         <span class="az-footer-right">ALL RIGHTS RESERVED</span>
     </footer>
 
     <script src="i18n.js"></script>
-    <script src="fingerprint.js"></script>
 
-    <!-- Fingerprint Click Script -->
+    <!-- Unified Fingerprint Click Stamp -->
     <script>
-    document.addEventListener("click", function(event) {
-        if (event.target.closest("button") || event.target.closest("a") || event.target.closest(".az-project-card")) return;
-
-        const fingerprint = document.createElement("div");
-        fingerprint.className = "az-fingerprint";
-        fingerprint.style.left = event.clientX + "px";
-        fingerprint.style.top = event.clientY + "px";
-        fingerprint.innerHTML = `
+    function initFingerprintStamps() {
+        const svgMarkup = `
             <svg viewBox="0 0 60 80" aria-hidden="true">
                 <path d="M12 25 C16 8, 44 5, 50 25" />
                 <path d="M9 34 C9 13, 48 5, 53 32" />
@@ -276,8 +291,36 @@
             </svg>
         `;
 
-        fingerprint.addEventListener("animationend", () => fingerprint.remove());
-        document.body.appendChild(fingerprint);
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('a, button, input, textarea, .az-project-card')) return;
+
+            const stamp = document.createElement('div');
+            stamp.className = 'az-fingerprint';
+            stamp.innerHTML = svgMarkup;
+            stamp.style.left = `${e.clientX}px`;
+            stamp.style.top = `${e.clientY}px`;
+
+            stamp.addEventListener('animationend', () => stamp.remove());
+            document.body.appendChild(stamp);
+
+            setTimeout(() => {
+                if (stamp.parentNode) stamp.remove();
+            }, 2000);
+        });
+    }
+
+    // Mobile Drawer Menu Toggle
+    const menuBtn = document.querySelector('.az-menu-button');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            document.body.classList.toggle('az-menu-open');
+        });
+    }
+
+    document.querySelectorAll('.az-mobile-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.body.classList.remove('az-menu-open');
+        });
     });
     </script>
 
@@ -318,6 +361,7 @@
                                     <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
                                     <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
                                     <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
+                                    <path d="M47 62 C45 66, 43 69, 41 72" />
                                 </svg>
                             </button>
                             <span class="az-scan-instruction">${scanLabel}</span>
@@ -430,6 +474,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateWorkLabels();
             loadProjects();
+            initFingerprintStamps();
         });
     </script>
 </body>
