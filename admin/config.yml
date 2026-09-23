@@ -44,6 +44,11 @@ collections:
           - label: "Media File (Image or Video)"
             name: "image"
             widget: "file"
+          - label: "Photographer / Source Credit"
+            name: "credit"
+            widget: "string"
+            required: false
+            hint: "e.g., Photo by Mario Rossi, 3D Render by Azzurra, etc."
 
   - name: "about"
     label: "About Page"
