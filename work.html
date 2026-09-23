@@ -17,23 +17,17 @@
         }
 
         .az-work-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 60px 5% 100px;
-        }
-
-        .az-work-heading {
-            font-size: clamp(32px, 5vw, 56px);
-            font-weight: 700;
-            letter-spacing: -1.5px;
-            margin: 0 0 48px;
-            text-transform: uppercase;
+            padding: 40px 32px 100px;
+            box-sizing: border-box;
         }
 
         .az-work-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
+            margin-top: 40px;
         }
 
         @media (max-width: 1024px) {
@@ -42,9 +36,15 @@
             }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 700px) {
+            .az-work-container {
+                padding: 24px 20px 80px;
+            }
+
             .az-work-grid {
                 grid-template-columns: 1fr;
+                gap: 28px;
+                margin-top: 30px;
             }
         }
 
@@ -174,7 +174,7 @@
             100% { transform: translateY(0px); }
         }
 
-        /* Unlocked: reveals the photo only */
+        /* Unlocked: reveals the photo */
         .az-project-item.is-unlocked .az-project-bg {
             filter: blur(0px) grayscale(0%) brightness(1);
             transform: scale(1);
@@ -207,6 +207,7 @@
 </head>
 <body>
 
+    <!-- Top Bar Navigation -->
     <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
@@ -222,22 +223,34 @@
         </nav>
     </header>
 
+    <!-- Main Container with Docket Header Banner -->
     <main class="az-work-container">
-        <h1 class="az-work-heading" data-i18n="work_title">Selected Work</h1>
+        <!-- Exact Matching Docket Header -->
+        <header class="az-docket-banner">
+            <div class="az-docket-badge">
+                <span id="work-category">// WORK</span>
+            </div>
+            <div class="az-docket-title-wrap">
+                <h1 id="work-title" class="az-docket-heading">WORK</h1>
+            </div>
+        </header>
+
+        <!-- Project Grid -->
         <div class="az-work-grid" id="projects-grid">
             <p style="color: rgba(255,255,255,0.4); text-align: center; grid-column: 1/-1;">Loading projects...</p>
         </div>
     </main>
 
+    <!-- Clean Footer with White Year & Two-Sided Alignment -->
     <footer class="az-footer">
-    <span>© 2026 AZZURRA ZINGONI</span>
-    <span class="az-footer-right">ALL RIGHTS RESERVED</span>
-</footer>
+        <span>© 2026 AZZURRA ZINGONI</span>
+        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
+    </footer>
 
     <script src="i18n.js"></script>
     <script src="fingerprint.js"></script>
 
-    <!-- FINGERPRINT CLICK SCRIPT (AUTO-REMOVAL ON 2S ANIMATION END) -->
+    <!-- Fingerprint Click Script -->
     <script>
     document.addEventListener("click", function(event) {
         if (event.target.closest("button") || event.target.closest("a") || event.target.closest(".az-project-card")) return;
@@ -264,6 +277,7 @@
     });
     </script>
 
+    <!-- Projects Data & Language Handling -->
     <script>
         const GITHUB_REPO = 'arzijem/website';
         const GITHUB_BRANCH = 'main';
@@ -359,7 +373,6 @@
                 const slug = item.getAttribute('data-slug');
                 let timer = null;
 
-                // CLICK: Only navigates to project.html if already unlocked
                 item.addEventListener('click', (e) => {
                     if (e.target.closest('.az-fingerprint-btn')) return;
 
@@ -370,7 +383,6 @@
 
                 if (!btn) return;
 
-                // HOLD SCANNER: Only unblurs the image on the grid
                 const startScan = (e) => {
                     e.preventDefault();
                     if (item.classList.contains('is-unlocked')) return;
@@ -378,7 +390,7 @@
                     item.classList.add('is-scanning');
                     timer = setTimeout(() => {
                         item.classList.remove('is-scanning');
-                        item.classList.add('is-unlocked'); // Unblurs cover only
+                        item.classList.add('is-unlocked');
                     }, 1200);
                 };
 
@@ -398,22 +410,23 @@
             });
         }
 
+        function updateWorkLabels() {
+            const lang = localStorage.getItem('az_lang') || 'en';
+            const titleEl = document.getElementById('work-title');
+            const catEl = document.getElementById('work-category');
+            if (titleEl) titleEl.textContent = lang === 'it' ? 'PROGETTI' : 'WORK';
+            if (catEl) catEl.textContent = lang === 'it' ? '// PROGETTI' : '// WORK';
+        }
+
         window.addEventListener('languageChanged', () => {
+            updateWorkLabels();
             renderGrid();
         });
 
-        document.addEventListener('DOMContentLoaded', loadProjects);
-
-        function updateWorkLabels() {
-        const lang = localStorage.getItem('az_lang') || 'en';
-        const titleEl = document.getElementById('work-title');
-        const catEl = document.getElementById('work-category');
-        if (titleEl) titleEl.textContent = lang === 'it' ? 'PROGETTI' : 'WORK';
-        if (catEl) catEl.textContent = lang === 'it' ? '// PROGETTI' : '// WORK';
-    }
-
-    window.addEventListener('languageChanged', updateWorkLabels);
-    document.addEventListener('DOMContentLoaded', updateWorkLabels);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateWorkLabels();
+            loadProjects();
+        });
     </script>
 </body>
 </html>
