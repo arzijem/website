@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Azzurra Zingoni</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Main Navigation / Header (Keep your site navigation here) -->
+
+    <main class="az-about-container">
+        <!-- Profile Picture Container -->
+        <div class="az-about-image-wrap">
+            <img id="about-img" src="" alt="About" style="display:none;" />
+        </div>
+
+        <!-- Text Container -->
+        <div class="az-about-text">
+            <h1 id="about-title" class="az-about-title">ABOUT</h1>
+            <div id="about-body"></div>
+        </div>
+    </main>
+
+    <!-- Markdown Parser & Site Language Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="i18n.js"></script>
+
+    <script>
+        let aboutData = null;
+
+        function renderAbout() {
+            if (!aboutData) return;
+            const lang = localStorage.getItem('az_lang') || 'en';
+
+            // Set Title to ABOUT (or CHI SONO if in Italian)
+            const titleEl = document.getElementById('about-title');
+            if (titleEl) {
+                titleEl.textContent = lang === 'it' ? 'CHI SONO' : 'ABOUT';
+            }
+
+            // Render Markdown text
+            const textContent = lang === 'it' 
+                ? (aboutData.text_it || aboutData.text_en) 
+                : (aboutData.text_en || aboutData.text_it);
+
+            const bodyEl = document.getElementById('about-body');
+            if (bodyEl && textContent) {
+                bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(textContent) : textContent;
+            }
+
+            // Render Image with safe pathing
+            const imgEl = document.getElementById('about-img');
+            if (imgEl && aboutData.photo) {
+                let photoSrc = String(aboutData.photo).trim();
+                if (!photoSrc.startsWith('http://') && !photoSrc.startsWith('https://')) {
+                    photoSrc = photoSrc.replace(/^(\.\/|\/)+/, '');
+                    if (!photoSrc.startsWith('assets/uploads/')) {
+                        photoSrc = 'assets/uploads/' + photoSrc;
+                    }
+                    photoSrc = '/' + photoSrc;
+                }
+                imgEl.src = photoSrc;
+                imgEl.style.display = 'block';
+            }
+        }
+
+        async function loadAbout() {
+            try {
+                const res = await fetch('content/about.json');
+                if (!res.ok) throw new Error('Could not load about.json');
+                aboutData = await res.json();
+                renderAbout();
+            } catch (err) {
+                console.error('About loading error:', err);
+            }
+        }
+
+        window.addEventListener('languageChanged', renderAbout);
+        document.addEventListener('DOMContentLoaded', loadAbout);
+    </script>
+</body>
+</html>
