@@ -19,6 +19,15 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+.az-hero,
+.az-art-item {
+    scroll-margin-top: 72px;
+}
+
 
 /* ==================================================
    TOP BAR
@@ -27,34 +36,27 @@ body {
 .az-topbar {
     width: 100%;
     height: 72px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 32px;
-
     background: #000;
     color: #fff;
     position: relative;
     z-index: 50;
 }
 
-
 /* BRAND */
 
 .az-brand {
     color: #fff;
     text-decoration: none;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: 19px;
     font-weight: 700;
     letter-spacing: 1.2px;
-
     white-space: nowrap;
 }
-
 
 /* DESKTOP MENU */
 
@@ -67,11 +69,9 @@ body {
 .az-menu a {
     color: #fff;
     text-decoration: none;
-
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.7px;
-
     transition: opacity 0.2s ease;
 }
 
@@ -79,14 +79,12 @@ body {
     opacity: 0.6;
 }
 
-
 /* LANGUAGES */
 
 .az-languages {
     display: flex;
     align-items: center;
     gap: 6px;
-
     margin-left: 8px;
 }
 
@@ -132,15 +130,13 @@ body {
 
 
 /* ==================================================
-   HERO (BRIGHTENED VIDEO BACKGROUND)
+   HERO
 ================================================== */
 
 .az-hero {
     position: relative;
-
     width: 100%;
     height: calc(100vh - 72px);
-
     overflow: hidden;
     background: #000;
 }
@@ -148,197 +144,119 @@ body {
 .az-hero-video {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
     object-position: center;
-
     display: block;
     pointer-events: none;
-
     filter: brightness(1.28) contrast(1.08) saturate(1.05);
-
     transform: scale(1.04);
     animation: azHeroDrift 16s ease-in-out infinite alternate;
-
     will-change: transform, filter;
 }
 
 .az-hero-overlay {
     position: absolute;
     inset: 0;
-
     background: rgba(0, 0, 0, 0.18);
-
     opacity: 0;
-
     animation: azOverlayEntrance 1.8s ease 0.2s forwards;
     pointer-events: none;
 }
 
 .az-hero-text {
     position: absolute;
-
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     width: 90%;
-
     color: #fff;
     text-align: center;
-
     overflow: hidden;
     z-index: 2;
 }
 
 .az-hero-text h1 {
     margin: 0;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(30px, 4vw, 58px);
     font-weight: 700;
     letter-spacing: 1.2px;
-
     color: #fff;
-
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
-
     opacity: 0;
-
     animation: azTitleFade 1.8s ease 0.8s forwards;
 }
 
 .az-hero-text p {
     margin: 14px 0 0;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 1.5px;
-
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
-
     opacity: 0;
-
     animation: azSubtitleFade 1.6s ease 1.35s forwards;
 }
 
-
-/* HERO ANIMATIONS */
-
 @keyframes azHeroDrift {
-    from {
-        transform: scale(1.04) translateY(0);
-    }
-
-    to {
-        transform: scale(1.075) translateY(-1.2%);
-    }
+    from { transform: scale(1.04) translateY(0); }
+    to { transform: scale(1.075) translateY(-1.2%); }
 }
 
 @keyframes azOverlayEntrance {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes azTitleFade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes azSubtitleFade {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 
 /* ==================================================
-   FINGERPRINT CLICK STAMP (ORIGINAL COMPACT SIZE)
+   FINGERPRINT CLICK STAMP
 ================================================== */
 
 .az-fingerprint {
     position: fixed;
-
     width: 28px;
     height: 38px;
-
     pointer-events: none;
-
     z-index: 999999;
-
     transform: translate(-50%, -50%);
-
     animation: fingerprintFade 2s ease-out forwards;
 }
 
 .az-fingerprint svg {
     width: 100%;
     height: 100%;
-
     display: block;
 }
 
 .az-fingerprint path {
     fill: none;
-
     stroke: #fff;
     stroke-width: 2.2;
-
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
 @keyframes fingerprintFade {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1.15);
-    }
-
-    5% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.95);
-    }
-
-    10% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    65% {
-        opacity: 1;
-    }
-
-    82% {
-        opacity: 0.75;
-    }
-
-    92% {
-        opacity: 0.35;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1);
-    }
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+    5% { opacity: 1; transform: translate(-50%, -50%) scale(0.95); }
+    10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    65% { opacity: 1; }
+    82% { opacity: 0.75; }
+    92% { opacity: 0.35; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
 }
 
 
@@ -357,36 +275,27 @@ body {
 .az-art-item {
     position: relative;
     z-index: 1;
-
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-
     width: 100%;
     height: 64vh;
     min-height: 470px;
-
     padding: 0 7%;
-
     overflow: hidden;
     background: transparent !important;
     color: #fff;
-
     text-decoration: none;
 }
 
 .az-art-item::after {
     content: "";
-
     position: absolute;
-
     left: 7%;
     right: 7%;
     bottom: 0;
-
     height: 1px;
-
     background: rgba(255, 255, 255, 0.10);
 }
 
@@ -399,13 +308,11 @@ body {
     display: block;
     position: relative;
     z-index: 2;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(60px, 9.5vw, 140px) !important;
     font-weight: 700;
     line-height: 0.85;
     letter-spacing: -4px !important;
-
     color: #fff !important;
     white-space: nowrap;
     pointer-events: none;
@@ -449,41 +356,30 @@ body {
 
 
 /* ==================================================
-   DOCKET HEADER (Shared between Project and About)
-================================================== */
-
-/* ==================================================
-   ABOUT PAGE CONTAINER SPACING (TIGHTER TO TOP)
+   PAGE CONTAINER & DOCKET BANNER
 ================================================== */
 
 .az-about-page {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 40px 32px 80px; /* Reduced from 120px to sit close to header */
+    padding: 40px 32px 80px;
     box-sizing: border-box;
 }
-
-/* ==================================================
-   PROJECT & ABOUT DOCKET BANNER
-================================================== */
 
 .az-docket-banner {
     position: relative;
     width: 100%;
-    margin-top: 10px; /* Minimal space below top bar */
+    margin-top: 10px;
     margin-bottom: 40px;
     padding: 34px 0;
-    
     display: flex;
     align-items: center;
-    
     border-top: 1px solid rgba(255, 255, 255, 0.18);
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     background: transparent;
     box-sizing: border-box;
 }
 
-/* Vertical Rotated Green Badge on the Left */
 .az-docket-badge {
     position: absolute;
     left: 4px;
@@ -505,9 +401,8 @@ body {
     white-space: nowrap;
 }
 
-/* Main Heading Container with more breathing room from badge */
 .az-docket-title-wrap {
-    padding-left: 95px; /* Increased so text is not too close to the green badge */
+    padding-left: 95px;
     width: 100%;
 }
 
@@ -520,65 +415,6 @@ body {
     line-height: 0.95;
     color: #ffffff;
     text-transform: uppercase;
-}
-
-/* Mobile adjustments */
-@media (max-width: 700px) {
-    .az-about-page {
-        padding: 24px 20px 60px;
-    }
-
-    .az-docket-banner {
-        padding: 24px 0;
-        margin-top: 5px;
-        margin-bottom: 30px;
-    }
-
-    .az-docket-title-wrap {
-        padding-left: 72px; /* Sufficient space on small screens */
-    }
-
-    .az-docket-badge {
-        left: -4px;
-        width: 70px;
-    }
-
-    .az-docket-badge span {
-        font-size: 9px;
-        letter-spacing: 2px;
-    }
-
-    .az-docket-heading {
-        font-size: clamp(28px, 8vw, 44px);
-        letter-spacing: -0.8px;
-    }
-}
-
-/* Mobile adjustments */
-@media (max-width: 700px) {
-    .az-docket-banner {
-        padding: 26px 0;
-        margin-bottom: 34px;
-    }
-
-    .az-docket-title-wrap {
-        padding-left: 54px;
-    }
-
-    .az-docket-badge {
-        left: -10px;
-        width: 80px;
-    }
-
-    .az-docket-badge span {
-        font-size: 9px;
-        letter-spacing: 2px;
-    }
-
-    .az-docket-heading {
-        font-size: clamp(28px, 8vw, 44px);
-        letter-spacing: -0.8px;
-    }
 }
 
 .az-project-docket-line {
@@ -703,16 +539,21 @@ body {
     opacity: 0.4;
 }
 
-
-/* Technical green accent only for content/archive signatures */
+/* Technical green accents */
 .az-year-green,
-.az-sig-date .az-year-green {
+.az-sig-date .az-year-green,
+#proj-year,
+.az-project-year {
     color: #00ffcc !important;
     font-weight: 700;
     text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
 }
 
-/* Unified clean footer: all white/muted */
+
+/* ==================================================
+   FOOTER
+================================================== */
+
 .az-footer {
     min-height: 75px;
     display: flex;
@@ -733,6 +574,283 @@ body {
     font-size: 10px;
     letter-spacing: 2px;
     color: rgba(255, 255, 255, 0.45);
+}
+
+
+/* ==================================================
+   CONTACT TERMINAL DISPATCH STYLES
+================================================== */
+
+.az-terminal-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: monospace, "Courier New", Courier;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+}
+
+.az-status-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ffcc;
+}
+
+.az-status-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ffcc;
+    box-shadow: 0 0 8px #00ffcc;
+    animation: statusBlink 1.8s infinite ease-in-out;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+.az-status-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.az-status-divider {
+    opacity: 0.3;
+}
+
+.az-channels-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.az-channel-card {
+    position: relative;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.az-channel-card:hover {
+    background: rgba(0, 255, 204, 0.02);
+    border-color: rgba(0, 255, 204, 0.35);
+    transform: translateX(4px);
+}
+
+.az-channel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: monospace, "Courier New", Courier;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.az-channel-num {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.az-channel-action-badge {
+    color: #00ffcc;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.az-channel-label {
+    font-family: monospace, "Courier New", Courier;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.az-channel-value {
+    font-family: monospace, "Courier New", Courier;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    line-height: 1.4;
+    word-break: break-all;
+    transition: color 0.2s ease;
+}
+
+.az-channel-card:hover .az-channel-value {
+    color: #00ffcc;
+}
+
+.az-terminal-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 32px;
+    background: #000;
+    border: 1px solid #00ffcc;
+    color: #fff;
+    padding: 14px 20px;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 204, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.az-terminal-toast.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.az-toast-icon {
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+
+/* ==================================================
+   GALLERY CREDITS & LIGHTBOX
+================================================== */
+
+.az-gallery-tile {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #0a0a0f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.25s ease;
+}
+
+.az-gallery-tile:hover {
+    border-color: rgba(0, 255, 204, 0.4);
+}
+
+.az-gallery-tile img,
+.az-gallery-tile video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.az-tile-credit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px 12px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85));
+    font-family: monospace, "Courier New", Courier;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.75);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.az-gallery-tile:hover .az-tile-credit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.az-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.94);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.az-lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.az-lightbox-content {
+    max-width: 90vw;
+    max-height: 82vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.az-lightbox-media {
+    max-width: 90vw;
+    max-height: 82vh;
+    object-fit: contain;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.az-lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: 300;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.az-lightbox-close:hover {
+    color: #00ffcc;
+    transform: scale(1.1);
+}
+
+.az-lightbox-credit {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: monospace, "Courier New", Courier;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.az-credit-tag {
+    color: #00ffcc;
+    font-weight: 700;
+}
+
+.az-credit-val {
+    color: #ffffff;
 }
 
 
@@ -793,6 +911,11 @@ body {
 ================================================== */
 
 @media (max-width: 700px) {
+
+    .az-hero,
+    .az-art-item {
+        scroll-margin-top: 60px;
+    }
 
     .az-topbar {
         position: relative;
@@ -943,17 +1066,33 @@ body {
         letter-spacing: -3px !important;
     }
 
-    .az-footer {
-        padding: 0 18px;
-    }
-
-    .az-fingerprint {
-        width: 23px;
-        height: 31px;
-    }
-
     .az-about-page {
-        padding: 90px 20px 60px;
+        padding: 24px 20px 60px;
+    }
+
+    .az-docket-banner {
+        padding: 24px 0;
+        margin-top: 5px;
+        margin-bottom: 30px;
+    }
+
+    .az-docket-title-wrap {
+        padding-left: 72px;
+    }
+
+    .az-docket-badge {
+        left: -4px;
+        width: 70px;
+    }
+
+    .az-docket-badge span {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+    .az-docket-heading {
+        font-size: clamp(28px, 8vw, 44px);
+        letter-spacing: -0.8px;
     }
 
     .az-about-grid {
@@ -966,6 +1105,38 @@ body {
         top: 0;
         max-width: 320px;
         margin: 0 auto;
+    }
+
+    .az-terminal-status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .az-channel-card {
+        padding: 16px 18px;
+    }
+
+    .az-channel-value {
+        font-size: 15px;
+    }
+
+    .az-terminal-toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        font-size: 10px;
+        justify-content: center;
+    }
+
+    .az-fingerprint {
+        width: 23px;
+        height: 31px;
+    }
+
+    .az-footer {
+        padding: 0 18px;
     }
 }
 
@@ -1009,201 +1180,3 @@ body {
         opacity: 1 !important;
     }
 }
-
-/* ==================================================
-   CONTACT TERMINAL DISPATCH STYLES
-================================================== */
-
-/* Status bar */
-.az-terminal-status-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    font-family: monospace, "Courier New", Courier;
-    font-size: 11px;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-}
-
-.az-status-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #00ffcc;
-}
-
-.az-status-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #00ffcc;
-    box-shadow: 0 0 8px #00ffcc;
-    animation: statusBlink 1.8s infinite ease-in-out;
-}
-
-@keyframes statusBlink {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.85); }
-}
-
-.az-status-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.az-status-divider {
-    opacity: 0.3;
-}
-
-/* ==================================================
-   CONTACT CHANNELS (REFINED NORMAL SIZING)
-================================================== */
-
-.az-channels-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.az-channel-card {
-    position: relative;
-    padding: 20px 24px; /* Reduced from oversized padding */
-    background: rgba(255, 255, 255, 0.015);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease;
-    user-select: none;
-}
-
-.az-channel-card:hover {
-    background: rgba(0, 255, 204, 0.02);
-    border-color: rgba(0, 255, 204, 0.35);
-    transform: translateX(4px);
-}
-
-.az-channel-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: monospace, "Courier New", Courier;
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-}
-
-.az-channel-num {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.az-channel-action-badge {
-    color: #00ffcc;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-}
-
-.az-channel-label {
-    font-family: monospace, "Courier New", Courier;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-}
-
-/* Scaled down to clean, normal reading size */
-.az-channel-value {
-    font-family: monospace, "Courier New", Courier;
-    font-size: 18px; /* Clean, normal text scale */
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-    line-height: 1.4;
-    word-break: break-all;
-    transition: color 0.2s ease;
-}
-
-.az-channel-card:hover .az-channel-value {
-    color: #00ffcc;
-}
-
-@media (max-width: 700px) {
-    .az-channel-card {
-        padding: 16px 18px;
-    }
-
-    .az-channel-value {
-        font-size: 15px;
-    }
-}
-
-.az-channel-card:hover .az-channel-value {
-    color: #00ffcc;
-}
-
-/* Toast alert notification */
-.az-terminal-toast {
-    position: fixed;
-    bottom: 30px;
-    right: 32px;
-    background: #000;
-    border: 1px solid #00ffcc;
-    color: #fff;
-    padding: 14px 20px;
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 204, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10000;
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.az-terminal-toast.is-active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.az-toast-icon {
-    color: #00ffcc;
-    font-weight: bold;
-}
-
-/* Mobile responsive */
-@media (max-width: 700px) {
-    .az-terminal-status-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 12px 16px;
-    }
-
-    .az-channel-card {
-        padding: 24px 20px;
-    }
-
-    .az-channel-value {
-        font-size: clamp(20px, 6vw, 28px);
-    }
-
-    .az-terminal-toast {
-        left: 20px;
-        right: 20px;
-        bottom: 20px;
-        font-size: 10px;
-        justify-content: center;
-    }
-}
-
