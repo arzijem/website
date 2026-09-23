@@ -66,3 +66,15 @@ collections:
           - { label: "Project Back Button (Italian)", name: "back_btn_it", widget: "string", default: "← TORNA AI PROGETTI" }
           - { label: "Footer (English)", name: "footer_text_en", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
           - { label: "Footer (Italian)", name: "footer_text_it", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
+
+- name: "contact"
+    label: "Contact Page"
+    files:
+      - label: "Contact Details"
+        name: "contact"
+        file: "content/contact.json"
+        fields:
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Phone Number", name: "phone", widget: "string", required: false }
+          - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
+          - { label: "City / Studio Location", name: "location", widget: "string", default: "MILAN, ITALY" }
