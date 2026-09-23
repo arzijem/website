@@ -53,9 +53,9 @@ collections:
           - { label: "Email Address", name: "email", widget: "string" }
           - { label: "Phone Number", name: "phone", widget: "string", required: false }
           - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
-          - { label: "City / Studio Location", name: "location", widget: "string", default: "MILAN, ITALY" }
-          - { label: "Note / Availability (English)", name: "note_en", widget: "string", required: false }
-          - { label: "Note / Availability (Italian)", name: "note_it", widget: "string", required: false }
+          - { label: "Location (English)", name: "location_en", widget: "string", default: "MILAN, ITALY" }
+          - { label: "Location (Italian)", name: "location_it", widget: "string", default: "MILANO, ITALIA" }
+          
 
   - name: "settings"
     label: "Site Translations"
