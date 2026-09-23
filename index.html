@@ -7,15 +7,30 @@
     <title>Azzurra Zingoni</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .az-art-item,
+        .az-hero {
+            scroll-margin-top: 72px;
+        }
+        @media (max-width: 700px) {
+            .az-art-item,
+            .az-hero {
+                scroll-margin-top: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <!-- TOP BAR -->
 <header class="az-topbar">
-    <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
+    <a class="az-brand" href="#hero">AZZURRA ZINGONI</a>
 
     <nav class="az-menu">
-        <a href="index.html" data-i18n="nav_home">HOME</a>
+        <a href="#hero" data-i18n="nav_home">HOME</a>
         <a href="#work" data-i18n="nav_work">WORK</a>
         <a href="#about" data-i18n="nav_about">ABOUT</a>
         <a href="#contact" data-i18n="nav_contact">CONTACT</a>
@@ -35,7 +50,7 @@
 <!-- MOBILE MENU -->
 <div class="az-mobile-menu">
     <nav class="az-mobile-links">
-        <a href="index.html" data-i18n="nav_home">HOME</a>
+        <a href="#hero" data-i18n="nav_home">HOME</a>
         <a href="#work" data-i18n="nav_work">WORK</a>
         <a href="#about" data-i18n="nav_about">ABOUT</a>
         <a href="#contact" data-i18n="nav_contact">CONTACT</a>
@@ -48,7 +63,7 @@
 </div>
 
 <!-- HERO -->
-<main class="az-hero">
+<main class="az-hero" id="hero">
     <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
         <source src="hero-video.mp4" type="video/mp4">
     </video>
@@ -81,21 +96,21 @@
     <canvas id="az-water-canvas"></canvas>
 
     <!-- WORK -->
-    <a href="work.html" class="az-art-item az-art-work">
+    <a href="work.html" class="az-art-item az-art-work" id="work">
         <div class="az-art-title">
             <span class="az-art-main" data-i18n="nav_work">WORK</span>
         </div>
     </a>
 
     <!-- ABOUT -->
-    <a href="about.html" class="az-art-item az-art-about">
+    <a href="about.html" class="az-art-item az-art-about" id="about">
         <div class="az-art-title">
             <span class="az-art-main" data-i18n="nav_about">ABOUT</span>
         </div>
     </a>
 
     <!-- CONTACT -->
-    <a href="contact.html" class="az-art-item az-art-contact">
+    <a href="contact.html" class="az-art-item az-art-contact" id="contact">
         <div class="az-art-title">
             <span class="az-art-main" data-i18n="nav_contact">CONTACT</span>
         </div>
@@ -108,10 +123,13 @@
     <span class="az-footer-right">ALL RIGHTS RESERVED</span>
 </footer>
 
+<!-- SCRIPTS -->
+<script src="i18n.js"></script>
+<script src="fingerprint.js"></script>
+
 <!-- FINGERPRINT CLICK EFFECT SCRIPT -->
 <script>
 document.addEventListener("click", function(event) {
-    // Prevent spawning fingerprint particles if clicking buttons or links
     if (event.target.closest("button") || event.target.closest("a")) return;
 
     const fingerprint = document.createElement("div");
@@ -132,7 +150,7 @@ document.addEventListener("click", function(event) {
         </svg>
     `;
     document.body.appendChild(fingerprint);
-    setTimeout(() => fingerprint.remove(), 8000);
+    setTimeout(() => fingerprint.remove(), 2000);
 });
 </script>
 
@@ -156,7 +174,7 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
 });
 </script>
 
-<!-- FLUID WATER INTERACTION SCRIPT (TOUCH & DESKTOP) -->
+<!-- FLUID WATER INTERACTION SCRIPT -->
 <script>
 (function() {
     const navSection = document.querySelector(".az-art-nav");
@@ -301,10 +319,6 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
     artSections.forEach((section) => observer.observe(section));
 })();
 </script>
-
-<!-- TRANSLATION SCRIPT -->
-<script src="i18n.js"></script>
-<script src="fingerprint.js"></script>
 
 </body>
 </html>
