@@ -45,7 +45,7 @@
 
     <!-- Main Terminal Page -->
     <main class="az-about-page">
-        <!-- Exact Docket Header with Green Badge -->
+        <!-- Docket Header with Rotated Green Badge -->
         <header class="az-docket-banner">
             <div class="az-docket-badge">
                 <span id="contact-category">// CONTACT</span>
@@ -68,33 +68,36 @@
             </div>
         </div>
 
+        <!-- Optional Note/Availability from CMS -->
+        <p id="contact-note" class="az-contact-note"></p>
+
         <!-- Interactive Transmission Channels -->
         <section class="az-channels-wrap">
             <!-- Channel 01: Email -->
-            <div class="az-channel-card" id="card-email" data-action="copy">
+            <div class="az-channel-card" id="card-email">
                 <div class="az-channel-meta">
-                    <span class="az-channel-num">CHANNEL // 01</span>
-                    <span class="az-channel-action-badge">[ CLICK TO COPY ]</span>
+                    <span class="az-channel-num" id="badge-ch1">CHANNEL // 01</span>
+                    <span class="az-channel-action-badge" id="action-email">[ CLICK TO COPY ]</span>
                 </div>
-                <div class="az-channel-label" id="label-email">PRIMARY DISPATCH (EMAIL)</div>
+                <div class="az-channel-label" id="label-email">PRIMARY DISPATCH (EMAIL ADDRESS)</div>
                 <div class="az-channel-value cipher-text" id="val-email">—</div>
             </div>
 
             <!-- Channel 02: Telephone -->
-            <div class="az-channel-card" id="card-phone" data-action="copy">
+            <div class="az-channel-card" id="card-phone">
                 <div class="az-channel-meta">
-                    <span class="az-channel-num">CHANNEL // 02</span>
-                    <span class="az-channel-action-badge">[ CLICK TO COPY ]</span>
+                    <span class="az-channel-num" id="badge-ch2">CHANNEL // 02</span>
+                    <span class="az-channel-action-badge" id="action-phone">[ CLICK TO COPY ]</span>
                 </div>
-                <div class="az-channel-label" id="label-phone">DIRECT VOICE LINE</div>
+                <div class="az-channel-label" id="label-phone">DIRECT VOICE LINE (PHONE NUMBER)</div>
                 <div class="az-channel-value cipher-text" id="val-phone">—</div>
             </div>
 
             <!-- Channel 03: Instagram -->
             <a class="az-channel-card az-channel-link" id="card-instagram" href="#" target="_blank" rel="noopener noreferrer">
                 <div class="az-channel-meta">
-                    <span class="az-channel-num">CHANNEL // 03</span>
-                    <span class="az-channel-action-badge">[ OPEN DISPATCH ↗ ]</span>
+                    <span class="az-channel-num" id="badge-ch3">CHANNEL // 03</span>
+                    <span class="az-channel-action-badge" id="action-instagram">[ OPEN DISPATCH ↗ ]</span>
                 </div>
                 <div class="az-channel-label" id="label-instagram">VISUAL FEED (INSTAGRAM)</div>
                 <div class="az-channel-value cipher-text" id="val-instagram">—</div>
@@ -120,7 +123,37 @@
         let contactData = null;
         const CIPHER_CHARS = "ABCDEF0123456789!<>-_\\/[]{}—=+*^?#";
 
-        // Live Real-Time Milan Clock
+        // Multilingual Translation Dictionary
+        const I18N_STRINGS = {
+            en: {
+                title: "CONTACT",
+                category: "// CONTACT",
+                statusMode: "DISPATCH // STANDBY",
+                chPrefix: "CHANNEL",
+                copyBadge: "[ CLICK TO COPY ]",
+                openBadge: "[ OPEN DISPATCH ↗ ]",
+                labelEmail: "PRIMARY DISPATCH (EMAIL ADDRESS)",
+                labelPhone: "DIRECT VOICE LINE (PHONE NUMBER)",
+                labelInstagram: "VISUAL FEED (INSTAGRAM)",
+                toastEmail: "EMAIL ADDRESS COPIED // READY TO COMPOSE",
+                toastPhone: "PHONE NUMBER COPIED // READY TO CALL"
+            },
+            it: {
+                title: "CONTATTI",
+                category: "// CONTATTI",
+                statusMode: "CANALE // IN ATTESA",
+                chPrefix: "CANALE",
+                copyBadge: "[ CLICCA PER COPIARE ]",
+                openBadge: "[ APRI CANALE ↗ ]",
+                labelEmail: "INDIRIZZO PRINCIPALE (INDIRIZZO EMAIL)",
+                labelPhone: "LINEA DIRETTA VOCALE (NUMERO DI TELEFONO)",
+                labelInstagram: "FEED VISIVO (INSTAGRAM)",
+                toastEmail: "INDIRIZZO EMAIL COPIATO // PRONTO",
+                toastPhone: "NUMERO DI TELEFONO COPIATO // PRONTO"
+            }
+        };
+
+        // Live Real-Time Clock
         function startTerminalClock() {
             const clockEl = document.getElementById('terminal-clock');
             const update = () => {
@@ -135,7 +168,7 @@
             setInterval(update, 1000);
         }
 
-        // Cipher Decryption Text Effect
+        // Cipher Decryption Animation
         function scrambleText(element, finalString) {
             if (!element || !finalString) return;
             let iteration = 0;
@@ -159,7 +192,7 @@
             }, 25);
         }
 
-        // Toast Alert Trigger
+        // Toast Notification
         function showToast(message) {
             const toast = document.getElementById('terminal-toast');
             const msgEl = document.getElementById('toast-msg');
@@ -174,8 +207,8 @@
             }, 2500);
         }
 
-        // Stamp fingerprint at specific coordinate
-        function spawnStamp(x, y) {
+        // EXACT Click Fingerprint Stamp (Matches .az-fingerprint in styles.css)
+        function spawnFingerprint(x, y) {
             const svgMarkup = `
                 <svg viewBox="0 0 24 24">
                     <path d="M12 1a10 10 0 0 0-10 10c0 3.5 1.5 6.5 4 8.5"/>
@@ -195,66 +228,106 @@
             setTimeout(() => stamp.remove(), 2000);
         }
 
-        // Click Copy Setup
+        // Click-To-Copy Handlers
         function setupCopyTriggers() {
             const emailCard = document.getElementById('card-email');
             const phoneCard = document.getElementById('card-phone');
 
-            const handleCopy = (card, rawVal, label) => {
+            const handleCopy = (card, rawVal, type) => {
                 if (!card || !rawVal) return;
-                card.addEventListener('click', (e) => {
-                    spawnStamp(e.clientX, e.clientY);
+                card.onclick = (e) => {
+                    spawnFingerprint(e.clientX, e.clientY);
                     navigator.clipboard.writeText(rawVal).then(() => {
                         const lang = localStorage.getItem('az_lang') || 'en';
-                        const toastTxt = lang === 'it' 
-                            ? `${label} COPIATO // PRONTO` 
-                            : `${label} COPIED // READY TO DISPATCH`;
-                        showToast(toastTxt);
+                        const dict = I18N_STRINGS[lang] || I18N_STRINGS.en;
+                        showToast(type === 'email' ? dict.toastEmail : dict.toastPhone);
                     });
-                });
+                };
             };
 
             if (contactData) {
-                if (contactData.email) handleCopy(emailCard, contactData.email, 'EMAIL');
-                if (contactData.phone) handleCopy(phoneCard, contactData.phone, 'PHONE NUMBER');
+                if (contactData.email) handleCopy(emailCard, contactData.email, 'email');
+                if (contactData.phone) handleCopy(phoneCard, contactData.phone, 'phone');
             }
         }
 
-        // Render Data
+        // Render Everything in Active Language
         function renderContact() {
             if (!contactData) return;
             const lang = localStorage.getItem('az_lang') || 'en';
+            const dict = I18N_STRINGS[lang] || I18N_STRINGS.en;
 
             // Docket Title & Category
             const titleEl = document.getElementById('contact-title');
-            if (titleEl) titleEl.textContent = lang === 'it' ? 'CONTATTI' : 'CONTACT';
+            if (titleEl) titleEl.textContent = dict.title;
 
             const catEl = document.getElementById('contact-category');
-            if (catEl) catEl.textContent = lang === 'it' ? '// CONTATTI' : '// CONTACT';
+            if (catEl) catEl.textContent = dict.category;
 
             // Status Bar Text
             const modeEl = document.getElementById('terminal-mode');
-            if (modeEl) {
-                modeEl.textContent = lang === 'it' ? 'CANALE // IN ATTESA' : 'DISPATCH // STANDBY';
-            }
+            if (modeEl) modeEl.textContent = dict.statusMode;
+
+            // Channel Badges
+            const b1 = document.getElementById('badge-ch1');
+            const b2 = document.getElementById('badge-ch2');
+            const b3 = document.getElementById('badge-ch3');
+            if (b1) b1.textContent = `${dict.chPrefix} // 01`;
+            if (b2) b2.textContent = `${dict.chPrefix} // 02`;
+            if (b3) b3.textContent = `${dict.chPrefix} // 03`;
+
+            // Action Badges
+            const aEmail = document.getElementById('action-email');
+            const aPhone = document.getElementById('action-phone');
+            const aIg = document.getElementById('action-instagram');
+            if (aEmail) aEmail.textContent = dict.copyBadge;
+            if (aPhone) aPhone.textContent = dict.copyBadge;
+            if (aIg) aIg.textContent = dict.openBadge;
 
             // Labels
             const lEmail = document.getElementById('label-email');
             const lPhone = document.getElementById('label-phone');
             const lIg = document.getElementById('label-instagram');
-            if (lEmail) lEmail.textContent = lang === 'it' ? 'INDIRIZZO PRINCIPALE (EMAIL)' : 'PRIMARY DISPATCH (EMAIL)';
-            if (lPhone) lPhone.textContent = lang === 'it' ? 'LINEA DIRETTA VOCALE' : 'DIRECT VOICE LINE';
-            if (lIg) lIg.textContent = lang === 'it' ? 'FEED VISIVO (INSTAGRAM)' : 'VISUAL FEED (INSTAGRAM)';
+            if (lEmail) lEmail.textContent = dict.labelEmail;
+            if (lPhone) lPhone.textContent = dict.labelPhone;
+            if (lIg) lIg.textContent = dict.labelInstagram;
 
-            // Values with Scramble Effect
+            // Note
+            const noteEl = document.getElementById('contact-note');
+            if (noteEl) {
+                const note = lang === 'it' 
+                    ? (contactData.note_it || contactData.note_en) 
+                    : (contactData.note_en || contactData.note_it);
+                if (note) {
+                    noteEl.textContent = note;
+                    noteEl.style.display = 'block';
+                } else {
+                    noteEl.style.display = 'none';
+                }
+            }
+
+            // Location
+            const locEl = document.getElementById('terminal-location');
+            if (locEl) {
+                const loc = lang === 'it' 
+                    ? (contactData.location_it || contactData.location_en || contactData.location || "MILANO, ITALIA") 
+                    : (contactData.location_en || contactData.location_it || contactData.location || "MILAN, ITALY");
+                locEl.textContent = loc.toUpperCase();
+            }
+
+            // Values
             const valEmail = document.getElementById('val-email');
             if (valEmail && contactData.email) {
                 scrambleText(valEmail, contactData.email);
             }
 
             const valPhone = document.getElementById('val-phone');
-            if (valPhone && contactData.phone) {
-                scrambleText(valPhone, contactData.phone);
+            const cardPhone = document.getElementById('card-phone');
+            if (contactData.phone) {
+                if (valPhone) scrambleText(valPhone, contactData.phone);
+                if (cardPhone) cardPhone.style.display = 'block';
+            } else if (cardPhone) {
+                cardPhone.style.display = 'none';
             }
 
             const valIg = document.getElementById('val-instagram');
@@ -263,7 +336,7 @@
                 let handle = contactData.instagram.replace(/\/$/, "");
                 if (handle.includes('instagram.com/')) {
                     handle = '@' + handle.split('instagram.com/')[1];
-                } else if (!handle.startsWith('@')) {
+                } else if (!handle.startsWith('@') && !handle.startsWith('http')) {
                     handle = '@' + handle;
                 }
                 if (valIg) scrambleText(valIg, handle);
@@ -271,20 +344,17 @@
                     cardIg.href = contactData.instagram.startsWith('http') 
                         ? contactData.instagram 
                         : `https://instagram.com/${handle.replace('@','')}`;
+                    cardIg.style.display = 'block';
                 }
-            }
-
-            // Location
-            const locEl = document.getElementById('terminal-location');
-            if (locEl && contactData.location) {
-                locEl.textContent = contactData.location.toUpperCase();
+            } else if (cardIg) {
+                cardIg.style.display = 'none';
             }
         }
 
-        // Global background click stamp
+        // Click anywhere on page to stamp fingerprint
         window.addEventListener('click', (e) => {
             if (e.target.closest('a, button, input, textarea, .az-channel-card')) return;
-            spawnStamp(e.clientX, e.clientY);
+            spawnFingerprint(e.clientX, e.clientY);
         });
 
         // Mobile drawer toggle
