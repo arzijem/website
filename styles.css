@@ -94,6 +94,7 @@ body {
     color: #fff;
     font-size: 13px;
 }
+
 .az-lang-switch {
     display: inline-flex;
     align-items: center;
@@ -144,7 +145,6 @@ body {
     background: #000;
 }
 
-/* Bright video element replacing the static image */
 .az-hero-video {
     position: absolute;
     inset: 0;
@@ -158,7 +158,6 @@ body {
     display: block;
     pointer-events: none;
 
-    /* Boosted brightness and contrast */
     filter: brightness(1.28) contrast(1.08) saturate(1.05);
 
     transform: scale(1.04);
@@ -167,7 +166,6 @@ body {
     will-change: transform, filter;
 }
 
-/* Lightened overlay so the bright video stays prominent */
 .az-hero-overlay {
     position: absolute;
     inset: 0;
@@ -274,7 +272,7 @@ body {
 
 
 /* ==================================================
-   FINGERPRINT CLICK EFFECT
+   FINGERPRINT CLICK STAMP (ORIGINAL COMPACT SIZE)
 ================================================== */
 
 .az-fingerprint {
@@ -397,7 +395,6 @@ body {
    WORDS & SCROLL SCALE EFFECT
 ================================================== */
 
-/* Base font size controlled cleanly */
 .az-art-main {
     display: block;
     position: relative;
@@ -414,7 +411,6 @@ body {
     pointer-events: none;
 }
 
-/* Resting state: smaller, dimmed */
 .az-art-title {
     position: relative;
     z-index: 5;
@@ -425,13 +421,11 @@ body {
     will-change: transform, opacity;
 }
 
-/* Popped active state: expands to full 100% when centered */
 .az-art-item.az-in-view .az-art-title {
     transform: scale(1) !important;
     opacity: 1 !important;
 }
 
-/* Hide legacy outlines & geometric symbols */
 .az-art-outline,
 .az-symbol {
     display: none !important;
@@ -451,6 +445,169 @@ body {
     pointer-events: none;
     mix-blend-mode: difference;
     filter: url('#liquid-filter');
+}
+
+
+/* ==================================================
+   DOCKET HEADER (Shared between Project and About)
+================================================== */
+
+.az-about-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 120px 32px 80px;
+    box-sizing: border-box;
+}
+
+.az-project-header {
+    margin-bottom: 48px;
+}
+
+.az-project-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.az-project-category {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    color: inherit;
+    text-transform: uppercase;
+}
+
+.az-project-title {
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 24px 0;
+    text-transform: uppercase;
+}
+
+.az-project-docket-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ==================================================
+   ABOUT PAGE EDITORIAL GRID & FRAMING
+================================================== */
+
+.az-about-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 60px;
+    align-items: start;
+    margin-top: 40px;
+}
+
+.az-about-media-col {
+    position: sticky;
+    top: 100px;
+}
+
+.az-about-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+}
+
+.az-about-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(15%) contrast(102%);
+    transition: filter 0.4s ease;
+}
+
+.az-about-frame:hover img {
+    filter: grayscale(0%) contrast(100%);
+}
+
+.az-frame-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+.az-fc-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+.az-fc-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+.az-fc-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+.az-fc-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.az-about-meta {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    opacity: 0.55;
+}
+
+.az-about-text-col {
+    padding-top: 4px;
+}
+
+.az-about-markdown {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 300;
+}
+
+.az-about-markdown p {
+    margin: 0 0 24px 0;
+}
+
+.az-about-markdown strong {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.az-about-markdown a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.az-about-markdown h2,
+.az-about-markdown h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin: 40px 0 16px 0;
+    color: #ffffff;
+}
+
+.az-about-footer-sig {
+    margin-top: 50px;
+    padding-top: 20px;
+}
+
+.az-sig-line {
+    width: 50px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-bottom: 12px;
+}
+
+.az-sig-date {
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.4;
 }
 
 
@@ -692,6 +849,22 @@ body {
         width: 23px;
         height: 31px;
     }
+
+    .az-about-page {
+        padding: 90px 20px 60px;
+    }
+
+    .az-about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .az-about-media-col {
+        position: relative;
+        top: 0;
+        max-width: 320px;
+        margin: 0 auto;
+    }
 }
 
 
@@ -732,223 +905,5 @@ body {
         transition: none !important;
         transform: scale(1) !important;
         opacity: 1 !important;
-    }
-}
-/* =========================================
-   CLICK FINGERPRINT (EXACT 2-SECOND FADE)
-   ========================================= */
-.az-fingerprint {
-    position: fixed;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    width: 48px;
-    height: 64px;
-    opacity: 1;
-    animation: azFingerprintFade 2s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
-}
-
-.az-fingerprint svg {
-    width: 100%;
-    height: 100%;
-    stroke: rgba(255, 255, 255, 0.55);
-    stroke-width: 2.2;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-@keyframes azFingerprintFade {
-    0% {
-        opacity: 0.9;
-        transform: translate(-50%, -50%) scale(0.96);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1.04);
-    }
-}
-
-/* ==========================================================================
-   DOCKET HEADER (Shared between Project and About pages)
-   ========================================================================== */
-
-.az-about-page {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 120px 32px 80px;
-    box-sizing: border-box;
-}
-
-.az-project-header {
-    margin-bottom: 48px;
-}
-
-.az-project-meta-top {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-
-.az-project-category {
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    opacity: 0.6;
-    color: inherit;
-    text-transform: uppercase;
-}
-
-.az-project-title {
-    font-size: clamp(2.5rem, 6vw, 4.8rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin: 0 0 24px 0;
-    text-transform: uppercase;
-}
-
-.az-project-docket-line {
-    width: 100%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.12);
-}
-
-/* ==========================================================================
-   ABOUT PAGE EDITORIAL GRID & FRAMING
-   ========================================================================== */
-
-.az-about-grid {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 60px;
-    align-items: start;
-    margin-top: 40px;
-}
-
-/* Framed Portrait Box */
-.az-about-media-col {
-    position: sticky;
-    top: 100px;
-}
-
-.az-about-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    overflow: hidden;
-}
-
-.az-about-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(15%) contrast(102%);
-    transition: filter 0.4s ease;
-}
-
-.az-about-frame:hover img {
-    filter: grayscale(0%) contrast(100%);
-}
-
-/* Technical Corner Brackets */
-.az-frame-corner {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-color: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-}
-.az-fc-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
-.az-fc-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
-.az-fc-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
-.az-fc-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
-
-.az-about-meta {
-    margin-top: 14px;
-    display: flex;
-    justify-content: space-between;
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    opacity: 0.55;
-}
-
-/* Markdown Content Area */
-.az-about-text-col {
-    padding-top: 4px;
-}
-
-.az-about-markdown {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.88);
-    font-weight: 300;
-}
-
-.az-about-markdown p {
-    margin: 0 0 24px 0;
-}
-
-.az-about-markdown strong {
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.az-about-markdown a {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-.az-about-markdown h2,
-.az-about-markdown h3 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin: 40px 0 16px 0;
-    color: #ffffff;
-}
-
-/* Footer Signature Marker */
-.az-about-footer-sig {
-    margin-top: 50px;
-    padding-top: 20px;
-}
-
-.az-sig-line {
-    width: 50px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.3);
-    margin-bottom: 12px;
-}
-
-.az-sig-date {
-    font-family: monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    opacity: 0.4;
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 900px) {
-    .az-about-page {
-        padding: 90px 20px 60px;
-    }
-
-    .az-about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .az-about-media-col {
-        position: relative;
-        top: 0;
-        max-width: 320px;
-        margin: 0 auto;
     }
 }
