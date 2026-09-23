@@ -8,6 +8,19 @@ media_folder: "assets/uploads"
 public_folder: "assets/uploads"
 
 collections:
+  - name: "home"
+    label: "Homepage Hero"
+    files:
+      - label: "Hero Settings"
+        name: "hero"
+        file: "content/home.json"
+        fields:
+          - { label: "Hero Media (Video or Image)", name: "hero_media", widget: "file", required: false }
+          - { label: "Hero Title (English)", name: "title_en", widget: "string", default: "TRACES OF THE UNSEEN" }
+          - { label: "Hero Title (Italian)", name: "title_it", widget: "string", default: "TRACCE DELL'INVISIBILE" }
+          - { label: "Hero Subtitle (English)", name: "subtitle_en", widget: "string", default: "AZZURRA ZINGONI" }
+          - { label: "Hero Subtitle (Italian)", name: "subtitle_it", widget: "string", default: "AZZURRA ZINGONI" }
+
   - name: "projects"
     label: "Projects"
     folder: "content/projects"
@@ -55,7 +68,8 @@ collections:
           - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
           - { label: "Location (English)", name: "location_en", widget: "string", default: "MILAN, ITALY" }
           - { label: "Location (Italian)", name: "location_it", widget: "string", default: "MILANO, ITALIA" }
-          
+          - { label: "Note / Availability (English)", name: "note_en", widget: "string", required: false }
+          - { label: "Note / Availability (Italian)", name: "note_it", widget: "string", required: false }
 
   - name: "settings"
     label: "Site Translations"
