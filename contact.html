@@ -207,25 +207,33 @@
             }, 2500);
         }
 
-        // EXACT Click Fingerprint Stamp (Matches .az-fingerprint in styles.css)
+        // EXACT Click Fingerprint Stamp (Matches index.html & work.html)
         function spawnFingerprint(x, y) {
-            const svgMarkup = `
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 1a10 10 0 0 0-10 10c0 3.5 1.5 6.5 4 8.5"/>
-                    <path d="M12 5a6 6 0 0 0-6 6c0 2 1 4 2.5 5.5"/>
-                    <path d="M12 9a2 2 0 0 0-2 2c0 1 .5 2 1.5 2.5"/>
-                    <path d="M12 13a2 2 0 0 1 2-2 2 2 0 0 1 2 2c0 2-1.5 4-3 5.5"/>
-                    <path d="M16 7a6 6 0 0 1 2 4c0 3-1.5 5.5-3.5 7"/>
-                    <path d="M20 11c0 4.5-2.5 8-5.5 10"/>
+            const fingerprint = document.createElement("div");
+            fingerprint.className = "az-fingerprint";
+            fingerprint.style.left = x + "px";
+            fingerprint.style.top = y + "px";
+
+            fingerprint.innerHTML = `
+                <svg viewBox="0 0 60 80" aria-hidden="true">
+                    <path d="M12 25 C16 8, 44 5, 50 25" />
+                    <path d="M9 34 C9 13, 48 5, 53 32" />
+                    <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
+                    <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
+                    <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
+                    <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
+                    <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
+                    <path d="M47 62 C45 66, 43 69, 41 72" />
                 </svg>
             `;
-            const stamp = document.createElement('div');
-            stamp.className = 'az-fingerprint';
-            stamp.innerHTML = svgMarkup;
-            stamp.style.left = `${x}px`;
-            stamp.style.top = `${y}px`;
-            document.body.appendChild(stamp);
-            setTimeout(() => stamp.remove(), 2000);
+
+            fingerprint.addEventListener("animationend", () => fingerprint.remove());
+            document.body.appendChild(fingerprint);
+            
+            // Backup removal after 2 seconds
+            setTimeout(() => {
+                if (fingerprint.parentNode) fingerprint.remove();
+            }, 2000);
         }
 
         // Click-To-Copy Handlers
