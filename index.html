@@ -322,6 +322,72 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
     artSections.forEach((section) => observer.observe(section));
 })();
 </script>
+    <!-- HOMEPAGE HERO CMS DYNAMIC LOADER -->
+<script>
+    let homeData = null;
+
+    function renderHero() {
+        if (!homeData) return;
+        const lang = localStorage.getItem('az_lang') || 'en';
+
+        // Title translation
+        const titleEl = document.getElementById('hero-title');
+        if (titleEl) {
+            titleEl.textContent = lang === 'it' 
+                ? (homeData.title_it || homeData.title_en || 'TRACCE DELL\'INVISIBILE')
+                : (homeData.title_en || homeData.title_it || 'TRACES OF THE UNSEEN');
+        }
+
+        // Subtitle translation
+        const subEl = document.getElementById('hero-subtitle');
+        if (subEl) {
+            subEl.textContent = lang === 'it'
+                ? (homeData.subtitle_it || homeData.subtitle_en || 'AZZURRA ZINGONI')
+                : (homeData.subtitle_en || homeData.subtitle_it || 'AZZURRA ZINGONI');
+        }
+
+        // Hero media swap (Video or Image)
+        const mediaWrap = document.getElementById('az-hero-media-wrap');
+        if (mediaWrap && homeData.hero_media) {
+            let mediaSrc = String(homeData.hero_media).trim();
+            if (!mediaSrc.startsWith('http://') && !mediaSrc.startsWith('https://')) {
+                mediaSrc = mediaSrc.replace(/^(\.\/|\/)+/, '');
+                if (!mediaSrc.startsWith('assets/uploads/') && mediaSrc.includes('/')) {
+                    mediaSrc = 'assets/uploads/' + mediaSrc;
+                }
+                mediaSrc = '/' + mediaSrc;
+            }
+
+            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(mediaSrc);
+
+            if (isVideo) {
+                mediaWrap.innerHTML = `
+                    <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
+                        <source src="${mediaSrc}" type="video/mp4">
+                    </video>
+                `;
+            } else {
+                mediaWrap.innerHTML = `
+                    <img class="az-hero-image az-hero-video" src="${mediaSrc}" alt="Hero Visual" style="object-fit:cover; width:100%; height:100%;">
+                `;
+            }
+        }
+    }
+
+    async function loadHomeData() {
+        try {
+            const res = await fetch('content/home.json');
+            if (!res.ok) return;
+            homeData = await res.json();
+            renderHero();
+        } catch (e) {
+            console.error('Error loading home data:', e);
+        }
+    }
+
+    window.addEventListener('languageChanged', renderHero);
+    document.addEventListener('DOMContentLoaded', loadHomeData);
+</script>
 
 </body>
 </html>
