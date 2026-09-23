@@ -385,6 +385,28 @@
             transform: scale(1.03);
         }
 
+        .az-artwork-credit-tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 12px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85));
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.75);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+
+        .az-artwork:hover .az-artwork-credit-tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .az-gallery-navigation-bottom {
             grid-column: 1 / -1;
             text-align: center;
@@ -427,8 +449,27 @@
 
         .az-viewer-image {
             max-width: 90vw;
-            max-height: 80vh;
+            max-height: 75vh;
             object-fit: contain;
+        }
+
+        .az-viewer-credit-badge {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .az-viewer-credit-badge span {
+            color: #00ffcc;
+            font-weight: 700;
         }
 
         .az-viewer-close,
@@ -557,14 +598,15 @@
         <button class="az-viewer-prev" type="button" aria-label="Previous">&larr;</button>
         <div class="az-viewer-center">
             <img class="az-viewer-image" src="" alt="">
+            <div class="az-viewer-credit-badge" id="az-viewer-credit" style="display: none;"></div>
         </div>
         <button class="az-viewer-next" type="button" aria-label="Next">&rarr;</button>
     </div>
 
     <footer class="az-footer">
-    <span>© 2026 AZZURRA ZINGONI</span>
-    <span class="az-footer-right">ALL RIGHTS RESERVED</span>
-</footer>
+        <span>© 2026 AZZURRA ZINGONI</span>
+        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
+    </footer>
 
     <!-- Markdown Parser & Translations -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -598,7 +640,7 @@
     </script>
 
     <script>
-       let projectData = null;
+        let projectData = null;
         let artworks = [];
         let currentIndex = 0;
 
@@ -732,8 +774,12 @@
             }
 
             const validMedia = rawList
-                .map(item => cleanPath(item))
-                .filter(url => url && url.length > 0);
+                .map(item => {
+                    const src = cleanPath(item);
+                    const credit = (item && typeof item === 'object') ? (item.credit || '') : '';
+                    return { src, credit };
+                })
+                .filter(item => item.src && item.src.length > 0);
 
             if (validMedia.length === 0) {
                 if (gallerySection) gallerySection.style.display = 'none';
@@ -742,7 +788,7 @@
             if (gallerySection) gallerySection.style.display = 'block';
 
             // Preview items (up to 4)
-            validMedia.slice(0, 4).forEach(src => {
+            validMedia.slice(0, 4).forEach(({ src }) => {
                 const item = document.createElement('div');
                 item.className = 'az-gallery-preview-item';
                 if (isVideo(src)) {
@@ -754,24 +800,29 @@
             });
 
             // Full gallery items
-            validMedia.forEach((src, idx) => {
+            validMedia.forEach(({ src, credit }, idx) => {
                 const a = document.createElement('a');
                 a.className = 'az-artwork';
                 a.href = src;
                 a.setAttribute('data-full', src);
                 a.setAttribute('data-type', isVideo(src) ? 'video' : 'image');
+                a.setAttribute('data-credit', credit);
+
+                const creditTag = credit ? `<div class="az-artwork-credit-tag">PHOTO // ${credit}</div>` : '';
 
                 if (isVideo(src)) {
                     a.innerHTML = `
                         <div class="az-artwork-frame" style="position:relative;">
                             <video src="${src}" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:block;"></video>
                             <span style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:4px 8px; font-size:10px; letter-spacing:1px; border-radius:2px; font-family:monospace; color:#00ffcc;">VIDEO</span>
+                            ${creditTag}
                         </div>
                     `;
                 } else {
                     a.innerHTML = `
                         <div class="az-artwork-frame">
                             <img src="${src}" alt="Artwork ${idx + 1}">
+                            ${creditTag}
                         </div>
                     `;
                 }
@@ -826,6 +877,7 @@
             artworks = Array.from(document.querySelectorAll('.az-artwork'));
             const viewer = document.getElementById('az-viewer');
             const center = viewer ? viewer.querySelector('.az-viewer-center') : null;
+            const creditBadge = document.getElementById('az-viewer-credit');
             if (!artworks.length || !viewer || !center) return;
 
             const closeBtn = viewer.querySelector('.az-viewer-close');
@@ -839,6 +891,7 @@
 
                 const item = artworks[currentIndex];
                 const src = item.getAttribute('data-full');
+                const credit = item.getAttribute('data-credit');
                 const isVid = item.getAttribute('data-type') === 'video' || isVideo(src);
 
                 center.innerHTML = '';
@@ -849,7 +902,7 @@
                     video.autoplay = true;
                     video.playsInline = true;
                     video.style.maxWidth = '90vw';
-                    video.style.maxHeight = '80vh';
+                    video.style.maxHeight = '75vh';
                     center.appendChild(video);
                 } else {
                     const img = document.createElement('img');
@@ -858,13 +911,20 @@
                     center.appendChild(img);
                 }
 
+                if (credit) {
+                    const badge = document.createElement('div');
+                    badge.className = 'az-viewer-credit-badge';
+                    badge.innerHTML = `<span>CREDIT //</span> ${credit}`;
+                    center.appendChild(badge);
+                }
+
                 viewer.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
             }
 
             function closeViewer() {
                 viewer.classList.remove('is-open');
-                center.innerHTML = ''; // Stops any audio/video playing
+                center.innerHTML = '';
                 document.body.style.overflow = '';
             }
 
