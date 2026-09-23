@@ -1001,3 +1001,181 @@ body {
     }
 }
 
+/* ==================================================
+   CONTACT TERMINAL DISPATCH STYLES
+================================================== */
+
+/* Status bar */
+.az-terminal-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: monospace, "Courier New", Courier;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.az-status-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ffcc;
+}
+
+.az-status-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ffcc;
+    box-shadow: 0 0 8px #00ffcc;
+    animation: statusBlink 1.8s infinite ease-in-out;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.85); }
+}
+
+.az-status-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.az-status-divider {
+    opacity: 0.3;
+}
+
+/* Channel cards */
+.az-channels-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.az-channel-card {
+    position: relative;
+    padding: 32px 36px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+.az-channel-card:hover {
+    background: rgba(0, 255, 204, 0.03);
+    border-color: rgba(0, 255, 204, 0.45);
+    transform: translateY(-2px);
+}
+
+.az-channel-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.az-channel-num {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.az-channel-action-badge {
+    color: #00ffcc;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.az-channel-label {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.az-channel-value {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(24px, 4.2vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    line-height: 1.1;
+    word-break: break-all;
+    transition: color 0.2s ease;
+}
+
+.az-channel-card:hover .az-channel-value {
+    color: #00ffcc;
+}
+
+/* Toast alert notification */
+.az-terminal-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 32px;
+    background: #000;
+    border: 1px solid #00ffcc;
+    color: #fff;
+    padding: 14px 20px;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 255, 204, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.az-terminal-toast.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.az-toast-icon {
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+/* Mobile responsive */
+@media (max-width: 700px) {
+    .az-terminal-status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .az-channel-card {
+        padding: 24px 20px;
+    }
+
+    .az-channel-value {
+        font-size: clamp(20px, 6vw, 28px);
+    }
+
+    .az-terminal-toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        font-size: 10px;
+        justify-content: center;
+    }
+}
+
