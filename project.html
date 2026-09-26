@@ -480,6 +480,7 @@
 </head>
 <body>
 
+<!-- TOP BAR NAVIGATION -->
     <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
@@ -493,7 +494,28 @@
                 <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
             </span>
         </nav>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="az-menu-button" type="button" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+        </button>
     </header>
+
+    <!-- MOBILE DRAWER MENU -->
+    <aside class="az-mobile-menu">
+        <nav class="az-mobile-links">
+            <a href="index.html" data-i18n="nav_home">HOME</a>
+            <a href="work.html" data-i18n="nav_work">WORK</a>
+            <a href="about.html" data-i18n="nav_about">ABOUT</a>
+            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+        </nav>
+        <div class="az-mobile-languages az-lang-switch">
+            <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <span class="az-lang-divider">/</span>
+            <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+        </div>
+    </aside>
 
     <div class="az-docket-page">
         <!-- TOP NAV -->
@@ -904,6 +926,19 @@
 
         window.addEventListener('languageChanged', () => {
             renderContent();
+        });
+
+        const menuBtn = document.querySelector('.az-menu-button');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                document.body.classList.toggle('az-menu-open');
+            });
+        }
+
+        document.querySelectorAll('.az-mobile-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.body.classList.remove('az-menu-open');
+            });
         });
 
         document.addEventListener('DOMContentLoaded', loadProjectDetails);
