@@ -205,93 +205,48 @@
         }
 
         /* =========================================
-           GALLERY & SCANNER
+           GALLERY AREA & UNLOCK BUTTON
            ========================================= */
         .az-gallery-area {
             position: relative;
             width: 100%;
         }
 
-        .az-gallery-scanner-wrap {
+        .az-gallery-btn-wrap {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            gap: 18px;
-            padding: 30px 0 65px;
+            align-items: center;
+            padding: 30px 0 50px;
         }
 
-        .az-fingerprint-btn {
-            position: relative;
-            width: 74px;
-            height: 74px;
+        .az-gallery-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 34px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            overflow: hidden;
-            transition: transform 0.2s ease, border-color 0.3s ease;
-            outline: none;
-            padding: 0;
-        }
-
-        .az-fingerprint-btn svg {
-            width: 42px;
-            height: 54px;
-            stroke: rgba(255, 255, 255, 0.45);
-            stroke-width: 2.2;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: stroke 0.3s ease;
-        }
-
-        .az-scan-instruction {
+            color: #ffffff;
+            font-family: monospace, "Courier New", Courier;
             font-size: 11px;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             font-weight: 600;
-            transition: color 0.3s ease;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
         }
 
-        .az-scan-beam {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #00ffcc;
-            box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        .az-gallery-scanner-wrap.is-scanning .az-scan-beam {
-            opacity: 1;
-            animation: scanAnim 1.2s infinite ease-in-out;
-        }
-
-        .az-gallery-scanner-wrap.is-scanning .az-fingerprint-btn {
+        .az-gallery-toggle-btn:hover {
             border-color: #00ffcc;
-            transform: scale(0.96);
-        }
-
-        .az-gallery-scanner-wrap.is-scanning .az-fingerprint-btn svg {
-            stroke: #00ffcc;
-        }
-
-        .az-gallery-scanner-wrap.is-scanning .az-scan-instruction {
             color: #00ffcc;
+            background: rgba(0, 255, 204, 0.05);
+            box-shadow: 0 0 16px rgba(0, 255, 204, 0.2);
+            transform: translateY(-2px);
         }
 
-        @keyframes scanAnim {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(74px); }
-            100% { transform: translateY(0px); }
+        .az-gallery-toggle-btn:active {
+            transform: translateY(0);
         }
 
         /* Blurred Preview */
@@ -346,8 +301,9 @@
             }
         }
 
+        /* When unlocked: hide button and preview, show full grid */
         .az-gallery-area.is-unlocked .az-gallery-preview,
-        .az-gallery-area.is-unlocked .az-gallery-scanner-wrap {
+        .az-gallery-area.is-unlocked .az-gallery-btn-wrap {
             display: none;
         }
 
@@ -568,22 +524,12 @@
                 <div class="az-project-body" id="proj-body"></div>
             </section>
 
-            <!-- SCAN-TO-UNLOCK GALLERY (ONLY OTHER PICTURES) -->
+            <!-- GALLERY SECTION WITH UNLOCK BUTTON -->
             <div class="az-gallery-area" id="gallery-start">
-                <div class="az-gallery-scanner-wrap" id="gallery-scanner">
-                    <button class="az-fingerprint-btn" type="button" aria-label="Authenticate Fingerprint">
-                        <div class="az-scan-beam"></div>
-                        <svg viewBox="0 0 60 80">
-                            <path d="M12 25 C16 8, 44 5, 50 25" />
-                            <path d="M9 34 C9 13, 48 5, 53 32" />
-                            <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
-                            <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
-                            <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
-                            <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
-                            <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
-                        </svg>
+                <div class="az-gallery-btn-wrap" id="gallery-btn-wrap">
+                    <button class="az-gallery-toggle-btn" id="gallery-toggle-btn" type="button">
+                        <span id="gallery-btn-text">VIEW GALLERY</span>
                     </button>
-                    <span class="az-scan-instruction" id="gallery-scan-text">HOLD TO UNLOCK GALLERY</span>
                 </div>
 
                 <div class="az-gallery-preview" id="gallery-preview"></div>
@@ -752,9 +698,9 @@
                 bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(body) : body;
             }
 
-            const scanInstruction = document.getElementById('gallery-scan-text');
-            if (scanInstruction) {
-                scanInstruction.textContent = lang === 'it' ? 'TIENI PREMUTO PER SBLOCCARE LA GALLERIA' : 'HOLD TO UNLOCK GALLERY';
+            const btnText = document.getElementById('gallery-btn-text');
+            if (btnText) {
+                btnText.textContent = lang === 'it' ? 'MOSTRA GALLERIA' : 'VIEW GALLERY';
             }
         }
 
@@ -835,49 +781,25 @@
             navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
             fullContainer.appendChild(navBottom);
 
-            setupGalleryScanner();
+            setupGalleryButton();
             setupViewer();
         }
 
-        function setupGalleryScanner() {
-            const scannerWrap = document.getElementById('gallery-scanner');
+        function setupGalleryButton() {
+            const btn = document.getElementById('gallery-toggle-btn');
             const galleryArea = document.querySelector('.az-gallery-area');
-            const btn = scannerWrap ? scannerWrap.querySelector('.az-fingerprint-btn') : null;
-            let timer = null;
 
-            if (!btn) return;
+            if (!btn || !galleryArea) return;
 
-            const startScan = (e) => {
-                e.preventDefault();
-                if (galleryArea.classList.contains('is-unlocked')) return;
-
-                scannerWrap.classList.add('is-scanning');
-                timer = setTimeout(() => {
-                    scannerWrap.classList.remove('is-scanning');
-                    galleryArea.classList.add('is-unlocked');
-                }, 1200);
-            };
-
-            const cancelScan = () => {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = null;
-                }
-                scannerWrap.classList.remove('is-scanning');
-            };
-
-            btn.addEventListener('mousedown', startScan);
-            btn.addEventListener('touchstart', startScan, { passive: false });
-            btn.addEventListener('mouseup', cancelScan);
-            btn.addEventListener('mouseleave', cancelScan);
-            btn.addEventListener('touchend', cancelScan);
+            btn.addEventListener('click', () => {
+                galleryArea.classList.add('is-unlocked');
+            });
         }
 
         function setupViewer() {
             artworks = Array.from(document.querySelectorAll('.az-artwork'));
             const viewer = document.getElementById('az-viewer');
             const center = viewer ? viewer.querySelector('.az-viewer-center') : null;
-            const creditBadge = document.getElementById('az-viewer-credit');
             if (!artworks.length || !viewer || !center) return;
 
             const closeBtn = viewer.querySelector('.az-viewer-close');
