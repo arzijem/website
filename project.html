@@ -205,7 +205,7 @@
         }
 
         /* =========================================
-           GALLERY AREA & UNLOCK BUTTON
+           FORENSIC TOGGLE BUTTON & DYNAMIC STATES
            ========================================= */
         .az-gallery-area {
             position: relative;
@@ -216,37 +216,77 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 0 50px;
+            padding: 30px 0 45px;
+            position: relative;
+            z-index: 10;
         }
 
         .az-gallery-toggle-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 14px 34px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.22);
+            gap: 14px;
+            padding: 13px 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             font-family: monospace, "Courier New", Courier;
             font-size: 11px;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
             cursor: pointer;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
         }
 
         .az-gallery-toggle-btn:hover {
             border-color: #00ffcc;
-            color: #00ffcc;
-            background: rgba(0, 255, 204, 0.05);
-            box-shadow: 0 0 16px rgba(0, 255, 204, 0.2);
+            background: rgba(0, 255, 204, 0.04);
+            box-shadow: 0 0 16px rgba(0, 255, 204, 0.15);
             transform: translateY(-2px);
         }
 
-        .az-gallery-toggle-btn:active {
-            transform: translateY(0);
+        .az-toggle-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            font-size: 11px;
+            color: #00ffcc;
+            transition: all 0.3s ease;
+        }
+
+        .az-toggle-badge {
+            font-size: 9px;
+            letter-spacing: 1px;
+            padding: 2px 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Active / Open state styling */
+        .az-gallery-area.is-unlocked .az-gallery-toggle-btn {
+            border-color: rgba(0, 255, 204, 0.6);
+            background: rgba(0, 255, 204, 0.06);
+            color: #00ffcc;
+        }
+
+        .az-gallery-area.is-unlocked .az-toggle-icon {
+            border-color: #00ffcc;
+            background: #00ffcc;
+            color: #050507;
+            transform: rotate(180deg);
+        }
+
+        .az-gallery-area.is-unlocked .az-toggle-badge {
+            border-color: rgba(0, 255, 204, 0.3);
+            color: #00ffcc;
         }
 
         /* Blurred Preview */
@@ -301,14 +341,13 @@
             }
         }
 
-        /* When unlocked: hide button and preview, show full grid */
-        .az-gallery-area.is-unlocked .az-gallery-preview,
-        .az-gallery-area.is-unlocked .az-gallery-btn-wrap {
-            display: none;
+        /* When unlocked: hide preview, show full grid */
+        .az-gallery-area.is-unlocked .az-gallery-preview {
+            display: none !important;
         }
 
         .az-gallery-area.is-unlocked .az-artworks.az-gallery-full {
-            display: grid;
+            display: grid !important;
         }
 
         .az-artwork {
@@ -375,6 +414,7 @@
             letter-spacing: 2px;
             text-decoration: none;
             text-transform: uppercase;
+            transition: color 0.2s ease;
         }
 
         .az-gallery-navigation-bottom a:hover {
@@ -480,7 +520,7 @@
 </head>
 <body>
 
-<!-- TOP BAR NAVIGATION -->
+    <!-- TOP BAR NAVIGATION -->
     <header class="az-topbar">
         <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
         <nav class="az-menu">
@@ -546,11 +586,13 @@
                 <div class="az-project-body" id="proj-body"></div>
             </section>
 
-            <!-- GALLERY SECTION WITH UNLOCK BUTTON -->
+            <!-- PERSISTENT TOGGLE BUTTON & GALLERY SECTION -->
             <div class="az-gallery-area" id="gallery-start">
                 <div class="az-gallery-btn-wrap" id="gallery-btn-wrap">
-                    <button class="az-gallery-toggle-btn" id="gallery-toggle-btn" type="button">
+                    <button class="az-gallery-toggle-btn" id="gallery-toggle-btn" type="button" aria-expanded="false">
+                        <span class="az-toggle-icon" id="gallery-btn-icon">+</span>
                         <span id="gallery-btn-text">VIEW GALLERY</span>
+                        <span class="az-toggle-badge" id="gallery-count-badge">0 RECORDS</span>
                     </button>
                 </div>
 
@@ -656,6 +698,25 @@
             return '/' + cleaned;
         }
 
+        function updateGalleryButtonLabels() {
+            const btnText = document.getElementById('gallery-btn-text');
+            const btnIcon = document.getElementById('gallery-btn-icon');
+            const galleryArea = document.querySelector('.az-gallery-area');
+            const lang = localStorage.getItem('az_lang') || 'en';
+
+            if (!btnText) return;
+
+            const isOpen = galleryArea && galleryArea.classList.contains('is-unlocked');
+
+            if (isOpen) {
+                btnText.textContent = lang === 'it' ? 'CHIUDI GALLERIA' : 'COLLAPSE GALLERY';
+                if (btnIcon) btnIcon.textContent = '−';
+            } else {
+                btnText.textContent = lang === 'it' ? 'MOSTRA GALLERIA' : 'VIEW GALLERY';
+                if (btnIcon) btnIcon.textContent = '+';
+            }
+        }
+
         function renderContent() {
             if (!projectData) return;
 
@@ -688,8 +749,12 @@
                 categoryEl.textContent = lang === 'it' ? '// PROGETTO' : '// PROJECT';
             }
 
-            if (projectData.year) {
-                document.getElementById('docket-year').textContent = `SERIES // ${projectData.year}`;
+            // Dynamic year adaptation with bilingual badge
+            const projYear = projectData.year ? String(projectData.year).trim() : '2026';
+            const docketYearEl = document.getElementById('docket-year');
+            if (docketYearEl) {
+                const seriesLabel = lang === 'it' ? 'SERIE' : 'SERIES';
+                docketYearEl.innerHTML = `${seriesLabel} // <span class="az-project-year">${projYear}</span>`;
             }
 
             // Cover Media (handles both video and image cover)
@@ -720,9 +785,11 @@
                 bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(body) : body;
             }
 
-            const btnText = document.getElementById('gallery-btn-text');
-            if (btnText) {
-                btnText.textContent = lang === 'it' ? 'MOSTRA GALLERIA' : 'VIEW GALLERY';
+            updateGalleryButtonLabels();
+
+            const backTopLink = document.querySelector('.az-gallery-navigation-bottom a');
+            if (backTopLink) {
+                backTopLink.textContent = lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP';
             }
         }
 
@@ -754,6 +821,12 @@
                 return;
             }
             if (gallerySection) gallerySection.style.display = 'block';
+
+            // Update item count badge
+            const countBadge = document.getElementById('gallery-count-badge');
+            if (countBadge) {
+                countBadge.textContent = `${validMedia.length} ${validMedia.length === 1 ? 'RECORD' : 'RECORDS'}`;
+            }
 
             // Preview items (up to 4)
             validMedia.slice(0, 4).forEach(({ src }) => {
@@ -811,10 +884,20 @@
             const btn = document.getElementById('gallery-toggle-btn');
             const galleryArea = document.querySelector('.az-gallery-area');
 
-            if (!btn || !galleryArea) return;
+            if (!btn || !galleryArea || btn._hasInit) return;
+            btn._hasInit = true;
 
             btn.addEventListener('click', () => {
-                galleryArea.classList.add('is-unlocked');
+                const isOpen = galleryArea.classList.toggle('is-unlocked');
+                btn.setAttribute('aria-expanded', isOpen);
+                updateGalleryButtonLabels();
+
+                if (!isOpen) {
+                    const startEl = document.getElementById('gallery-start');
+                    if (startEl) {
+                        startEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             });
         }
 
@@ -928,6 +1011,7 @@
             renderContent();
         });
 
+        // Mobile Menu Drawer Handler
         const menuBtn = document.querySelector('.az-menu-button');
         if (menuBtn) {
             menuBtn.addEventListener('click', () => {
