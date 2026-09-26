@@ -4,21 +4,30 @@
   "year": "2022",
   "display_order": null,
   "cover": "/assets/uploads/1000064899.webp",
-  "summary_en": "Medium: oil on greyboard",
-  "summary_it": "Tecnica: olio su cartone vegetale",
+  "summary_en": "",
+  "summary_it": "",
   "body_en": "This body of work revolves around a specific idea: defining a presence through its progressive disappearance.\n\nThe title draws on the term _apophatic_, which derives from an ancient philosophical and theological concept. According to this view, the only way to describe something immense and invisible is not by stating what it is, but by doing the opposite—removing details and stating what it _is not_.\n\nThe series applies this logic to the female nude. The figure undergoes a genuine evolution: it begins as a solid, fleshly body, only to then start fading away. With the progressive dissolution of matter, the figure becomes almost entirely transparent and elusive.\n\nThe body's beauty and identity are revealed to the viewer through subtraction. The more evanescent the figure becomes, the stronger and deeper its presence grows, prompting us to look for it and imagine it where it seems to no longer exist.",
   "body_it": "Questa serie di lavori ruota attorno a un'idea precisa: definire una presenza attraverso la sua progressiva scomparsa. \n\nIl titolo riprende il termine _apofatica_ deriva da un antico concetto filosofico e teologico, secondo cui l'unico modo per descrivere qualcosa di immenso e invisibile non è dire ciò che è, ma procedere al contrario, togliendo dettagli e dicendo ciò che _non è_. \n\nLa serie applica questa logica al nudo femminile. La figura attraversa una vera e propria evoluzione: parte come un corpo solido e carnale, per poi iniziare a svanire. Con la progressiva dissoluzione della materia, la figura diventa quasi del tutto trasparente e sfuggente. \n\nLa bellezza e l'identità del corpo si rivelano al pubblico per sottrazione. Più la figura diventa evanescente, più la sua presenza si fa forte e profonda, spingendoci a cercarla e immaginarla lì dove sembra non esserci più.",
   "gallery": [
     {
       "image": "/assets/uploads/1000064899.webp",
+      "artwork_title": "Apophatic Venus I",
+      "technique": "oil on greyboard",
+      "dimensions": "70x50 cm",
       "credit": ""
     },
     {
       "image": "/assets/uploads/A (1).webp",
+      "artwork_title": "Apophatic Venus I, detail",
+      "technique": "",
+      "dimensions": "",
       "credit": ""
     },
     {
       "image": "/assets/uploads/A (3) (1).webp",
+      "artwork_title": "Apophatic Venus I, detail",
+      "technique": "",
+      "dimensions": "",
       "credit": ""
     }
   ]
