@@ -417,8 +417,50 @@
                     return { data, slug };
                 });
 
-                cachedProjects = await Promise.all(projectDataPromises);
-                renderGrid();
+               cachedProjects = await Promise.all(projectDataPromises);
+
+cachedProjects.sort((a, b) => {
+    const orderA = Number(a.data.display_order);
+    const orderB = Number(b.data.display_order);
+
+    const hasOrderA = Number.isFinite(orderA) && orderA > 0;
+    const hasOrderB = Number.isFinite(orderB) && orderB > 0;
+
+    // If both projects have a manual position, sort by that position
+    if (hasOrderA && hasOrderB) {
+        return orderA - orderB;
+    }
+
+    // Projects with a manual position come first
+    if (hasOrderA) return -1;
+    if (hasOrderB) return 1;
+
+    // Otherwise sort automatically from newest year to oldest
+    const yearA = parseInt(a.data.year, 10) || 0;
+    const yearB = parseInt(b.data.year, 10) || 0;
+
+    if (yearA !== yearB) {
+        return yearB - yearA;
+    }
+
+    // If the year is the same, sort alphabetically by project title
+    const titleA = (
+        a.data.title_en ||
+        a.data.title_it ||
+        ''
+    ).toLowerCase();
+
+    const titleB = (
+        b.data.title_en ||
+        b.data.title_it ||
+        ''
+    ).toLowerCase();
+
+    return titleA.localeCompare(titleB);
+});
+
+renderGrid();
+                   
             } catch (err) {
                 console.error('Failed to load projects:', err);
                 grid.innerHTML = '<p style="color: rgba(255,255,255,0.4); text-align: center; grid-column: 1/-1;">Unable to load projects right now.</p>';
