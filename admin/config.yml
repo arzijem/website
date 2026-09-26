@@ -25,12 +25,25 @@ collections:
     label: "Projects"
     folder: "content/projects"
     create: true
+    identifier_field: "title_en"
+    summary: "{{title_en}} — {{year}}"
     slug: "{{slug}}"
     format: "json"
+
     fields:
       - { label: "Project Title (English)", name: "title_en", widget: "string" }
+
       - { label: "Project Title (Italian)", name: "title_it", widget: "string" }
+
       - { label: "Year", name: "year", widget: "string", required: false }
+
+      - label: "Work Page Position"
+        name: "display_order"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        required: false
+        hint: "Optional. Use 1 for first, 2 for second, 3 for third, etc. Leave blank to sort automatically from newest year to oldest."
 
       - label: "Grid Cover Image"
         name: "cover"
@@ -38,9 +51,11 @@ collections:
         required: false
 
       - { label: "Short Summary (English)", name: "summary_en", widget: "string", required: false }
+
       - { label: "Short Summary (Italian)", name: "summary_it", widget: "string", required: false }
 
       - { label: "Full Project Story (English)", name: "body_en", widget: "markdown", required: false }
+
       - { label: "Full Project Story (Italian)", name: "body_it", widget: "markdown", required: false }
 
       - label: "Gallery Media"
@@ -90,6 +105,7 @@ collections:
             required: false
 
           - { label: "About Text (English)", name: "text_en", widget: "markdown" }
+
           - { label: "About Text (Italian)", name: "text_it", widget: "markdown" }
 
   - name: "contact"
@@ -100,13 +116,17 @@ collections:
         file: "content/contact.json"
         fields:
           - { label: "Email Address", name: "email", widget: "string" }
+
           - { label: "Phone Number", name: "phone", widget: "string", required: false }
+
           - { label: "Instagram Handle or URL", name: "instagram", widget: "string", required: false }
 
           - { label: "Location (English)", name: "location_en", widget: "string", default: "MILAN, ITALY" }
+
           - { label: "Location (Italian)", name: "location_it", widget: "string", default: "MILANO, ITALIA" }
 
           - { label: "Note / Availability (English)", name: "note_en", widget: "string", required: false }
+
           - { label: "Note / Availability (Italian)", name: "note_it", widget: "string", required: false }
 
   - name: "settings"
@@ -117,25 +137,33 @@ collections:
         file: "content/translations.json"
         fields:
           - { label: "Menu: Home (English)", name: "nav_home_en", widget: "string", default: "HOME" }
+
           - { label: "Menu: Home (Italian)", name: "nav_home_it", widget: "string", default: "HOME" }
 
           - { label: "Menu: Work (English)", name: "nav_work_en", widget: "string", default: "WORK" }
+
           - { label: "Menu: Work (Italian)", name: "nav_work_it", widget: "string", default: "PROGETTI" }
 
           - { label: "Menu: About (English)", name: "nav_about_en", widget: "string", default: "ABOUT" }
+
           - { label: "Menu: About (Italian)", name: "nav_about_it", widget: "string", default: "CHI SONO" }
 
           - { label: "Menu: Contact (English)", name: "nav_contact_en", widget: "string", default: "CONTACT" }
+
           - { label: "Menu: Contact (Italian)", name: "nav_contact_it", widget: "string", default: "CONTATTI" }
 
           - { label: "Work Page Heading (English)", name: "work_title_en", widget: "string", default: "Work" }
+
           - { label: "Work Page Heading (Italian)", name: "work_title_it", widget: "string", default: "Progetti" }
 
           - { label: "Scanner Button Text (English)", name: "scan_hold_en", widget: "string", default: "HOLD TO UNLOCK" }
+
           - { label: "Scanner Button Text (Italian)", name: "scan_hold_it", widget: "string", default: "TIENI PREMUTO" }
 
           - { label: "Project Back Button (English)", name: "back_btn_en", widget: "string", default: "← BACK TO WORK" }
+
           - { label: "Project Back Button (Italian)", name: "back_btn_it", widget: "string", default: "← TORNA AI PROGETTI" }
 
           - { label: "Footer (English)", name: "footer_text_en", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
+
           - { label: "Footer (Italian)", name: "footer_text_it", widget: "string", default: "© 2026 AZZURRA ZINGONI" }
