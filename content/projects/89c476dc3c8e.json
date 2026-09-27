@@ -2,6 +2,7 @@
   "title_en": "VIA ELSA",
   "title_it": "VIA ELSA",
   "year": "2023",
+  "display_order": null,
   "cover": "/assets/uploads/V3.jpg",
   "summary_en": "Drypoint engravings on acetate plate",
   "summary_it": "Incisioni a puntasecca su lastra di acetato",
@@ -10,14 +11,34 @@
   "gallery": [
     {
       "image": "/assets/uploads/V2.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
       "credit": ""
     },
     {
       "image": "/assets/uploads/V1.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
       "credit": ""
     },
     {
       "image": "/assets/uploads/V3.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
+    },
+    {
+      "image": "/assets/uploads/IMG_7033.JPG",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
       "credit": ""
     }
   ]
