@@ -3,6 +3,7 @@ backend:
   repo: arzijem/website
   branch: main
   base_url: https://sveltia-auth.arrzije-m.workers.dev
+  api_root: https://sveltia-auth.arrzije-m.workers.dev
 
 media_folder: "assets/uploads"
 public_folder: "assets/uploads"
