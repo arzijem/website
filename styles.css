@@ -1180,3 +1180,32 @@ html {
         opacity: 1 !important;
     }
 }
+
+.az-viewer-artwork-info {
+    margin-top: 18px;
+    text-align: center;
+    font-family: monospace;
+    max-width: 700px;
+}
+
+.az-viewer-artwork-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.az-viewer-artwork-meta {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+}
+
+.az-viewer-artwork-meta span {
+    color: #00ffcc;
+    font-weight: 700;
+}
