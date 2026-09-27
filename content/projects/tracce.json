@@ -1,7 +1,8 @@
 {
-  "title_en": "TRACCE",
+  "title_en": "TRACES",
   "title_it": "TRACCE",
   "year": "2026",
+  "display_order": null,
   "cover": "/assets/uploads/(pannello 2).jpg",
   "summary_en": "",
   "summary_it": "",
@@ -9,25 +10,60 @@
   "body_it": "_Dittico: stampe su pannello dibond_\n\n_Dimensioni immagini: 60x45 cm ciascuno_\n\nL'opera indaga il rapporto tra visione e riconoscimento, mostrando come il corpo possa sottrarsi ai processi che ne rendono immediata l'identificazione. In questo slittamento percettivo, la pelle cessa di essere un semplice involucro identitario per trasformarsi in una materia autonoma, aperta a molteplici possibilità interpretative. L'immagine si colloca così in una zona di ambiguità che mette in discussione le modalità attraverso cui attribuiamo significato a ciò che vediamo.",
   "gallery": [
     {
-      "image": "/assets/uploads/t1.jpg"
+      "image": "/assets/uploads/t1.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/p2.webp"
+      "image": "/assets/uploads/p2.webp",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/t2.jpg"
+      "image": "/assets/uploads/t2.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/t3.jpg"
+      "image": "/assets/uploads/t3.jpg",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/t4.webp"
+      "image": "/assets/uploads/t4.webp",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/t6.webp"
+      "image": "/assets/uploads/t6.webp",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     },
     {
-      "image": "/assets/uploads/t5.webp"
+      "image": "/assets/uploads/t5.webp",
+      "artwork_title": "",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": ""
     }
   ],
   "body": "",
