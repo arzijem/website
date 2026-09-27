@@ -1,1076 +1,3534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q04WK6NLC2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-Q04WK6NLC2');
-</script>
-    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q04WK6NLC2"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-Q04WK6NLC2');
+    </script>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Project — Azzurra Zingoni</title>
+
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Clean Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Typography -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
 
     <style>
+
+        /* =========================================
+           GENERAL PAGE
+           ========================================= */
+
         body {
             background-color: #050507;
             color: #ffffff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            font-family:
+                'Inter',
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
             margin: 0;
             padding: 0;
+
             overflow-x: hidden;
+
             -webkit-font-smoothing: antialiased;
         }
 
+
         .az-docket-page {
             max-width: 1320px;
+
             margin: 0 auto;
-            padding: 40px 5% 120px;
+
+            padding:
+                40px
+                5%
+                120px;
+
             position: relative;
         }
 
-        /* Top Return Navigation */
+
+        /* =========================================
+           TOP RETURN NAVIGATION
+           ========================================= */
+
         .az-docket-nav {
             display: flex;
+
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.1);
+
             padding-bottom: 24px;
+
             margin-bottom: 48px;
         }
 
+
         .az-back-btn {
-            color: rgba(255, 255, 255, 0.45);
+            color:
+                rgba(255, 255, 255, 0.45);
+
             text-decoration: none;
+
             font-size: 11px;
+
             letter-spacing: 2.5px;
+
             text-transform: uppercase;
+
             font-weight: 600;
-            transition: color 0.3s ease;
+
+            transition:
+                color 0.3s ease;
         }
+
 
         .az-back-btn:hover {
             color: #ffffff;
         }
 
+
         .az-docket-tag {
             font-size: 11px;
+
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.3);
+
+            color:
+                rgba(255, 255, 255, 0.3);
+
             text-transform: uppercase;
+
             font-family: monospace;
         }
+
 
         /* =========================================
            PROJECT HEADER
            ========================================= */
+
         .az-docket-header {
             display: grid;
-            grid-template-columns: 70px 1fr;
+
+            grid-template-columns:
+                70px
+                1fr;
+
             gap: 36px;
+
             margin-bottom: 44px;
+
             align-items: start;
         }
+
 
         .az-vertical-spine {
             writing-mode: vertical-rl;
-            transform: rotate(180deg);
+
+            transform:
+                rotate(180deg);
+
             font-family: monospace;
+
             font-size: 11px;
+
             letter-spacing: 4px;
+
             color: #00ffcc;
+
             text-transform: uppercase;
+
             opacity: 0.85;
+
             white-space: nowrap;
+
             padding-top: 6px;
         }
 
+
         .az-docket-title-block {
             display: flex;
+
             flex-direction: column;
+
             gap: 14px;
         }
 
+
         .az-title-acronym {
-            font-size: clamp(38px, 6vw, 76px);
+            font-size:
+                clamp(
+                    38px,
+                    6vw,
+                    76px
+                );
+
             font-weight: 800;
+
             line-height: 0.95;
+
             letter-spacing: -1.5px;
+
             text-transform: uppercase;
+
             color: #ffffff;
+
             margin: 0;
         }
 
+
         .az-title-expansion {
-            font-size: clamp(13px, 1.4vw, 18px);
+            font-size:
+                clamp(
+                    13px,
+                    1.4vw,
+                    18px
+                );
+
             font-weight: 500;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.6);
+
+            color:
+                rgba(255, 255, 255, 0.6);
+
             max-width: 860px;
+
             line-height: 1.45;
-            border-left: 2px solid #00ffcc;
+
+            border-left:
+                2px solid
+                #00ffcc;
+
             padding-left: 16px;
         }
 
+
         /* =========================================
-           SPLIT GRID: COVER + SPECS LEFT / STORY RIGHT
+           COVER + STORY
            ========================================= */
+
         .az-dossier-grid {
             display: grid;
-            grid-template-columns: 380px 1fr;
+
+            grid-template-columns:
+                380px
+                1fr;
+
             gap: 60px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 44px 0 54px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.1);
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.1);
+
+            padding:
+                44px
+                0
+                54px;
+
             margin-bottom: 70px;
+
             align-items: start;
         }
 
+
         .az-cover-pane {
             display: flex;
+
             flex-direction: column;
+
             gap: 20px;
         }
 
-        /* Anchor Cover Image */
+
+        /* =========================================
+           MAIN PROJECT COVER
+           ========================================= */
+
         .az-hero-cover-frame {
             position: relative;
+
             width: 100%;
+
             aspect-ratio: 5 / 4;
+
             background: #0d0d12;
-            border: 1px solid rgba(255, 255, 255, 0.14);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
             border-radius: 2px;
+
             overflow: hidden;
+
             display: flex;
         }
 
+
         .az-hero-cover-frame img {
             width: 100%;
+
             height: 100%;
+
             object-fit: cover;
+
             display: block;
-            transition: transform 0.6s ease;
+
+            transition:
+                transform 0.6s ease;
         }
 
+
         .az-hero-cover-frame:hover img {
-            transform: scale(1.03);
+            transform:
+                scale(1.03);
         }
+
+
+        /* =========================================
+           SUMMARY
+           ========================================= */
 
         .az-project-summary {
             font-size: 13px;
+
             line-height: 1.65;
-            color: rgba(255, 255, 255, 0.65);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+            color:
+                rgba(255, 255, 255, 0.65);
+
+            border-left:
+                1px solid
+                rgba(255, 255, 255, 0.2);
+
             padding-left: 14px;
         }
 
+
         .az-project-summary p {
-            margin: 0 0 8px 0;
+            margin:
+                0
+                0
+                8px
+                0;
         }
+
 
         .az-project-summary em,
         .az-project-summary i {
             font-style: italic;
+
             color: #ffffff;
         }
 
-        /* Curatorial Story Body */
+
+        /* =========================================
+           PROJECT STORY
+           ========================================= */
+
         .az-project-body {
             font-size: 15px;
+
             font-weight: 400;
+
             line-height: 1.85;
-            color: rgba(255, 255, 255, 0.88);
+
+            color:
+                rgba(255, 255, 255, 0.88);
+
             max-width: 720px;
         }
 
+
         .az-project-body p {
-            margin: 0 0 16px 0;
+            margin:
+                0
+                0
+                16px
+                0;
         }
+
 
         .az-project-body p:last-child {
             margin-bottom: 0;
         }
 
+
         .az-project-body strong,
         .az-project-body b {
             font-weight: 600;
+
             color: #ffffff;
         }
+
 
         .az-project-body em,
         .az-project-body i {
             font-style: italic;
+
             color: #ffffff;
         }
 
+
         /* =========================================
-           FORENSIC TOGGLE BUTTON & DYNAMIC STATES
+           GALLERY AREA
            ========================================= */
+
         .az-gallery-area {
             position: relative;
+
             width: 100%;
         }
+
 
         .az-gallery-btn-wrap {
             display: flex;
+
             justify-content: center;
             align-items: center;
-            padding: 30px 0 45px;
+
+            padding:
+                30px
+                0
+                45px;
+
             position: relative;
+
             z-index: 10;
         }
 
+
         .az-gallery-toggle-btn {
             position: relative;
+
             display: inline-flex;
+
             align-items: center;
+
             gap: 14px;
-            padding: 13px 28px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            padding:
+                13px
+                28px;
+
+            background:
+                rgba(255, 255, 255, 0.03);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.2);
+
             color: #ffffff;
-            font-family: monospace, "Courier New", Courier;
+
+            font-family:
+                monospace,
+                "Courier New",
+                Courier;
+
             font-size: 11px;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
+
             font-weight: 600;
+
             cursor: pointer;
+
             outline: none;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+            transition:
+                all
+                0.25s
+                cubic-bezier(
+                    0.16,
+                    1,
+                    0.3,
+                    1
+                );
+
             user-select: none;
         }
 
+
         .az-gallery-toggle-btn:hover {
             border-color: #00ffcc;
-            background: rgba(0, 255, 204, 0.04);
-            box-shadow: 0 0 16px rgba(0, 255, 204, 0.15);
-            transform: translateY(-2px);
+
+            background:
+                rgba(0, 255, 204, 0.04);
+
+            box-shadow:
+                0 0 16px
+                rgba(0, 255, 204, 0.15);
+
+            transform:
+                translateY(-2px);
         }
+
 
         .az-toggle-icon {
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
+
             width: 18px;
+
             height: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.3);
+
             border-radius: 50%;
+
             font-size: 11px;
+
             color: #00ffcc;
-            transition: all 0.3s ease;
+
+            transition:
+                all 0.3s ease;
         }
+
 
         .az-toggle-badge {
             font-size: 9px;
+
             letter-spacing: 1px;
-            padding: 2px 6px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.6);
+
+            padding:
+                2px
+                6px;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            color:
+                rgba(255, 255, 255, 0.6);
         }
 
-        /* Active / Open state styling */
-        .az-gallery-area.is-unlocked .az-gallery-toggle-btn {
-            border-color: rgba(0, 255, 204, 0.6);
-            background: rgba(0, 255, 204, 0.06);
+
+        /* =========================================
+           GALLERY OPEN STATE
+           ========================================= */
+
+        .az-gallery-area.is-unlocked
+        .az-gallery-toggle-btn {
+            border-color:
+                rgba(0, 255, 204, 0.6);
+
+            background:
+                rgba(0, 255, 204, 0.06);
+
             color: #00ffcc;
         }
 
-        .az-gallery-area.is-unlocked .az-toggle-icon {
+
+        .az-gallery-area.is-unlocked
+        .az-toggle-icon {
             border-color: #00ffcc;
+
             background: #00ffcc;
+
             color: #050507;
-            transform: rotate(180deg);
+
+            transform:
+                rotate(180deg);
         }
 
-        .az-gallery-area.is-unlocked .az-toggle-badge {
-            border-color: rgba(0, 255, 204, 0.3);
+
+        .az-gallery-area.is-unlocked
+        .az-toggle-badge {
+            border-color:
+                rgba(0, 255, 204, 0.3);
+
             color: #00ffcc;
         }
 
-        /* Blurred Preview */
+
+        /* =========================================
+           BLURRED GALLERY PREVIEW
+           ========================================= */
+
         .az-gallery-preview {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
             gap: 16px;
-            filter: blur(14px) brightness(0.35);
+
+            filter:
+                blur(14px)
+                brightness(0.35);
+
             opacity: 0.6;
-            transition: opacity 0.6s ease;
+
+            transition:
+                opacity 0.6s ease;
         }
 
+
         @media (max-width: 800px) {
+
             .az-gallery-preview {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
         }
+
+
+        /*
+           IMPORTANT:
+           transparent background so PNG cut-outs
+           show the page behind them
+        */
 
         .az-gallery-preview-item {
             position: relative;
+
             width: 100%;
+
             aspect-ratio: 5 / 4;
-            background: #0d0d12;
-            border-radius: 2px;
-            overflow: hidden;
+
+            background: transparent;
+
+            border: none;
+
+            border-radius: 0;
+
+            overflow: visible;
+
             display: flex;
+
+            align-items: center;
+            justify-content: center;
         }
+
 
         .az-gallery-preview-item img {
             width: 100%;
+
             height: 100%;
-            object-fit: cover;
+
+            object-fit: contain;
+
             display: block;
+
+            background: transparent;
         }
 
-        /* Full Unlocked Gallery */
+
+        /* =========================================
+           FULL GALLERY
+           ========================================= */
+
         .az-artworks.az-gallery-full {
             display: none;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 24px;
         }
 
+
         @media (max-width: 900px) {
+
             .az-artworks.az-gallery-full {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
         }
+
 
         @media (max-width: 600px) {
+
             .az-artworks.az-gallery-full {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
         }
 
-        /* When unlocked: hide preview, show full grid */
-        .az-gallery-area.is-unlocked .az-gallery-preview {
+
+        .az-gallery-area.is-unlocked
+        .az-gallery-preview {
             display: none !important;
         }
 
-        .az-gallery-area.is-unlocked .az-artworks.az-gallery-full {
+
+        .az-gallery-area.is-unlocked
+        .az-artworks.az-gallery-full {
             display: grid !important;
         }
 
+
         .az-artwork {
             display: flex;
+
             flex-direction: column;
+
             text-decoration: none;
+
             color: inherit;
+
             cursor: pointer;
         }
 
+
+        /*
+           TRANSPARENT ARTWORK FRAME
+
+           No black square behind PNGs.
+        */
+
         .az-artwork-frame {
             position: relative;
+
             width: 100%;
+
             aspect-ratio: 5 / 4;
-            background: #0d0d12;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            overflow: hidden;
+
+            background: transparent;
+
+            border: none;
+
+            overflow: visible;
+
             display: flex;
+
+            align-items: center;
+            justify-content: center;
         }
+
 
         .az-artwork-frame img {
             width: 100%;
+
             height: 100%;
+
             display: block;
-            object-fit: cover;
-            transition: transform 0.6s ease;
+
+            object-fit: contain;
+
+            background: transparent;
+
+            transition:
+                transform 0.6s ease;
         }
 
-        .az-artwork:hover .az-artwork-frame img {
-            transform: scale(1.03);
+
+        .az-artwork:hover
+        .az-artwork-frame img {
+            transform:
+                scale(1.03);
         }
+
+
+        /* =========================================
+           CREDIT ON THUMBNAIL
+           ========================================= */
 
         .az-artwork-credit-tag {
             position: absolute;
+
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 8px 12px;
-            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85));
+
+            padding:
+                8px
+                12px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 0, 0, 0.85)
+                );
+
             font-family: monospace;
+
             font-size: 10px;
+
             letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.75);
+
+            color:
+                rgba(255, 255, 255, 0.75);
+
             opacity: 0;
-            transform: translateY(4px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
+
+            transform:
+                translateY(4px);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+
             pointer-events: none;
         }
 
-        .az-artwork:hover .az-artwork-credit-tag {
+
+        .az-artwork:hover
+        .az-artwork-credit-tag {
             opacity: 1;
-            transform: translateY(0);
+
+            transform:
+                translateY(0);
         }
+
+
+        /* =========================================
+           BACK TO TOP
+           ========================================= */
 
         .az-gallery-navigation-bottom {
-            grid-column: 1 / -1;
+            grid-column:
+                1 / -1;
+
             text-align: center;
-            padding: 50px 0 20px;
+
+            padding:
+                50px
+                0
+                20px;
         }
 
+
         .az-gallery-navigation-bottom a {
-            color: rgba(255, 255, 255, 0.4);
+            color:
+                rgba(255, 255, 255, 0.4);
+
             font-size: 11px;
+
             letter-spacing: 2px;
+
             text-decoration: none;
+
             text-transform: uppercase;
-            transition: color 0.2s ease;
+
+            transition:
+                color 0.2s ease;
         }
+
 
         .az-gallery-navigation-bottom a:hover {
             color: #00ffcc;
         }
 
-        /* LIGHTBOX VIEWER */
+
+        /* =========================================
+           LIGHTBOX
+           ========================================= */
+
         .az-viewer {
             position: fixed;
+
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(12px);
+
+            background:
+                rgba(0, 0, 0, 0.95);
+
+            backdrop-filter:
+                blur(12px);
+
             z-index: 9999;
+
             display: none;
+
             align-items: center;
             justify-content: center;
         }
 
-        .az-viewer.is-open { display: flex; }
+
+        .az-viewer.is-open {
+            display: flex;
+        }
+
 
         .az-viewer-center {
             max-width: 90vw;
-            max-height: 85vh;
+
+            max-height: 90vh;
+
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
+            overflow-y: auto;
+
+            padding:
+                20px
+                0;
         }
+
 
         .az-viewer-image {
             max-width: 90vw;
-            max-height: 75vh;
+
+            max-height: 72vh;
+
             object-fit: contain;
+
+            background: transparent;
         }
 
-        .az-viewer-credit-badge {
-            margin-top: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: monospace;
-            font-size: 11px;
-            letter-spacing: 2px;
-            padding: 6px 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+
+        /* =========================================
+           ARTWORK INFORMATION
+           ========================================= */
+
+        .az-viewer-artwork-info {
+            margin-top: 18px;
+
+            text-align: center;
+
+            font-family:
+                monospace,
+                "Courier New",
+                Courier;
+
+            max-width: 760px;
+
+            padding:
+                0
+                16px;
+        }
+
+
+        .az-viewer-artwork-title {
+            font-family:
+                'Inter',
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 10px;
+
             color: #ffffff;
+
+            text-transform: uppercase;
         }
 
-        .az-viewer-credit-badge span {
+
+        .az-viewer-artwork-meta {
+            font-size: 11px;
+
+            letter-spacing: 1.5px;
+
+            line-height: 1.8;
+
+            color:
+                rgba(255, 255, 255, 0.72);
+        }
+
+
+        .az-viewer-artwork-meta span {
             color: #00ffcc;
+
             font-weight: 700;
         }
+
+
+        /* =========================================
+           VIEWER CONTROLS
+           ========================================= */
 
         .az-viewer-close,
         .az-viewer-prev,
         .az-viewer-next {
             position: absolute;
+
             background: transparent;
+
             border: none;
+
             color: #ffffff;
+
             cursor: pointer;
+
             outline: none;
+
             opacity: 0.6;
-            transition: opacity 0.2s, transform 0.2s;
+
+            transition:
+                opacity 0.2s,
+                transform 0.2s;
+
             font-size: 32px;
+
             padding: 16px;
         }
+
 
         .az-viewer-close:hover,
         .az-viewer-prev:hover,
         .az-viewer-next:hover {
             opacity: 1;
-            transform: scale(1.1);
+
+            transform:
+                scale(1.1);
         }
 
-        .az-viewer-close { top: 24px; right: 28px; font-size: 40px; }
-        .az-viewer-prev { left: 20px; }
-        .az-viewer-next { right: 20px; }
+
+        .az-viewer-close {
+            top: 24px;
+
+            right: 28px;
+
+            font-size: 40px;
+        }
+
+
+        .az-viewer-prev {
+            left: 20px;
+        }
+
+
+        .az-viewer-next {
+            right: 20px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
 
         @media (max-width: 900px) {
+
             .az-docket-header {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
+
                 gap: 16px;
             }
 
+
             .az-vertical-spine {
-                writing-mode: horizontal-tb;
+                writing-mode:
+                    horizontal-tb;
+
                 transform: none;
+
                 padding-top: 0;
             }
 
+
             .az-dossier-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
+
                 gap: 32px;
-                padding: 30px 0 36px;
+
+                padding:
+                    30px
+                    0
+                    36px;
             }
+
 
             .az-cover-pane {
                 max-width: 480px;
             }
+
+
+            .az-viewer-prev {
+                left: 4px;
+            }
+
+
+            .az-viewer-next {
+                right: 4px;
+            }
         }
+
+
+        @media (max-width: 600px) {
+
+            .az-viewer-artwork-title {
+                font-size: 15px;
+            }
+
+
+            .az-viewer-artwork-meta {
+                font-size: 10px;
+            }
+
+
+            .az-viewer-image {
+                max-width: 94vw;
+                max-height: 65vh;
+            }
+        }
+
     </style>
+
 </head>
+
+
 <body>
 
-    <!-- TOP BAR NAVIGATION -->
+
+    <!-- =========================================
+         TOP BAR
+         ========================================= -->
+
     <header class="az-topbar">
-        <a class="az-brand" href="index.html">AZZURRA ZINGONI</a>
+
+        <a
+            class="az-brand"
+            href="index.html"
+        >
+            AZZURRA ZINGONI
+        </a>
+
+
         <nav class="az-menu">
-            <a href="index.html" data-i18n="nav_home">HOME</a>
-            <a href="work.html" style="opacity: 1; font-weight: 700;" data-i18n="nav_work">WORK</a>
-            <a href="about.html" data-i18n="nav_about">ABOUT</a>
-            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+
+            <a
+                href="index.html"
+                data-i18n="nav_home"
+            >
+                HOME
+            </a>
+
+
+            <a
+                href="work.html"
+                style="
+                    opacity: 1;
+                    font-weight: 700;
+                "
+                data-i18n="nav_work"
+            >
+                WORK
+            </a>
+
+
+            <a
+                href="about.html"
+                data-i18n="nav_about"
+            >
+                ABOUT
+            </a>
+
+
+            <a
+                href="contact.html"
+                data-i18n="nav_contact"
+            >
+                CONTACT
+            </a>
+
+
             <span class="az-lang-switch">
-                <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-                <span class="az-lang-divider">/</span>
-                <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+
+                <button
+                    type="button"
+                    class="az-lang-btn"
+                    data-lang="en"
+                    onclick="setLanguage('en')"
+                >
+                    EN
+                </button>
+
+
+                <span class="az-lang-divider">
+                    /
+                </span>
+
+
+                <button
+                    type="button"
+                    class="az-lang-btn"
+                    data-lang="it"
+                    onclick="setLanguage('it')"
+                >
+                    IT
+                </button>
+
             </span>
+
         </nav>
 
-        <!-- Mobile Menu Toggle Button -->
-        <button class="az-menu-button" type="button" aria-label="Toggle menu">
+
+        <button
+            class="az-menu-button"
+            type="button"
+            aria-label="Toggle menu"
+        >
             <span></span>
             <span></span>
         </button>
+
     </header>
 
-    <!-- MOBILE DRAWER MENU -->
+
+    <!-- =========================================
+         MOBILE MENU
+         ========================================= -->
+
     <aside class="az-mobile-menu">
+
         <nav class="az-mobile-links">
-            <a href="index.html" data-i18n="nav_home">HOME</a>
-            <a href="work.html" data-i18n="nav_work">WORK</a>
-            <a href="about.html" data-i18n="nav_about">ABOUT</a>
-            <a href="contact.html" data-i18n="nav_contact">CONTACT</a>
+
+            <a
+                href="index.html"
+                data-i18n="nav_home"
+            >
+                HOME
+            </a>
+
+
+            <a
+                href="work.html"
+                data-i18n="nav_work"
+            >
+                WORK
+            </a>
+
+
+            <a
+                href="about.html"
+                data-i18n="nav_about"
+            >
+                ABOUT
+            </a>
+
+
+            <a
+                href="contact.html"
+                data-i18n="nav_contact"
+            >
+                CONTACT
+            </a>
+
         </nav>
-        <div class="az-mobile-languages az-lang-switch">
-            <button type="button" class="az-lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-            <span class="az-lang-divider">/</span>
-            <button type="button" class="az-lang-btn" data-lang="it" onclick="setLanguage('it')">IT</button>
+
+
+        <div
+            class="
+                az-mobile-languages
+                az-lang-switch
+            "
+        >
+
+            <button
+                type="button"
+                class="az-lang-btn"
+                data-lang="en"
+                onclick="setLanguage('en')"
+            >
+                EN
+            </button>
+
+
+            <span class="az-lang-divider">
+                /
+            </span>
+
+
+            <button
+                type="button"
+                class="az-lang-btn"
+                data-lang="it"
+                onclick="setLanguage('it')"
+            >
+                IT
+            </button>
+
         </div>
+
     </aside>
 
+
+    <!-- =========================================
+         PROJECT PAGE
+         ========================================= -->
+
     <div class="az-docket-page">
-        <!-- TOP NAV -->
+
+
         <div class="az-docket-nav">
-            <a href="work.html" class="az-back-btn" data-i18n="back_btn">&larr; BACK TO WORK</a>
-            <span class="az-docket-tag" id="docket-year">SERIES // 2026</span>
+
+            <a
+                href="work.html"
+                class="az-back-btn"
+                data-i18n="back_btn"
+            >
+                &larr; BACK TO WORK
+            </a>
+
+
+            <span
+                class="az-docket-tag"
+                id="docket-year"
+            >
+                SERIES // 2026
+            </span>
+
         </div>
+
 
         <main>
-            <!-- HEADER -->
+
+
+            <!-- PROJECT HEADER -->
+
             <section class="az-docket-header">
-                <div class="az-vertical-spine" id="proj-category">// PROJECT</div>
+
+
+                <div
+                    class="az-vertical-spine"
+                    id="proj-category"
+                >
+                    // PROJECT
+                </div>
+
+
                 <div class="az-docket-title-block">
-                    <h1 class="az-title-acronym" id="proj-acronym">AFIS</h1>
-                    <div class="az-title-expansion" id="proj-expansion">AUTOMATED FINGERPRINTING OF IDIOTS SCROLLING</div>
+
+                    <h1
+                        class="az-title-acronym"
+                        id="proj-acronym"
+                    >
+                        PROJECT
+                    </h1>
+
+
+                    <div
+                        class="az-title-expansion"
+                        id="proj-expansion"
+                    ></div>
+
                 </div>
+
             </section>
 
-            <!-- EDITORIAL GRID (COVER + SPECS ON LEFT, STORY ON RIGHT) -->
+
+            <!-- COVER + PROJECT STORY -->
+
             <section class="az-dossier-grid">
+
+
                 <div class="az-cover-pane">
-                    <div class="az-hero-cover-frame" id="hero-cover-wrap">
-                        <!-- Cover image injected dynamically -->
+
+
+                    <div
+                        class="az-hero-cover-frame"
+                        id="hero-cover-wrap"
+                    >
                     </div>
-                    <div id="proj-summary" class="az-project-summary"></div>
+
+
+                    <div
+                        id="proj-summary"
+                        class="az-project-summary"
+                    ></div>
+
+
                 </div>
 
-                <div class="az-project-body" id="proj-body"></div>
+
+                <div
+                    class="az-project-body"
+                    id="proj-body"
+                ></div>
+
+
             </section>
 
-            <!-- PERSISTENT TOGGLE BUTTON & GALLERY SECTION -->
-            <div class="az-gallery-area" id="gallery-start">
-                <div class="az-gallery-btn-wrap" id="gallery-btn-wrap">
-                    <button class="az-gallery-toggle-btn" id="gallery-toggle-btn" type="button" aria-expanded="false">
-                        <span class="az-toggle-icon" id="gallery-btn-icon">+</span>
-                        <span id="gallery-btn-text">VIEW GALLERY</span>
-                        <span class="az-toggle-badge" id="gallery-count-badge">0 RECORDS</span>
+
+            <!-- =========================================
+                 GALLERY
+                 ========================================= -->
+
+            <div
+                class="az-gallery-area"
+                id="gallery-start"
+            >
+
+
+                <div
+                    class="az-gallery-btn-wrap"
+                    id="gallery-btn-wrap"
+                >
+
+
+                    <button
+                        class="az-gallery-toggle-btn"
+                        id="gallery-toggle-btn"
+                        type="button"
+                        aria-expanded="false"
+                    >
+
+
+                        <span
+                            class="az-toggle-icon"
+                            id="gallery-btn-icon"
+                        >
+                            +
+                        </span>
+
+
+                        <span id="gallery-btn-text">
+                            VIEW GALLERY
+                        </span>
+
+
+                        <span
+                            class="az-toggle-badge"
+                            id="gallery-count-badge"
+                        >
+                            0 RECORDS
+                        </span>
+
+
                     </button>
+
+
                 </div>
 
-                <div class="az-gallery-preview" id="gallery-preview"></div>
-                <section class="az-artworks az-gallery-full" id="az-artworks"></section>
+
+                <div
+                    class="az-gallery-preview"
+                    id="gallery-preview"
+                ></div>
+
+
+                <section
+                    class="
+                        az-artworks
+                        az-gallery-full
+                    "
+                    id="az-artworks"
+                ></section>
+
+
             </div>
+
+
         </main>
+
+
     </div>
 
-    <!-- LIGHTBOX VIEWER -->
-    <div class="az-viewer" id="az-viewer">
-        <button class="az-viewer-close" type="button" aria-label="Close">&times;</button>
-        <button class="az-viewer-prev" type="button" aria-label="Previous">&larr;</button>
-        <div class="az-viewer-center">
-            <img class="az-viewer-image" src="" alt="">
-            <div class="az-viewer-credit-badge" id="az-viewer-credit" style="display: none;"></div>
-        </div>
-        <button class="az-viewer-next" type="button" aria-label="Next">&rarr;</button>
+
+    <!-- =========================================
+         LIGHTBOX VIEWER
+         ========================================= -->
+
+    <div
+        class="az-viewer"
+        id="az-viewer"
+    >
+
+
+        <button
+            class="az-viewer-close"
+            type="button"
+            aria-label="Close"
+        >
+            &times;
+        </button>
+
+
+        <button
+            class="az-viewer-prev"
+            type="button"
+            aria-label="Previous"
+        >
+            &larr;
+        </button>
+
+
+        <div class="az-viewer-center"></div>
+
+
+        <button
+            class="az-viewer-next"
+            type="button"
+            aria-label="Next"
+        >
+            &rarr;
+        </button>
+
+
     </div>
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
 
     <footer class="az-footer">
-        <span>© 2026 AZZURRA ZINGONI</span>
-        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
+
+        <span>
+            © 2026 AZZURRA ZINGONI
+        </span>
+
+
+        <span class="az-footer-right">
+            ALL RIGHTS RESERVED
+        </span>
+
     </footer>
 
-    <!-- Markdown Parser & Translations -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- =========================================
+         EXTERNAL SCRIPTS
+         ========================================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
     <script src="i18n.js"></script>
 
-    <!-- 2S CLICK FINGERPRINT EFFECT -->
+
+    <!-- =========================================
+         FINGERPRINT CLICK EFFECT
+         ========================================= -->
+
     <script>
-    document.addEventListener("click", function(event) {
-        if (event.target.closest("button") || event.target.closest("a") || event.target.closest(".az-artwork")) return;
 
-        const fingerprint = document.createElement("div");
-        fingerprint.className = "az-fingerprint";
-        fingerprint.style.left = event.clientX + "px";
-        fingerprint.style.top = event.clientY + "px";
-        fingerprint.innerHTML = `
-            <svg viewBox="0 0 60 80" aria-hidden="true">
-                <path d="M12 25 C16 8, 44 5, 50 25" />
-                <path d="M9 34 C9 13, 48 5, 53 32" />
-                <path d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56" />
-                <path d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68" />
-                <path d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72" />
-                <path d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70" />
-                <path d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59" />
-                <path d="M47 62 C45 66, 43 69, 41 72" />
-            </svg>
-        `;
+        document.addEventListener(
+            "click",
+            function(event) {
 
-        fingerprint.addEventListener("animationend", () => fingerprint.remove());
-        document.body.appendChild(fingerprint);
-    });
+                if (
+                    event.target.closest("button") ||
+                    event.target.closest("a") ||
+                    event.target.closest(".az-artwork")
+                ) {
+                    return;
+                }
+
+
+                const fingerprint =
+                    document.createElement("div");
+
+
+                fingerprint.className =
+                    "az-fingerprint";
+
+
+                fingerprint.style.left =
+                    event.clientX + "px";
+
+
+                fingerprint.style.top =
+                    event.clientY + "px";
+
+
+                fingerprint.innerHTML = `
+
+                    <svg
+                        viewBox="0 0 60 80"
+                        aria-hidden="true"
+                    >
+
+                        <path
+                            d="M12 25 C16 8, 44 5, 50 25"
+                        />
+
+                        <path
+                            d="M9 34 C9 13, 48 5, 53 32"
+                        />
+
+                        <path
+                            d="M8 44 C8 18, 48 9, 54 38 C55 44, 54 50, 52 56"
+                        />
+
+                        <path
+                            d="M10 53 C13 47, 13 39, 14 33 C17 15, 44 14, 48 34 C50 46, 46 58, 40 68"
+                        />
+
+                        <path
+                            d="M13 61 C21 53, 18 40, 21 30 C25 18, 43 21, 44 35 C46 50, 38 63, 31 72"
+                        />
+
+                        <path
+                            d="M18 67 C27 58, 24 46, 27 35 C30 25, 40 27, 40 38 C40 51, 33 63, 26 70"
+                        />
+
+                        <path
+                            d="M25 69 C31 61, 32 54, 32 45 C32 38, 34 34, 37 36 C40 40, 37 53, 34 59"
+                        />
+
+                        <path
+                            d="M47 62 C45 66, 43 69, 41 72"
+                        />
+
+                    </svg>
+
+                `;
+
+
+                fingerprint.addEventListener(
+                    "animationend",
+                    () => fingerprint.remove()
+                );
+
+
+                document.body.appendChild(
+                    fingerprint
+                );
+            }
+        );
+
     </script>
 
+
+    <!-- =========================================
+         PROJECT / GALLERY SCRIPT
+         ========================================= -->
+
     <script>
+
         let projectData = null;
+
         let artworks = [];
+
         let currentIndex = 0;
 
+
+        /* =========================================
+           VIDEO CHECK
+           ========================================= */
+
         function isVideo(path) {
-            if (!path || typeof path !== 'string') return false;
-            const clean = path.split('?')[0].split('#')[0].toLowerCase();
-            return clean.endsWith('.mp4') || clean.endsWith('.webm') || clean.endsWith('.mov') || clean.endsWith('.ogg');
+
+            if (
+                !path ||
+                typeof path !== 'string'
+            ) {
+                return false;
+            }
+
+
+            const clean =
+                path
+                    .split('?')[0]
+                    .split('#')[0]
+                    .toLowerCase();
+
+
+            return (
+                clean.endsWith('.mp4') ||
+                clean.endsWith('.webm') ||
+                clean.endsWith('.mov') ||
+                clean.endsWith('.ogg')
+            );
         }
 
+
+        /* =========================================
+           MEDIA PATH
+           ========================================= */
+
         function cleanPath(item) {
-            if (!item) return '';
+
+            if (!item) {
+                return '';
+            }
+
 
             let raw = '';
-            if (typeof item === 'string') {
+
+
+            if (
+                typeof item === 'string'
+            ) {
+
                 raw = item;
-            } else if (typeof item === 'object') {
-                raw = item.image || item.file || item.video || item.photo || item.url || item.src || '';
-                if (!raw && item.fields) {
-                    raw = item.fields.image || item.fields.file || item.fields.video || '';
+
+            } else if (
+                typeof item === 'object'
+            ) {
+
+                raw =
+                    item.image ||
+                    item.file ||
+                    item.video ||
+                    item.photo ||
+                    item.url ||
+                    item.src ||
+                    '';
+
+
+                if (
+                    !raw &&
+                    item.fields
+                ) {
+
+                    raw =
+                        item.fields.image ||
+                        item.fields.file ||
+                        item.fields.video ||
+                        '';
+
                 }
             }
 
-            if (!raw || typeof raw !== 'string') return '';
+
+            if (
+                !raw ||
+                typeof raw !== 'string'
+            ) {
+                return '';
+            }
+
+
             raw = raw.trim();
 
-            if (raw.startsWith('http://') || raw.startsWith('https://')) {
+
+            if (
+                raw.startsWith('http://') ||
+                raw.startsWith('https://')
+            ) {
                 return raw;
             }
 
-            let cleaned = raw.replace(/^(\.\/|\/)+/, '');
 
-            if (!cleaned.startsWith('assets/uploads/') && !cleaned.includes('/')) {
-                cleaned = 'assets/uploads/' + cleaned;
+            let cleaned =
+                raw.replace(
+                    /^(\.\/|\/)+/,
+                    ''
+                );
+
+
+            if (
+                !cleaned.startsWith(
+                    'assets/uploads/'
+                ) &&
+                !cleaned.includes('/')
+            ) {
+
+                cleaned =
+                    'assets/uploads/' +
+                    cleaned;
             }
+
 
             try {
-                cleaned = decodeURI(cleaned)
-                    .split('/')
-                    .map(segment => encodeURIComponent(segment))
-                    .join('/');
-            } catch (e) {
-                cleaned = encodeURI(cleaned);
+
+                cleaned =
+                    decodeURI(cleaned)
+                        .split('/')
+                        .map(
+                            segment =>
+                                encodeURIComponent(
+                                    segment
+                                )
+                        )
+                        .join('/');
+
+            } catch (error) {
+
+                cleaned =
+                    encodeURI(cleaned);
+
             }
+
 
             return '/' + cleaned;
         }
 
+
+        /* =========================================
+           GALLERY BUTTON LANGUAGE
+           ========================================= */
+
         function updateGalleryButtonLabels() {
-            const btnText = document.getElementById('gallery-btn-text');
-            const btnIcon = document.getElementById('gallery-btn-icon');
-            const galleryArea = document.querySelector('.az-gallery-area');
-            const lang = localStorage.getItem('az_lang') || 'en';
 
-            if (!btnText) return;
+            const btnText =
+                document.getElementById(
+                    'gallery-btn-text'
+                );
 
-            const isOpen = galleryArea && galleryArea.classList.contains('is-unlocked');
+
+            const btnIcon =
+                document.getElementById(
+                    'gallery-btn-icon'
+                );
+
+
+            const galleryArea =
+                document.querySelector(
+                    '.az-gallery-area'
+                );
+
+
+            const lang =
+                localStorage.getItem(
+                    'az_lang'
+                ) || 'en';
+
+
+            if (!btnText) {
+                return;
+            }
+
+
+            const isOpen =
+                galleryArea &&
+                galleryArea.classList.contains(
+                    'is-unlocked'
+                );
+
 
             if (isOpen) {
-                btnText.textContent = lang === 'it' ? 'CHIUDI GALLERIA' : 'COLLAPSE GALLERY';
-                if (btnIcon) btnIcon.textContent = '−';
+
+                btnText.textContent =
+                    lang === 'it'
+                        ? 'CHIUDI GALLERIA'
+                        : 'COLLAPSE GALLERY';
+
+
+                if (btnIcon) {
+                    btnIcon.textContent = '−';
+                }
+
             } else {
-                btnText.textContent = lang === 'it' ? 'MOSTRA GALLERIA' : 'VIEW GALLERY';
-                if (btnIcon) btnIcon.textContent = '+';
+
+                btnText.textContent =
+                    lang === 'it'
+                        ? 'MOSTRA GALLERIA'
+                        : 'VIEW GALLERY';
+
+
+                if (btnIcon) {
+                    btnIcon.textContent = '+';
+                }
+
             }
         }
 
+
+        /* =========================================
+           PROJECT CONTENT
+           ========================================= */
+
         function renderContent() {
-            if (!projectData) return;
 
-            const lang = localStorage.getItem('az_lang') || 'en';
-            const rawTitle = (lang === 'it' ? (projectData.title_it || projectData.title_en) : (projectData.title_en || projectData.title_it)) || projectData.title || '';
-            const summary = (lang === 'it' ? (projectData.summary_it || projectData.summary_en) : (projectData.summary_en || projectData.summary_it)) || projectData.summary || '';
-            const body = (lang === 'it' ? (projectData.body_it || projectData.body_en) : (projectData.body_en || projectData.body_it)) || projectData.body || '';
+            if (!projectData) {
+                return;
+            }
 
-            let acronym = rawTitle;
+
+            const lang =
+                localStorage.getItem(
+                    'az_lang'
+                ) || 'en';
+
+
+            const rawTitle =
+                (
+                    lang === 'it'
+                        ? (
+                            projectData.title_it ||
+                            projectData.title_en
+                        )
+                        : (
+                            projectData.title_en ||
+                            projectData.title_it
+                        )
+                ) ||
+                projectData.title ||
+                '';
+
+
+            const summary =
+                (
+                    lang === 'it'
+                        ? (
+                            projectData.summary_it ||
+                            projectData.summary_en
+                        )
+                        : (
+                            projectData.summary_en ||
+                            projectData.summary_it
+                        )
+                ) ||
+                projectData.summary ||
+                '';
+
+
+            const body =
+                (
+                    lang === 'it'
+                        ? (
+                            projectData.body_it ||
+                            projectData.body_en
+                        )
+                        : (
+                            projectData.body_en ||
+                            projectData.body_it
+                        )
+                ) ||
+                projectData.body ||
+                '';
+
+
+            let acronym =
+                rawTitle;
+
+
             let expansion = '';
-            const match = rawTitle.match(/^([^(]+)(?:\((.*)\))?$/);
+
+
+            const match =
+                rawTitle.match(
+                    /^([^(]+)(?:\((.*)\))?$/
+                );
+
+
             if (match) {
-                acronym = match[1].trim();
-                expansion = match[2] ? match[2].trim() : '';
+
+                acronym =
+                    match[1].trim();
+
+
+                expansion =
+                    match[2]
+                        ? match[2].trim()
+                        : '';
+
             }
 
-            document.title = `${rawTitle} — Azzurra Zingoni`;
-            document.getElementById('proj-acronym').textContent = acronym;
-            
-            const expEl = document.getElementById('proj-expansion');
-            if (expansion) {
-                expEl.textContent = expansion;
-                expEl.style.display = 'block';
-            } else {
-                expEl.style.display = 'none';
+
+            document.title =
+                `${rawTitle} — Azzurra Zingoni`;
+
+
+            const acronymElement =
+                document.getElementById(
+                    'proj-acronym'
+                );
+
+
+            if (acronymElement) {
+
+                acronymElement.textContent =
+                    acronym;
+
             }
 
-            const categoryEl = document.getElementById('proj-category');
-            if (categoryEl) {
-                categoryEl.textContent = lang === 'it' ? '// PROGETTO' : '// PROJECT';
-            }
 
-            // Dynamic year adaptation with bilingual badge
-            const projYear = projectData.year ? String(projectData.year).trim() : '2026';
-            const docketYearEl = document.getElementById('docket-year');
-            if (docketYearEl) {
-                const seriesLabel = lang === 'it' ? 'SERIE' : 'SERIES';
-                docketYearEl.innerHTML = `${seriesLabel} // <span class="az-project-year">${projYear}</span>`;
-            }
+            const expansionElement =
+                document.getElementById(
+                    'proj-expansion'
+                );
 
-            // Cover Media (handles both video and image cover)
-            const coverWrap = document.getElementById('hero-cover-wrap');
-            if (coverWrap) {
-                const coverPath = cleanPath(projectData.cover);
-                if (coverPath) {
-                    if (isVideo(coverPath)) {
-                        coverWrap.innerHTML = `
-                            <video src="${coverPath}" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;"></video>
-                        `;
-                    } else {
-                        coverWrap.innerHTML = `<img src="${coverPath}" alt="${acronym}">`;
-                    }
-                    coverWrap.style.display = 'flex';
+
+            if (expansionElement) {
+
+                if (expansion) {
+
+                    expansionElement.textContent =
+                        expansion;
+
+
+                    expansionElement.style.display =
+                        'block';
+
                 } else {
-                    coverWrap.style.display = 'none';
+
+                    expansionElement.style.display =
+                        'none';
+
                 }
+
             }
 
-            const summaryEl = document.getElementById('proj-summary');
-            if (summaryEl) {
-                summaryEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(summary) : summary;
+
+            const categoryElement =
+                document.getElementById(
+                    'proj-category'
+                );
+
+
+            if (categoryElement) {
+
+                categoryElement.textContent =
+                    lang === 'it'
+                        ? '// PROGETTO'
+                        : '// PROJECT';
+
             }
 
-            const bodyEl = document.getElementById('proj-body');
-            if (bodyEl) {
-                bodyEl.innerHTML = typeof marked !== 'undefined' ? marked.parse(body) : body;
+
+            /* YEAR */
+
+            const projectYear =
+                projectData.year
+                    ? String(
+                        projectData.year
+                    ).trim()
+                    : '2026';
+
+
+            const docketYear =
+                document.getElementById(
+                    'docket-year'
+                );
+
+
+            if (docketYear) {
+
+                const seriesLabel =
+                    lang === 'it'
+                        ? 'SERIE'
+                        : 'SERIES';
+
+
+                docketYear.innerHTML =
+                    `${seriesLabel} // ` +
+                    `<span class="az-project-year">` +
+                    `${projectYear}` +
+                    `</span>`;
+
             }
+
+
+            /* COVER */
+
+            const coverWrap =
+                document.getElementById(
+                    'hero-cover-wrap'
+                );
+
+
+            if (coverWrap) {
+
+                const coverPath =
+                    cleanPath(
+                        projectData.cover
+                    );
+
+
+                if (coverPath) {
+
+                    if (
+                        isVideo(coverPath)
+                    ) {
+
+                        coverWrap.innerHTML = `
+
+                            <video
+                                src="${coverPath}"
+                                autoplay
+                                muted
+                                loop
+                                playsinline
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    object-fit:cover;
+                                "
+                            ></video>
+
+                        `;
+
+                    } else {
+
+                        coverWrap.innerHTML = `
+
+                            <img
+                                src="${coverPath}"
+                                alt="${acronym}"
+                            >
+
+                        `;
+
+                    }
+
+
+                    coverWrap.style.display =
+                        'flex';
+
+                } else {
+
+                    coverWrap.style.display =
+                        'none';
+
+                }
+
+            }
+
+
+            /* SUMMARY */
+
+            const summaryElement =
+                document.getElementById(
+                    'proj-summary'
+                );
+
+
+            if (summaryElement) {
+
+                summaryElement.innerHTML =
+                    typeof marked !== 'undefined'
+                        ? marked.parse(summary)
+                        : summary;
+
+            }
+
+
+            /* BODY */
+
+            const bodyElement =
+                document.getElementById(
+                    'proj-body'
+                );
+
+
+            if (bodyElement) {
+
+                bodyElement.innerHTML =
+                    typeof marked !== 'undefined'
+                        ? marked.parse(body)
+                        : body;
+
+            }
+
 
             updateGalleryButtonLabels();
 
-            const backTopLink = document.querySelector('.az-gallery-navigation-bottom a');
+
+            const backTopLink =
+                document.querySelector(
+                    '.az-gallery-navigation-bottom a'
+                );
+
+
             if (backTopLink) {
-                backTopLink.textContent = lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP';
+
+                backTopLink.textContent =
+                    lang === 'it'
+                        ? 'TORNA ALL\'INIZIO'
+                        : 'BACK TO TOP';
+
             }
+
         }
+
+
+        /* =========================================
+           BUILD GALLERY
+           ========================================= */
 
         function buildGalleries(photos) {
-            const gallerySection = document.getElementById('gallery-start');
-            const previewContainer = document.getElementById('gallery-preview');
-            const fullContainer = document.getElementById('az-artworks');
-            
+
+            const gallerySection =
+                document.getElementById(
+                    'gallery-start'
+                );
+
+
+            const previewContainer =
+                document.getElementById(
+                    'gallery-preview'
+                );
+
+
+            const fullContainer =
+                document.getElementById(
+                    'az-artworks'
+                );
+
+
+            if (
+                !previewContainer ||
+                !fullContainer
+            ) {
+                return;
+            }
+
+
             previewContainer.innerHTML = '';
+
             fullContainer.innerHTML = '';
 
+
             let rawList = [];
-            if (Array.isArray(photos)) {
-                rawList = photos.flat();
-            } else if (photos && typeof photos === 'object') {
-                rawList = Object.values(photos);
+
+
+            if (
+                Array.isArray(photos)
+            ) {
+
+                rawList =
+                    photos.flat();
+
+            } else if (
+                photos &&
+                typeof photos === 'object'
+            ) {
+
+                rawList =
+                    Object.values(photos);
+
             }
 
-           const validMedia = rawList
-    .map(item => {
-        const src = cleanPath(item);
-        const credit = (item && typeof item === 'object') ? (item.credit || '') : '';
-        const artworkTitle = (item && typeof item === 'object') ? (item.artwork_title || '') : '';
-        const techniqueEn = (item && typeof item === 'object') ? (item.technique_en || item.technique || '') : '';
-        const techniqueIt = (item && typeof item === 'object') ? (item.technique_it || item.technique || '') : '';
-        const dimensions = (item && typeof item === 'object') ? (item.dimensions || '') : '';
 
-        return {
-    src,
-    credit,
-    artworkTitle,
-    techniqueEn,
-    techniqueIt,
-    dimensions
-};
-    })
-    .filter(item => item.src && item.src.length > 0);
-                .filter(item => item.src && item.src.length > 0);
+            /*
+               READ ALL CMS GALLERY FIELDS
+            */
 
-            if (validMedia.length === 0) {
-                if (gallerySection) gallerySection.style.display = 'none';
+            const validMedia =
+                rawList
+
+                    .map(item => {
+
+                        const src =
+                            cleanPath(item);
+
+
+                        const credit =
+                            (
+                                item &&
+                                typeof item === 'object'
+                            )
+                                ? (
+                                    item.credit ||
+                                    ''
+                                )
+                                : '';
+
+
+                        const artworkTitle =
+                            (
+                                item &&
+                                typeof item === 'object'
+                            )
+                                ? (
+                                    item.artwork_title ||
+                                    ''
+                                )
+                                : '';
+
+
+                        /*
+                           Backward compatibility:
+                           if an old project still has
+                           "technique", it still works.
+                        */
+
+                        const techniqueEn =
+                            (
+                                item &&
+                                typeof item === 'object'
+                            )
+                                ? (
+                                    item.technique_en ||
+                                    item.technique ||
+                                    ''
+                                )
+                                : '';
+
+
+                        const techniqueIt =
+                            (
+                                item &&
+                                typeof item === 'object'
+                            )
+                                ? (
+                                    item.technique_it ||
+                                    item.technique ||
+                                    ''
+                                )
+                                : '';
+
+
+                        const dimensions =
+                            (
+                                item &&
+                                typeof item === 'object'
+                            )
+                                ? (
+                                    item.dimensions ||
+                                    ''
+                                )
+                                : '';
+
+
+                        return {
+
+                            src,
+
+                            credit,
+
+                            artworkTitle,
+
+                            techniqueEn,
+
+                            techniqueIt,
+
+                            dimensions
+
+                        };
+
+                    })
+
+
+                    .filter(
+                        item =>
+                            item.src &&
+                            item.src.length > 0
+                    );
+
+
+            /* NO GALLERY */
+
+            if (
+                validMedia.length === 0
+            ) {
+
+                if (gallerySection) {
+
+                    gallerySection.style.display =
+                        'none';
+
+                }
+
                 return;
             }
-            if (gallerySection) gallerySection.style.display = 'block';
 
-            // Update item count badge
-            const countBadge = document.getElementById('gallery-count-badge');
-            if (countBadge) {
-                countBadge.textContent = `${validMedia.length} ${validMedia.length === 1 ? 'RECORD' : 'RECORDS'}`;
+
+            if (gallerySection) {
+
+                gallerySection.style.display =
+                    'block';
+
             }
 
-            // Preview items (up to 4)
-            validMedia.slice(0, 4).forEach(({ src }) => {
-                const item = document.createElement('div');
-                item.className = 'az-gallery-preview-item';
-                if (isVideo(src)) {
-                    item.innerHTML = `<video src="${src}" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover;"></video>`;
+
+            /* =====================================
+               RECORD COUNT
+               ===================================== */
+
+            const countBadge =
+                document.getElementById(
+                    'gallery-count-badge'
+                );
+
+
+            if (countBadge) {
+
+                const lang =
+                    localStorage.getItem(
+                        'az_lang'
+                    ) || 'en';
+
+
+                if (lang === 'it') {
+
+                    countBadge.textContent =
+                        `${validMedia.length} ` +
+                        `${validMedia.length === 1
+                            ? 'ELEMENTO'
+                            : 'ELEMENTI'
+                        }`;
+
                 } else {
-                    item.innerHTML = `<img src="${src}" alt="Preview">`;
+
+                    countBadge.textContent =
+                        `${validMedia.length} ` +
+                        `${validMedia.length === 1
+                            ? 'RECORD'
+                            : 'RECORDS'
+                        }`;
+
                 }
-                previewContainer.appendChild(item);
-            });
 
-            // Full gallery items
-            validMedia.forEach(({ src, credit, artworkTitle, techniqueEn, techniqueIt, dimensions }, idx) => {
-                const a = document.createElement('a');
-                a.className = 'az-artwork';
-                a.href = src;
-                a.setAttribute('data-artwork-title', artworkTitle);
-                a.setAttribute('data-technique-en', techniqueEn);
-                a.setAttribute('data-technique-it', techniqueIt);
-                a.setAttribute('data-dimensions', dimensions);
+            }
 
-                const creditTag = credit ? `<div class="az-artwork-credit-tag">PHOTO // ${credit}</div>` : '';
 
-                if (isVideo(src)) {
-                    a.innerHTML = `
-                        <div class="az-artwork-frame" style="position:relative;">
-                            <video src="${src}" muted loop autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:block;"></video>
-                            <span style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:4px 8px; font-size:10px; letter-spacing:1px; border-radius:2px; font-family:monospace; color:#00ffcc;">VIDEO</span>
-                            ${creditTag}
-                        </div>
-                    `;
-                } else {
-                    a.innerHTML = `
-                        <div class="az-artwork-frame">
-                            <img src="${src}" alt="Artwork ${idx + 1}">
-                            ${creditTag}
-                        </div>
-                    `;
+            /* =====================================
+               PREVIEW
+               ===================================== */
+
+            validMedia
+                .slice(0, 4)
+                .forEach(
+                    ({ src }) => {
+
+                        const item =
+                            document.createElement(
+                                'div'
+                            );
+
+
+                        item.className =
+                            'az-gallery-preview-item';
+
+
+                        if (
+                            isVideo(src)
+                        ) {
+
+                            item.innerHTML = `
+
+                                <video
+                                    src="${src}"
+                                    muted
+                                    loop
+                                    autoplay
+                                    playsinline
+                                    style="
+                                        width:100%;
+                                        height:100%;
+                                        object-fit:contain;
+                                        background:transparent;
+                                    "
+                                ></video>
+
+                            `;
+
+                        } else {
+
+                            item.innerHTML = `
+
+                                <img
+                                    src="${src}"
+                                    alt="Preview"
+                                >
+
+                            `;
+
+                        }
+
+
+                        previewContainer.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+
+            /* =====================================
+               FULL GALLERY
+               ===================================== */
+
+            validMedia.forEach(
+                (
+                    {
+                        src,
+                        credit,
+                        artworkTitle,
+                        techniqueEn,
+                        techniqueIt,
+                        dimensions
+                    },
+                    index
+                ) => {
+
+
+                    const artwork =
+                        document.createElement(
+                            'a'
+                        );
+
+
+                    artwork.className =
+                        'az-artwork';
+
+
+                    artwork.href =
+                        src;
+
+
+                    /*
+                       IMPORTANT LIGHTBOX DATA
+                    */
+
+                    artwork.setAttribute(
+                        'data-full',
+                        src
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-type',
+                        isVideo(src)
+                            ? 'video'
+                            : 'image'
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-credit',
+                        credit
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-artwork-title',
+                        artworkTitle
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-technique-en',
+                        techniqueEn
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-technique-it',
+                        techniqueIt
+                    );
+
+
+                    artwork.setAttribute(
+                        'data-dimensions',
+                        dimensions
+                    );
+
+
+                    const creditTag =
+                        credit
+                            ? `
+                                <div
+                                    class="az-artwork-credit-tag"
+                                >
+                                    PHOTO // ${credit}
+                                </div>
+                            `
+                            : '';
+
+
+                    if (
+                        isVideo(src)
+                    ) {
+
+
+                        artwork.innerHTML = `
+
+                            <div
+                                class="az-artwork-frame"
+                                style="
+                                    position:relative;
+                                "
+                            >
+
+                                <video
+                                    src="${src}"
+                                    muted
+                                    loop
+                                    autoplay
+                                    playsinline
+                                    style="
+                                        width:100%;
+                                        height:100%;
+                                        object-fit:contain;
+                                        display:block;
+                                        background:transparent;
+                                    "
+                                ></video>
+
+
+                                <span
+                                    style="
+                                        position:absolute;
+                                        bottom:10px;
+                                        right:10px;
+
+                                        background:
+                                            rgba(
+                                                0,
+                                                0,
+                                                0,
+                                                0.6
+                                            );
+
+                                        padding:
+                                            4px
+                                            8px;
+
+                                        font-size:10px;
+
+                                        letter-spacing:1px;
+
+                                        border-radius:2px;
+
+                                        font-family:monospace;
+
+                                        color:#00ffcc;
+                                    "
+                                >
+                                    VIDEO
+                                </span>
+
+
+                                ${creditTag}
+
+                            </div>
+
+                        `;
+
+
+                    } else {
+
+
+                        artwork.innerHTML = `
+
+                            <div
+                                class="az-artwork-frame"
+                            >
+
+                                <img
+                                    src="${src}"
+                                    alt="${
+                                        artworkTitle ||
+                                        `Artwork ${index + 1}`
+                                    }"
+                                >
+
+                                ${creditTag}
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    fullContainer.appendChild(
+                        artwork
+                    );
+
                 }
-                fullContainer.appendChild(a);
-            });
+            );
 
-            const navBottom = document.createElement('div');
-            navBottom.className = 'az-gallery-navigation-bottom';
-            const lang = localStorage.getItem('az_lang') || 'en';
-            navBottom.innerHTML = `<a href="#gallery-start">${lang === 'it' ? 'TORNA ALL\'INIZIO' : 'BACK TO TOP'}</a>`;
-            fullContainer.appendChild(navBottom);
+
+            /* =====================================
+               BACK TO TOP
+               ===================================== */
+
+            const navBottom =
+                document.createElement(
+                    'div'
+                );
+
+
+            navBottom.className =
+                'az-gallery-navigation-bottom';
+
+
+            const lang =
+                localStorage.getItem(
+                    'az_lang'
+                ) || 'en';
+
+
+            navBottom.innerHTML = `
+
+                <a href="#gallery-start">
+
+                    ${
+                        lang === 'it'
+                            ? 'TORNA ALL\'INIZIO'
+                            : 'BACK TO TOP'
+                    }
+
+                </a>
+
+            `;
+
+
+            fullContainer.appendChild(
+                navBottom
+            );
+
 
             setupGalleryButton();
+
             setupViewer();
+
         }
+
+
+        /* =========================================
+           GALLERY OPEN / CLOSE BUTTON
+           ========================================= */
 
         function setupGalleryButton() {
-            const btn = document.getElementById('gallery-toggle-btn');
-            const galleryArea = document.querySelector('.az-gallery-area');
 
-            if (!btn || !galleryArea || btn._hasInit) return;
-            btn._hasInit = true;
+            const btn =
+                document.getElementById(
+                    'gallery-toggle-btn'
+                );
 
-            btn.addEventListener('click', () => {
-                const isOpen = galleryArea.classList.toggle('is-unlocked');
-                btn.setAttribute('aria-expanded', isOpen);
-                updateGalleryButtonLabels();
 
-                if (!isOpen) {
-                    const startEl = document.getElementById('gallery-start');
-                    if (startEl) {
-                        startEl.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        }
+            const galleryArea =
+                document.querySelector(
+                    '.az-gallery-area'
+                );
 
-        function setupViewer() {
-            artworks = Array.from(document.querySelectorAll('.az-artwork'));
-            const viewer = document.getElementById('az-viewer');
-            const center = viewer ? viewer.querySelector('.az-viewer-center') : null;
-            if (!artworks.length || !viewer || !center) return;
 
-            const closeBtn = viewer.querySelector('.az-viewer-close');
-            const prevBtn = viewer.querySelector('.az-viewer-prev');
-            const nextBtn = viewer.querySelector('.az-viewer-next');
-
-            function showArtwork(index) {
-                if (index < 0) index = artworks.length - 1;
-                if (index >= artworks.length) index = 0;
-                currentIndex = index;
-
-                const item = artworks[currentIndex];
-                const src = item.getAttribute('data-full');
-                const credit = item.getAttribute('data-credit');
-                const artworkTitle = item.getAttribute('data-artwork-title');
-                const techniqueEn = item.getAttribute('data-technique-en') || '';
-const techniqueIt = item.getAttribute('data-technique-it') || '';
-
-const lang = localStorage.getItem('az_lang') || 'en';
-const techniqueLabel = lang === 'it' ? 'TECNICA //' : 'TECHNIQUE //';
-const dimensionsLabel = lang === 'it' ? 'DIMENSIONI //' : 'DIMENSIONS //';
-const creditLabel = lang === 'it' ? 'CREDITO //' : 'CREDIT //';
-const technique = lang === 'it'
-    ? (techniqueIt || techniqueEn)
-    : (techniqueEn || techniqueIt);
-                const dimensions = item.getAttribute('data-dimensions');
-                const isVid = item.getAttribute('data-type') === 'video' || isVideo(src);
-
-                center.innerHTML = '';
-                if (isVid) {
-                    const video = document.createElement('video');
-                    video.src = src;
-                    video.controls = true;
-                    video.autoplay = true;
-                    video.playsInline = true;
-                    video.style.maxWidth = '90vw';
-                    video.style.maxHeight = '75vh';
-                    center.appendChild(video);
-                } else {
-                    const img = document.createElement('img');
-                    img.className = 'az-viewer-image';
-                    img.src = src;
-                    center.appendChild(img);
-                }
-
-               if (artworkTitle || technique || dimensions || credit) {
-    const info = document.createElement('div');
-    info.className = 'az-viewer-artwork-info';
-
-                   
-
-      info.innerHTML = `
-    ${artworkTitle ? `<div class="az-viewer-artwork-title">${artworkTitle}</div>` : ''}
-    ${technique ? `<div class="az-viewer-artwork-meta"><span>${techniqueLabel}</span> ${technique}</div>` : ''}
-    ${dimensions ? `<div class="az-viewer-artwork-meta"><span>${dimensionsLabel}</span> ${dimensions}</div>` : ''}
-    ${credit ? `<div class="az-viewer-artwork-meta"><span>${creditLabel}</span> ${credit}</div>` : ''}
-`;
-
-    center.appendChild(info);
-}
-
-                viewer.classList.add('is-open');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeViewer() {
-                viewer.classList.remove('is-open');
-                center.innerHTML = '';
-                document.body.style.overflow = '';
-            }
-
-            artworks.forEach((art, idx) => {
-                art.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showArtwork(idx);
-                });
-            });
-
-            closeBtn.onclick = closeViewer;
-            prevBtn.onclick = () => showArtwork(currentIndex - 1);
-            nextBtn.onclick = () => showArtwork(currentIndex + 1);
-
-            viewer.onclick = (e) => {
-                if (e.target === viewer) closeViewer();
-            };
-
-            document.onkeydown = (e) => {
-                if (!viewer.classList.contains('is-open')) return;
-                if (e.key === 'Escape') closeViewer();
-                if (e.key === 'ArrowLeft') showArtwork(currentIndex - 1);
-                if (e.key === 'ArrowRight') showArtwork(currentIndex + 1);
-            };
-        }
-
-        async function loadProjectDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const slug = urlParams.get('id');
-
-            if (!slug) {
-                window.location.href = 'work.html';
+            if (
+                !btn ||
+                !galleryArea ||
+                btn._hasInit
+            ) {
                 return;
             }
 
+
+            btn._hasInit = true;
+
+
+            btn.addEventListener(
+                'click',
+                () => {
+
+
+                    const isOpen =
+                        galleryArea
+                            .classList
+                            .toggle(
+                                'is-unlocked'
+                            );
+
+
+                    btn.setAttribute(
+                        'aria-expanded',
+                        isOpen
+                    );
+
+
+                    updateGalleryButtonLabels();
+
+
+                    if (!isOpen) {
+
+                        const start =
+                            document.getElementById(
+                                'gallery-start'
+                            );
+
+
+                        if (start) {
+
+                            start.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           LIGHTBOX
+           ========================================= */
+
+        function setupViewer() {
+
+            artworks =
+                Array.from(
+                    document.querySelectorAll(
+                        '.az-artwork'
+                    )
+                );
+
+
+            const viewer =
+                document.getElementById(
+                    'az-viewer'
+                );
+
+
+            const center =
+                viewer
+                    ? viewer.querySelector(
+                        '.az-viewer-center'
+                    )
+                    : null;
+
+
+            if (
+                !artworks.length ||
+                !viewer ||
+                !center
+            ) {
+                return;
+            }
+
+
+            const closeBtn =
+                viewer.querySelector(
+                    '.az-viewer-close'
+                );
+
+
+            const previousBtn =
+                viewer.querySelector(
+                    '.az-viewer-prev'
+                );
+
+
+            const nextBtn =
+                viewer.querySelector(
+                    '.az-viewer-next'
+                );
+
+
+            /* =====================================
+               SHOW ARTWORK
+               ===================================== */
+
+            function showArtwork(index) {
+
+
+                if (index < 0) {
+
+                    index =
+                        artworks.length - 1;
+
+                }
+
+
+                if (
+                    index >=
+                    artworks.length
+                ) {
+
+                    index = 0;
+
+                }
+
+
+                currentIndex =
+                    index;
+
+
+                const item =
+                    artworks[currentIndex];
+
+
+                const src =
+                    item.getAttribute(
+                        'data-full'
+                    );
+
+
+                const credit =
+                    item.getAttribute(
+                        'data-credit'
+                    ) || '';
+
+
+                const artworkTitle =
+                    item.getAttribute(
+                        'data-artwork-title'
+                    ) || '';
+
+
+                const techniqueEn =
+                    item.getAttribute(
+                        'data-technique-en'
+                    ) || '';
+
+
+                const techniqueIt =
+                    item.getAttribute(
+                        'data-technique-it'
+                    ) || '';
+
+
+                const dimensions =
+                    item.getAttribute(
+                        'data-dimensions'
+                    ) || '';
+
+
+                const lang =
+                    localStorage.getItem(
+                        'az_lang'
+                    ) || 'en';
+
+
+                /* BILINGUAL LABELS */
+
+                const techniqueLabel =
+                    lang === 'it'
+                        ? 'TECNICA //'
+                        : 'TECHNIQUE //';
+
+
+                const dimensionsLabel =
+                    lang === 'it'
+                        ? 'DIMENSIONI //'
+                        : 'DIMENSIONS //';
+
+
+                const creditLabel =
+                    lang === 'it'
+                        ? 'CREDITO //'
+                        : 'CREDIT //';
+
+
+                /*
+                   Choose correct language
+                   for technique.
+                */
+
+                const technique =
+                    lang === 'it'
+                        ? (
+                            techniqueIt ||
+                            techniqueEn
+                        )
+                        : (
+                            techniqueEn ||
+                            techniqueIt
+                        );
+
+
+                const video =
+                    item.getAttribute(
+                        'data-type'
+                    ) === 'video' ||
+                    isVideo(src);
+
+
+                center.innerHTML = '';
+
+
+                /* =================================
+                   MEDIA
+                   ================================= */
+
+                if (video) {
+
+
+                    const videoElement =
+                        document.createElement(
+                            'video'
+                        );
+
+
+                    videoElement.src =
+                        src;
+
+
+                    videoElement.controls =
+                        true;
+
+
+                    videoElement.autoplay =
+                        true;
+
+
+                    videoElement.playsInline =
+                        true;
+
+
+                    videoElement.style.maxWidth =
+                        '90vw';
+
+
+                    videoElement.style.maxHeight =
+                        '72vh';
+
+
+                    videoElement.style.objectFit =
+                        'contain';
+
+
+                    videoElement.style.background =
+                        'transparent';
+
+
+                    center.appendChild(
+                        videoElement
+                    );
+
+
+                } else {
+
+
+                    const image =
+                        document.createElement(
+                            'img'
+                        );
+
+
+                    image.className =
+                        'az-viewer-image';
+
+
+                    image.src =
+                        src;
+
+
+                    image.alt =
+                        artworkTitle || 'Artwork';
+
+
+                    center.appendChild(
+                        image
+                    );
+
+                }
+
+
+                /* =================================
+                   ARTWORK INFORMATION
+                   ================================= */
+
+                if (
+                    artworkTitle ||
+                    technique ||
+                    dimensions ||
+                    credit
+                ) {
+
+
+                    const info =
+                        document.createElement(
+                            'div'
+                        );
+
+
+                    info.className =
+                        'az-viewer-artwork-info';
+
+
+                    info.innerHTML = `
+
+
+                        ${
+                            artworkTitle
+                                ? `
+                                    <div
+                                        class="
+                                            az-viewer-artwork-title
+                                        "
+                                    >
+                                        ${artworkTitle}
+                                    </div>
+                                `
+                                : ''
+                        }
+
+
+                        ${
+                            technique
+                                ? `
+                                    <div
+                                        class="
+                                            az-viewer-artwork-meta
+                                        "
+                                    >
+
+                                        <span>
+                                            ${techniqueLabel}
+                                        </span>
+
+                                        ${technique}
+
+                                    </div>
+                                `
+                                : ''
+                        }
+
+
+                        ${
+                            dimensions
+                                ? `
+                                    <div
+                                        class="
+                                            az-viewer-artwork-meta
+                                        "
+                                    >
+
+                                        <span>
+                                            ${dimensionsLabel}
+                                        </span>
+
+                                        ${dimensions}
+
+                                    </div>
+                                `
+                                : ''
+                        }
+
+
+                        ${
+                            credit
+                                ? `
+                                    <div
+                                        class="
+                                            az-viewer-artwork-meta
+                                        "
+                                    >
+
+                                        <span>
+                                            ${creditLabel}
+                                        </span>
+
+                                        ${credit}
+
+                                    </div>
+                                `
+                                : ''
+                        }
+
+
+                    `;
+
+
+                    center.appendChild(
+                        info
+                    );
+
+                }
+
+
+                viewer.classList.add(
+                    'is-open'
+                );
+
+
+                document.body.style.overflow =
+                    'hidden';
+
+            }
+
+
+            /* =====================================
+               CLOSE VIEWER
+               ===================================== */
+
+            function closeViewer() {
+
+                viewer.classList.remove(
+                    'is-open'
+                );
+
+
+                center.innerHTML = '';
+
+
+                document.body.style.overflow =
+                    '';
+
+            }
+
+
+            /* =====================================
+               CLICK ARTWORK
+               ===================================== */
+
+            artworks.forEach(
+                (
+                    artwork,
+                    index
+                ) => {
+
+
+                    artwork.addEventListener(
+                        'click',
+                        event => {
+
+
+                            event.preventDefault();
+
+
+                            showArtwork(
+                                index
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /* =====================================
+               BUTTONS
+               ===================================== */
+
+            if (closeBtn) {
+
+                closeBtn.onclick =
+                    closeViewer;
+
+            }
+
+
+            if (previousBtn) {
+
+                previousBtn.onclick =
+                    () =>
+                        showArtwork(
+                            currentIndex - 1
+                        );
+
+            }
+
+
+            if (nextBtn) {
+
+                nextBtn.onclick =
+                    () =>
+                        showArtwork(
+                            currentIndex + 1
+                        );
+
+            }
+
+
+            /* =====================================
+               CLICK BACKGROUND TO CLOSE
+               ===================================== */
+
+            viewer.onclick =
+                event => {
+
+
+                    if (
+                        event.target ===
+                        viewer
+                    ) {
+
+                        closeViewer();
+
+                    }
+
+                };
+
+
+            /* =====================================
+               KEYBOARD
+               ===================================== */
+
+            document.onkeydown =
+                event => {
+
+
+                    if (
+                        !viewer
+                            .classList
+                            .contains(
+                                'is-open'
+                            )
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        event.key ===
+                        'Escape'
+                    ) {
+
+                        closeViewer();
+
+                    }
+
+
+                    if (
+                        event.key ===
+                        'ArrowLeft'
+                    ) {
+
+                        showArtwork(
+                            currentIndex - 1
+                        );
+
+                    }
+
+
+                    if (
+                        event.key ===
+                        'ArrowRight'
+                    ) {
+
+                        showArtwork(
+                            currentIndex + 1
+                        );
+
+                    }
+
+                };
+
+        }
+
+
+        /* =========================================
+           LOAD PROJECT
+           ========================================= */
+
+        async function loadProjectDetails() {
+
+
+            const urlParams =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const slug =
+                urlParams.get(
+                    'id'
+                );
+
+
+            if (!slug) {
+
+                window.location.href =
+                    'work.html';
+
+                return;
+            }
+
+
             try {
-                const res = await fetch(`content/projects/${slug}.json`);
-                if (!res.ok) throw new Error('File not found');
-                projectData = await res.json();
+
+
+                const response =
+                    await fetch(
+                        `content/projects/${slug}.json`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        'File not found'
+                    );
+
+                }
+
+
+                projectData =
+                    await response.json();
+
 
                 renderContent();
 
+
                 let additionalMedia = [];
-                if (Array.isArray(projectData.gallery)) {
-                    additionalMedia = projectData.gallery;
+
+
+                if (
+                    Array.isArray(
+                        projectData.gallery
+                    )
+                ) {
+
+                    additionalMedia =
+                        projectData.gallery;
+
                 }
 
-                buildGalleries(additionalMedia);
 
-            } catch (err) {
-                console.error(err);
-                document.getElementById('proj-acronym').textContent = 'Project Not Found';
+                buildGalleries(
+                    additionalMedia
+                );
+
+
+            } catch (error) {
+
+
+                console.error(error);
+
+
+                const title =
+                    document.getElementById(
+                        'proj-acronym'
+                    );
+
+
+                if (title) {
+
+                    title.textContent =
+                        'Project Not Found';
+
+                }
+
             }
+
         }
 
-        window.addEventListener('languageChanged', () => {
-            renderContent();
-        });
 
-        // Mobile Menu Drawer Handler
-        const menuBtn = document.querySelector('.az-menu-button');
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                document.body.classList.toggle('az-menu-open');
-            });
+        /* =========================================
+           LANGUAGE CHANGE
+           ========================================= */
+
+        window.addEventListener(
+            'languageChanged',
+            () => {
+
+
+                renderContent();
+
+
+                /*
+                   Rebuild gallery so the Italian /
+                   English labels and technique are
+                   immediately updated.
+                */
+
+                if (
+                    projectData &&
+                    Array.isArray(
+                        projectData.gallery
+                    )
+                ) {
+
+                    buildGalleries(
+                        projectData.gallery
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           MOBILE MENU
+           ========================================= */
+
+        const menuButton =
+            document.querySelector(
+                '.az-menu-button'
+            );
+
+
+        if (menuButton) {
+
+            menuButton.addEventListener(
+                'click',
+                () => {
+
+                    document.body
+                        .classList
+                        .toggle(
+                            'az-menu-open'
+                        );
+
+                }
+            );
+
         }
 
-        document.querySelectorAll('.az-mobile-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.body.classList.remove('az-menu-open');
-            });
-        });
 
-        document.addEventListener('DOMContentLoaded', loadProjectDetails);
+        document
+            .querySelectorAll(
+                '.az-mobile-links a'
+            )
+            .forEach(
+                link => {
+
+                    link.addEventListener(
+                        'click',
+                        () => {
+
+                            document.body
+                                .classList
+                                .remove(
+                                    'az-menu-open'
+                                );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           START
+           ========================================= */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            loadProjectDetails
+        );
+
     </script>
+
+
 </body>
 </html>
