@@ -818,12 +818,25 @@
                 rawList = Object.values(photos);
             }
 
-            const validMedia = rawList
-                .map(item => {
-                    const src = cleanPath(item);
-                    const credit = (item && typeof item === 'object') ? (item.credit || '') : '';
-                    return { src, credit };
-                })
+           const validMedia = rawList
+    .map(item => {
+        const src = cleanPath(item);
+        const credit = (item && typeof item === 'object') ? (item.credit || '') : '';
+        const artworkTitle = (item && typeof item === 'object') ? (item.artwork_title || '') : '';
+        const techniqueEn = (item && typeof item === 'object') ? (item.technique_en || item.technique || '') : '';
+        const techniqueIt = (item && typeof item === 'object') ? (item.technique_it || item.technique || '') : '';
+        const dimensions = (item && typeof item === 'object') ? (item.dimensions || '') : '';
+
+        return {
+    src,
+    credit,
+    artworkTitle,
+    techniqueEn,
+    techniqueIt,
+    dimensions
+};
+    })
+    .filter(item => item.src && item.src.length > 0);
                 .filter(item => item.src && item.src.length > 0);
 
             if (validMedia.length === 0) {
@@ -851,13 +864,14 @@
             });
 
             // Full gallery items
-            validMedia.forEach(({ src, credit }, idx) => {
+            validMedia.forEach(({ src, credit, artworkTitle, techniqueEn, techniqueIt, dimensions }, idx) => {
                 const a = document.createElement('a');
                 a.className = 'az-artwork';
                 a.href = src;
-                a.setAttribute('data-full', src);
-                a.setAttribute('data-type', isVideo(src) ? 'video' : 'image');
-                a.setAttribute('data-credit', credit);
+                a.setAttribute('data-artwork-title', artworkTitle);
+                a.setAttribute('data-technique-en', techniqueEn);
+                a.setAttribute('data-technique-it', techniqueIt);
+                a.setAttribute('data-dimensions', dimensions);
 
                 const creditTag = credit ? `<div class="az-artwork-credit-tag">PHOTO // ${credit}</div>` : '';
 
@@ -929,6 +943,18 @@
                 const item = artworks[currentIndex];
                 const src = item.getAttribute('data-full');
                 const credit = item.getAttribute('data-credit');
+                const artworkTitle = item.getAttribute('data-artwork-title');
+                const techniqueEn = item.getAttribute('data-technique-en') || '';
+const techniqueIt = item.getAttribute('data-technique-it') || '';
+
+const lang = localStorage.getItem('az_lang') || 'en';
+const techniqueLabel = lang === 'it' ? 'TECNICA //' : 'TECHNIQUE //';
+const dimensionsLabel = lang === 'it' ? 'DIMENSIONI //' : 'DIMENSIONS //';
+const creditLabel = lang === 'it' ? 'CREDITO //' : 'CREDIT //';
+const technique = lang === 'it'
+    ? (techniqueIt || techniqueEn)
+    : (techniqueEn || techniqueIt);
+                const dimensions = item.getAttribute('data-dimensions');
                 const isVid = item.getAttribute('data-type') === 'video' || isVideo(src);
 
                 center.innerHTML = '';
@@ -948,12 +974,21 @@
                     center.appendChild(img);
                 }
 
-                if (credit) {
-                    const badge = document.createElement('div');
-                    badge.className = 'az-viewer-credit-badge';
-                    badge.innerHTML = `<span>CREDIT //</span> ${credit}`;
-                    center.appendChild(badge);
-                }
+               if (artworkTitle || technique || dimensions || credit) {
+    const info = document.createElement('div');
+    info.className = 'az-viewer-artwork-info';
+
+                   
+
+      info.innerHTML = `
+    ${artworkTitle ? `<div class="az-viewer-artwork-title">${artworkTitle}</div>` : ''}
+    ${technique ? `<div class="az-viewer-artwork-meta"><span>${techniqueLabel}</span> ${technique}</div>` : ''}
+    ${dimensions ? `<div class="az-viewer-artwork-meta"><span>${dimensionsLabel}</span> ${dimensions}</div>` : ''}
+    ${credit ? `<div class="az-viewer-artwork-meta"><span>${creditLabel}</span> ${credit}</div>` : ''}
+`;
+
+    center.appendChild(info);
+}
 
                 viewer.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
