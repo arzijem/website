@@ -74,11 +74,17 @@ collections:
             required: false
             hint: "e.g. Via Elsa I"
 
-          - label: "Technique"
-            name: "technique"
+          - label: "Technique (English)"
+            name: "technique_en"
             widget: "string"
             required: false
             hint: "e.g. Drypoint on acetate"
+
+          - label: "Technique (Italian)"
+            name: "technique_it"
+            widget: "string"
+            required: false
+            hint: "e.g. Puntasecca su acetato"
 
           - label: "Dimensions"
             name: "dimensions"
