@@ -1,6 +1,6 @@
 {
   "title_en": "APOPHATIC VENUS",
-  "title_it": "VENERE APOFATICA",
+  "title_it": "APOPHATIC VENUS",
   "year": "2022",
   "display_order": null,
   "cover": "/assets/uploads/A (3) (1).webp",
@@ -11,101 +11,129 @@
   "gallery": [
     {
       "image": "/assets/uploads/1000064899.webp",
-      "artwork_title": "",
-      "technique": "",
-      "dimensions": "",
-      "credit": ""
+      "artwork_title": "Apophatic Venus I",
+      "technique_en": "Oil on woodpulp cardboard",
+      "technique_it": "Olio su cartone vegetale",
+      "dimensions": "70x50 cm",
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/A (3) (1).webp",
-      "artwork_title": "Apophatic Venus I",
-      "technique": "oil on greyboard",
-      "dimensions": "70x50 cm",
-      "credit": ""
+      "artwork_title": "Apophatic Venus I, detail",
+      "technique_en": "",
+      "technique_it": "",
+      "dimensions": "",
+      "credit": "",
+      "technique": "oil on greyboard"
     },
     {
       "image": "/assets/uploads/A (1).webp",
       "artwork_title": "Apophatic Venus I, detail",
-      "technique": "",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/A (3) (1).webp",
       "artwork_title": "Apophatic Venus I, detail",
-      "technique": "",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/A (4) (1).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus I, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/B (0).webp",
-      "artwork_title": "",
-      "technique": "",
-      "dimensions": "",
-      "credit": ""
+      "artwork_title": "Apophatic Venus II",
+      "technique_en": "Oil on woodpulp cardboard",
+      "technique_it": "Olio su cartone vegetale",
+      "dimensions": "70x50 cm",
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/B (2) (1).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus II, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/B (3).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus II, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/B (4).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus II, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/B (1) (1).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus II, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/C(0).webp",
-      "artwork_title": "",
-      "technique": "",
-      "dimensions": "",
-      "credit": ""
+      "artwork_title": "Apophatic Venus III",
+      "technique_en": "Oil on woodpulp cardboard",
+      "technique_it": "Olio su cartone vegetale",
+      "dimensions": "70x50 cm",
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/C(1).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus III, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/C(2).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus III, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     },
     {
       "image": "/assets/uploads/C(3) (1).webp",
-      "artwork_title": "",
-      "technique": "",
+      "artwork_title": "Apophatic Venus III, detail",
+      "technique_en": "",
+      "technique_it": "",
       "dimensions": "",
-      "credit": ""
+      "credit": "",
+      "technique": ""
     }
   ]
 }
