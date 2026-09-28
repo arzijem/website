@@ -1,7 +1,3 @@
-/* ==================================================
-   GENERAL
-================================================== */
-
 * {
     box-sizing: border-box;
 }
@@ -300,10 +296,6 @@ html {
 }
 
 
-/* ==================================================
-   WORDS & SCROLL SCALE EFFECT
-================================================== */
-
 .az-art-main {
     display: block;
     position: relative;
@@ -338,10 +330,6 @@ html {
     display: none !important;
 }
 
-
-/* ==================================================
-   ORGANIC LIQUID WATER INVERSION CANVAS
-================================================== */
 
 #az-water-canvas {
     position: absolute;
@@ -1209,3 +1197,22 @@ html {
     color: #00ffcc;
     font-weight: 700;
 }
+
+/* LIGHTBOX: Shows complete original dimensions without any cropping */
+        .az-viewer-image {
+            max-width: 90vw;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* displays full landscape or tall portrait naturally */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .az-viewer-center video {
+            max-width: 90vw;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            outline: none;
+        }
