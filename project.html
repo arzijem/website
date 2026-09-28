@@ -716,65 +716,67 @@
             display: grid !important;
         }
 
-
-       .az-artwork {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            width: 100%;
+        .az-artwork {
+            display: block !important;
+            text-decoration: none !important;
+            color: inherit !important;
+            cursor: pointer !important;
+            width: 100% !important;
         }
 
-.az-artwork-frame {
-            position: relative;
-            width: 100%;
-            /* Fixed uniform aspect ratio for every tile (4:5 portrait or 1:1 square) */
-            aspect-ratio: 4 / 5;
-            background: #0d0d12;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .az-artwork-frame {
+            position: relative !important;
+            width: 100% !important;
+            aspect-ratio: 4 / 5 !important; /* Locks every card into the exact same ratio */
+            background: #0d0d12 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            border-radius: 2px !important;
+            overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
-.az-artwork-frame img,
+
+        /* Force every image and video to fill the tile completely */
+        .az-artwork-frame img,
         .az-artwork-frame video {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            display: block !important;
+            object-fit: cover !important; /* Crops uniformly without distorting aspect ratios */
+            object-position: center center !important;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease !important;
         }
 
-.az-artwork:hover .az-artwork-frame img,
+        .az-artwork:hover .az-artwork-frame img,
         .az-artwork:hover .az-artwork-frame video {
-            transform: scale(1.06);
-            filter: brightness(1.08);
+            transform: scale(1.06) !important;
+            filter: brightness(1.08) !important;
         }
 
         .az-artwork-credit-tag {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 8px 12px;
-            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88));
-            font-family: monospace;
-            font-size: 10px;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.8);
-            opacity: 0;
-            transform: translateY(4px);
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            pointer-events: none;
-            z-index: 2;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding: 8px 12px !important;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88)) !important;
+            font-family: monospace, "Courier New", Courier !important;
+            font-size: 10px !important;
+            letter-spacing: 1px !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+            opacity: 0 !important;
+            transform: translateY(4px) !important;
+            transition: opacity 0.25s ease, transform 0.25s ease !important;
+            pointer-events: none !important;
+            z-index: 2 !important;
         }
 
         .az-artwork:hover .az-artwork-credit-tag {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
         /* =========================================
            BACK TO TOP
@@ -2511,34 +2513,49 @@
                             : '';
 
 
-                    if (
-                        isVideo(src)
-                    ) {
+                  if (isVideo(src)) {
+    artwork.innerHTML = `
+        <div class="az-artwork-frame">
+            <video
+                src="${src}"
+                muted
+                loop
+                autoplay
+                playsinline
+            ></video>
 
+            <span
+                style="
+                    position:absolute;
+                    bottom:10px;
+                    right:10px;
+                    background:rgba(0,0,0,0.6);
+                    padding:4px 8px;
+                    font-size:10px;
+                    letter-spacing:1px;
+                    border-radius:2px;
+                    font-family:monospace;
+                    color:#00ffcc;
+                    z-index:3;
+                "
+            >
+                VIDEO
+            </span>
 
-                        artwork.innerHTML = `
-
-                            <div
-                                class="az-artwork-frame"
-                                style="
-                                    position:relative;
-                                "
-                            >
-
-                                <video
-                                    src="${src}"
-                                    muted
-                                    loop
-                                    autoplay
-                                    playsinline
-                                    style="
-                                        width:100%;
-                                        height:100%;
-                                        object-fit:contain;
-                                        display:block;
-                                        background:transparent;
-                                    "
-                                ></video>
+            ${creditTag}
+        </div>
+    `;
+} else {
+    artwork.innerHTML = `
+        <div class="az-artwork-frame">
+            <img
+                src="${src}"
+                alt="${artworkTitle || `Artwork ${index + 1}`}"
+            >
+            ${creditTag}
+        </div>
+    `;
+}
 
 
                                 <span
