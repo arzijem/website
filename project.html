@@ -717,121 +717,65 @@
         }
 
 
-        .az-artwork {
+       .az-artwork {
             display: flex;
-
             flex-direction: column;
-
             text-decoration: none;
-
             color: inherit;
-
             cursor: pointer;
+            width: 100%;
         }
 
-
-        /*
-           TRANSPARENT ARTWORK FRAME
-
-           No black square behind PNGs.
-        */
-
-        .az-artwork-frame {
+.az-artwork-frame {
             position: relative;
-
             width: 100%;
-
-            aspect-ratio: 5 / 4;
-
-            background: transparent;
-
-            border: none;
-
-            overflow: visible;
-
+            /* Fixed uniform aspect ratio for every tile (4:5 portrait or 1:1 square) */
+            aspect-ratio: 4 / 5;
+            background: #0d0d12;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
             display: flex;
-
             align-items: center;
             justify-content: center;
         }
-
-
-        .az-artwork-frame img {
+.az-artwork-frame img,
+        .az-artwork-frame video {
             width: 100%;
-
             height: 100%;
-
             display: block;
-
-            object-fit: contain;
-
-            background: transparent;
-
-            transition:
-                transform 0.6s ease;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
         }
 
-
-        .az-artwork:hover
-        .az-artwork-frame img {
-            transform:
-                scale(1.03);
+.az-artwork:hover .az-artwork-frame img,
+        .az-artwork:hover .az-artwork-frame video {
+            transform: scale(1.06);
+            filter: brightness(1.08);
         }
-
-
-        /* =========================================
-           CREDIT ON THUMBNAIL
-           ========================================= */
 
         .az-artwork-credit-tag {
             position: absolute;
-
             bottom: 0;
             left: 0;
             right: 0;
-
-            padding:
-                8px
-                12px;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    transparent,
-                    rgba(0, 0, 0, 0.85)
-                );
-
+            padding: 8px 12px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88));
             font-family: monospace;
-
             font-size: 10px;
-
             letter-spacing: 1px;
-
-            color:
-                rgba(255, 255, 255, 0.75);
-
+            color: rgba(255, 255, 255, 0.8);
             opacity: 0;
-
-            transform:
-                translateY(4px);
-
-            transition:
-                opacity 0.2s ease,
-                transform 0.2s ease;
-
+            transform: translateY(4px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
             pointer-events: none;
+            z-index: 2;
         }
 
-
-        .az-artwork:hover
-        .az-artwork-credit-tag {
+        .az-artwork:hover .az-artwork-credit-tag {
             opacity: 1;
-
-            transform:
-                translateY(0);
+            transform: translateY(0);
         }
-
-
         /* =========================================
            BACK TO TOP
            ========================================= */
