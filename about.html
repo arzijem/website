@@ -212,5 +212,120 @@
             initFingerprintStamps();
         });
     </script>
+
+       <!-- =========================================
+         PRIVACY & COOKIE POLICY MODAL 
+         ========================================= -->
+    <div class="az-privacy-modal" id="az-privacy-modal">
+        <div class="az-privacy-box">
+            <button class="az-privacy-close" id="az-close-policy" type="button" aria-label="Close">&times;</button>
+            <div id="az-policy-body">
+                <!-- Injected dynamically based on language -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function initCookieConsent() {
+        const bar = document.getElementById('az-cookie-bar');
+        const acceptBtn = document.getElementById('az-cookie-accept');
+        const declineBtn = document.getElementById('az-cookie-decline');
+        const modal = document.getElementById('az-privacy-modal');
+        const openPolicyBtn = document.getElementById('az-open-policy');
+        const closePolicyBtn = document.getElementById('az-close-policy');
+        const policyBody = document.getElementById('az-policy-body');
+        const cookieText = document.getElementById('az-cookie-text');
+
+        const savedConsent = localStorage.getItem('az_cookie_consent');
+
+        function applyConsentLabels() {
+            const lang = localStorage.getItem('az_lang') || 'en';
+            if (lang === 'it') {
+                if (cookieText) {
+                    cookieText.innerHTML = `Utilizziamo i cookie di Google Analytics per comprendere il traffico e migliorare il sito. Puoi accettare o rifiutare. Leggi la nostra <button type="button" class="az-cookie-policy-btn" id="az-open-policy">Informativa Privacy &amp; Cookie</button>.`;
+                }
+                if (acceptBtn) acceptBtn.textContent = 'ACCETTA';
+                if (declineBtn) declineBtn.textContent = 'RIFIUTA';
+                if (policyBody) {
+                    policyBody.innerHTML = `
+                        <h2>INFORMATIVA SULLA PRIVACY E SUI COOKIE</h2>
+                        <p>Ai sensi del Regolamento UE 2016/679 (GDPR), questo sito portfolio utilizza cookie analitici di terze parti (Google Analytics 4) per monitorare le visite in forma aggregata.</p>
+                        <h3>1. TITOLARE DEL TRATTAMENTO</h3>
+                        <p>Azzurra Zingoni Studio. Per qualsiasi informazione, contattare tramite la sezione contatti.</p>
+                        <h3>2. COOKIE UTILIZZATI</h3>
+                        <p><strong>Cookie Tecnici:</strong> Necessari per memorizzare la lingua e le preferenze di consenso. Non richiedono consenso preventivo.</p>
+                        <p><strong>Cookie Analitici (Google Analytics 4):</strong> Vengono attivati solo previo tuo esplicito consenso per raccogliere statistiche anonime su visite e durata.</p>
+                        <h3>3. GESTIONE DEL CONSENSO</h3>
+                        <p>Puoi revocare o modificare la tua scelta in qualsiasi momento eliminando i dati di navigazione o cliccando su "Rifiuta".</p>
+                    `;
+                }
+            } else {
+                if (cookieText) {
+                    cookieText.innerHTML = `We use Google Analytics cookies to measure traffic and improve your browsing experience. You can choose to accept or decline. Read our <button type="button" class="az-cookie-policy-btn" id="az-open-policy">Privacy &amp; Cookie Policy</button>.`;
+                }
+                if (acceptBtn) acceptBtn.textContent = 'ACCEPT';
+                if (declineBtn) declineBtn.textContent = 'DECLINE';
+                if (policyBody) {
+                    policyBody.innerHTML = `
+                        <h2>PRIVACY &amp; COOKIE POLICY</h2>
+                        <p>In accordance with EU Regulation 2016/679 (GDPR), this portfolio website uses third-party analytics cookies (Google Analytics 4) to evaluate traffic and improve visitor experience.</p>
+                        <h3>1. DATA CONTROLLER</h3>
+                        <p>Azzurra Zingoni Studio. For inquiries, please reach out via the contact section.</p>
+                        <h3>2. COOKIES USED</h3>
+                        <p><strong>Technical / Necessary Cookies:</strong> Used to remember your language selection and consent choice.</p>
+                        <p><strong>Analytics Cookies (Google Analytics 4):</strong> Only activated if you click "Accept" to record aggregated, anonymous browsing patterns.</p>
+                        <h3>3. MANAGING CONSENT</h3>
+                        <p>You can revoke or alter your preferences at any time by clearing your browser cache or selecting "Decline".</p>
+                    `;
+                }
+            }
+
+            const dynOpener = document.getElementById('az-open-policy');
+            if (dynOpener) dynOpener.onclick = () => modal.classList.add('is-open');
+        }
+
+        if (!savedConsent) {
+            bar.classList.add('is-visible');
+        } else if (savedConsent === 'granted') {
+            gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+            });
+        }
+
+        applyConsentLabels();
+        window.addEventListener('languageChanged', applyConsentLabels);
+
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('az_cookie_consent', 'granted');
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted'
+                });
+                bar.classList.remove('is-visible');
+            });
+        }
+
+        if (declineBtn) {
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem('az_cookie_consent', 'denied');
+                gtag('consent', 'update', {
+                    'analytics_storage': 'denied'
+                });
+                bar.classList.remove('is-visible');
+            });
+        }
+
+        if (closePolicyBtn) closePolicyBtn.onclick = () => modal.classList.remove('is-open');
+        if (modal) {
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.classList.remove('is-open');
+            };
+        }
+        window.openPolicyModal = () => {
+            applyConsentLabels();
+            modal.classList.add('is-open');
+        };
+    })();
+    </script>
 </body>
 </html>
