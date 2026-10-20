@@ -285,11 +285,23 @@
         </div>
     </main>
 
-    <!-- Clean Footer with White 2026 and All Rights Reserved -->
-    <footer class="az-footer">
-        <span>© 2026 AZZURRA ZINGONI</span>
-        <span class="az-footer-right">ALL RIGHTS RESERVED</span>
-    </footer>
+
+   <footer class="az-footer">
+    <span>© 2026 AZZURRA ZINGONI</span>
+
+    <div class="az-footer-right">
+        <button
+            type="button"
+            class="az-footer-cookie-btn"
+            id="az-footer-cookie-btn"
+            onclick="openCookieSettings()"
+        >
+            COOKIE POLICY / SETTINGS
+        </button>
+
+        <span>ALL RIGHTS RESERVED</span>
+    </div>
+</footer>
 
     <script src="i18n.js"></script>
 
@@ -557,7 +569,7 @@ renderGrid();
         <div class="az-privacy-box">
             <button class="az-privacy-close" id="az-close-policy" type="button" aria-label="Close">&times;</button>
             <div id="az-policy-body">
-                <!-- Injected dynamically based on language -->
+                
             </div>
         </div>
     </div>
@@ -577,7 +589,14 @@ renderGrid();
 
         function applyConsentLabels() {
             const lang = localStorage.getItem('az_lang') || 'en';
+               const footerCookieBtn =
+    document.getElementById('az-footer-cookie-btn');
+               
             if (lang === 'it') {
+                   if (footerCookieBtn) {
+    footerCookieBtn.textContent =
+        'INFORMATIVA PRIVACY & COOKIE';
+}
                 if (cookieText) {
                     cookieText.innerHTML = `Utilizziamo i cookie di Google Analytics per comprendere il traffico e migliorare il sito. Puoi accettare o rifiutare. Leggi la nostra <button type="button" class="az-cookie-policy-btn" id="az-open-policy">Informativa Privacy &amp; Cookie</button>.`;
                 }
@@ -597,6 +616,10 @@ renderGrid();
                     `;
                 }
             } else {
+                   if (footerCookieBtn) {
+    footerCookieBtn.textContent =
+        'PRIVACY & COOKIE POLICY';
+}
                 if (cookieText) {
                     cookieText.innerHTML = `We use Google Analytics cookies to measure traffic and improve your browsing experience. You can choose to accept or decline. Read our <button type="button" class="az-cookie-policy-btn" id="az-open-policy">Privacy &amp; Cookie Policy</button>.`;
                 }
@@ -662,6 +685,12 @@ renderGrid();
             applyConsentLabels();
             modal.classList.add('is-open');
         };
+           window.openCookieSettings = () => {
+    applyConsentLabels();
+
+    modal.classList.add('is-open');
+    bar.classList.add('is-visible');
+};
     })();
     </script>
 </body>
