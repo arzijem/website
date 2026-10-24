@@ -1,5 +1,3 @@
-
-// Original homepage liquid movement algorithm, preserved.
 (function(){
  const nav=document.querySelector('.az-art-nav'), canvas=document.getElementById('az-water-canvas'),ctx=canvas.getContext('2d');
  let w=0,h=0,dpr=1,hover=false,lastX=0,lastY=0;const trail=[];
