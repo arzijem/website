@@ -1,0 +1,14 @@
+/* Exact Preview 37 section appearance, without demonstration UI */
+.az-art-nav{position:relative;width:100%;background:#000;overflow:hidden;isolation:isolate}
+.az-art-nav .az-art-item{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;height:64vh;min-height:470px;padding:0 7%;overflow:hidden;background:transparent!important;color:white;text-decoration:none}
+.az-art-nav .az-art-item:after{content:"";position:absolute;left:7%;right:7%;bottom:0;height:1px;background:rgba(255,255,255,.10)}
+.az-art-nav .az-art-title{position:relative;z-index:5;display:inline-block;transform:none!important;transition:transform .65s,opacity .65s!important;opacity:.96!important}
+.az-art-nav .az-art-main{display:block;font-size:clamp(60px,9.5vw,140px)!important;font-weight:700;line-height:.85;letter-spacing:-4px!important;color:#fff!important;white-space:nowrap;pointer-events:none}
+#az-water-canvas{position:absolute!important;inset:0;width:100%;height:100%;z-index:10!important;pointer-events:none;mix-blend-mode:difference!important;filter:none!important;opacity:.72!important}
+.dimension{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .4s;--x:50%;--y:50%}
+.world{filter:contrast(1.18);position:absolute;inset:-10%}
+.cosmic-space{position:absolute;inset:0;background:#000;overflow:hidden}
+.cosmos{width:100%;height:100%;display:block}
+.dimension{opacity:0!important;visibility:hidden!important}
+.smoke-universe-reveal{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+@media(max-width:700px){.az-art-nav .az-art-item{height:56vh;min-height:360px}}
