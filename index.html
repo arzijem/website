@@ -84,11 +84,7 @@
 <!-- HERO -->
 <main class="az-hero" id="hero">
     <!-- Media container: JS will insert either <video> or <img> depending on what is uploaded in CMS -->
-    <div id="az-hero-media-wrap">
-        <video class="az-hero-image az-hero-video" autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-        </video>
-    </div>
+    <div id="az-hero-media-wrap"></div>
     <div class="az-hero-overlay"></div>
     <div class="az-hero-text">
         <h1 id="hero-title">TRACES OF THE UNSEEN</h1>
@@ -262,7 +258,10 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
 
         // Hero media swap (Video or Image)
         const mediaWrap = document.getElementById('az-hero-media-wrap');
-        if (mediaWrap && homeData.hero_media) {
+        if (mediaWrap) {
+            // CMS is the only source of hero media. Empty means no media.
+            mediaWrap.replaceChildren();
+            if (!homeData.hero_media || !String(homeData.hero_media).trim()) return;
             let mediaSrc = String(homeData.hero_media).trim();
             if (!mediaSrc.startsWith('http://') && !mediaSrc.startsWith('https://')) {
                 mediaSrc = mediaSrc.replace(/^(\.\/|\/)+/, '');
