@@ -208,7 +208,33 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
 </script>
 
 <!-- Traces of the Unseen: smoke and lingering universe reveals -->
-<script src="traces-unseen.js" defer></script>
+<script>
+(function () {
+    // Keep the hero video free from smoke-canvas initialization work.
+    // Load the original effect only as visitors approach its section.
+    const section = document.querySelector('.az-art-nav');
+    if (!section) return;
+    let started = false;
+    let observer;
+    function loadSmoke() {
+        if (started) return;
+        started = true;
+        if (observer) observer.disconnect();
+        const script = document.createElement('script');
+        script.src = 'traces-unseen.js';
+        script.async = true;
+        document.body.appendChild(script);
+    }
+    if (!('IntersectionObserver' in window)) {
+        loadSmoke();
+        return;
+    }
+    observer = new IntersectionObserver(function (entries) {
+        if (entries.some(function (entry) { return entry.isIntersecting; })) loadSmoke();
+    }, { rootMargin: '400px 0px' });
+    observer.observe(section);
+})();
+</script>
 
 <!-- SCROLL OBSERVER FOR ART SECTIONS -->
 <script>
