@@ -153,8 +153,7 @@ sections.forEach(el=>{
   }
   ctx.restore();
  }
- // The original smoke canvas supplies the exact reveal silhouette.
- // No new cursor, no radial mask, and no changes to smoke physics or artwork.
+
  const smoke=document.getElementById('az-water-canvas');
  const nav=document.querySelector('.az-art-nav');
  const layers=states.map(st=>{
