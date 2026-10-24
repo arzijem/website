@@ -19,6 +19,26 @@
  const k=(y*160+x)*4;pixels.data[k]=238;pixels.data[k+1]=238;pixels.data[k+2]=238;pixels.data[k+3]=Math.round(density*155);
  }sc.putImageData(pixels,0,0);
  function resize(){w=nav.clientWidth;h=nav.clientHeight;dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(!mouse.x){mouse.x=mouse.targetX=w/2;mouse.y=mouse.targetY=h/2}}
+ // Avoid rendering the large smoke canvas while the hero is on screen.
+ let navVisible=false, pageVisible=!document.hidden;
+ const smokeObserver=new IntersectionObserver(entries=>{
+  navVisible=entries[0].isIntersecting;
+  if(navVisible&&pageVisible)requestSmokeFrame();
+ },{rootMargin:'100px 0px'});
+ smokeObserver.observe(nav);
+ document.addEventListener('visibilitychange',()=>{
+  pageVisible=!document.hidden;
+  if(pageVisible&&navVisible)requestSmokeFrame();
+ });
+ let smokeFramePending=false;
+ function requestSmokeFrame(){
+  if(smokeFramePending||!navVisible||!pageVisible)return;
+  smokeFramePending=true;
+  requestAnimationFrame(()=>{
+   smokeFramePending=false;
+   if(navVisible&&pageVisible)render();
+  });
+ }
  resize();window.addEventListener('resize',resize);
  function move(x,y){const r=nav.getBoundingClientRect();mouse.targetX=x-r.left;mouse.targetY=y-r.top;hover=true}
  nav.addEventListener('pointermove',e=>move(e.clientX,e.clientY));nav.addEventListener('pointerleave',()=>hover=false);
@@ -44,7 +64,7 @@
   ctx.drawImage(smokeSprite,-r*.55+9,-r*1.3-12,r*1.1,r*2.6);
   ctx.restore();
  }
- if(trail.length>90)trail.length=90;ctx.globalAlpha=1;lastX=mouse.x;lastY=mouse.y;requestAnimationFrame(render)}render();
+ if(trail.length>90)trail.length=90;ctx.globalAlpha=1;lastX=mouse.x;lastY=mouse.y;requestSmokeFrame()} 
 })();
 // New secondary layer: independent of the original liquid canvas.
 const sections=[...document.querySelectorAll('.az-art-item')];
@@ -194,5 +214,24 @@ sections.forEach(el=>{
      ctx.globalCompositeOperation='source-over';
    }
  }
- function frame(){states.forEach(draw);reveal();requestAnimationFrame(frame)}frame();
+ // The three universe canvases are expensive; only render when this
+ // section is near the viewport. Resume normally when scrolling to it.
+ let universeVisible=false,universeFramePending=false;
+ const universeObserver=new IntersectionObserver(entries=>{
+  universeVisible=entries[0].isIntersecting;
+  if(universeVisible&&!document.hidden)requestUniverseFrame();
+ },{rootMargin:'100px 0px'});
+ universeObserver.observe(nav);
+ document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden&&universeVisible)requestUniverseFrame();
+ });
+ function requestUniverseFrame(){
+  if(universeFramePending||!universeVisible||document.hidden)return;
+  universeFramePending=true;
+  requestAnimationFrame(()=>{
+   universeFramePending=false;
+   if(!universeVisible||document.hidden)return;
+   states.forEach(draw);reveal();requestUniverseFrame();
+  });
+ }
 })();
