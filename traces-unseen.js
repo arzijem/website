@@ -1,3 +1,17 @@
+// Initialize Preview 37 only when its navigation section approaches the viewport.
+// This keeps the hero video free of canvas allocation and texture generation at startup.
+(function(){
+ const nav=document.querySelector('.az-art-nav');
+ if(!nav)return;
+ let initialized=false;
+ const observer=new IntersectionObserver(entries=>{
+  if(initialized||!entries.some(entry=>entry.isIntersecting))return;
+  initialized=true;
+  observer.disconnect();
+  initializePreview37();
+ },{rootMargin:'100px 0px',threshold:0});
+ observer.observe(nav);
+ function initializePreview37(){
 (function(){
  const nav=document.querySelector('.az-art-nav'), canvas=document.getElementById('az-water-canvas'),ctx=canvas.getContext('2d');
  let w=0,h=0,dpr=1,hover=false,lastX=0,lastY=0;const trail=[];
@@ -233,5 +247,8 @@ sections.forEach(el=>{
    if(!universeVisible||document.hidden)return;
    states.forEach(draw);reveal();requestUniverseFrame();
   });
+ }
+})();
+
  }
 })();
