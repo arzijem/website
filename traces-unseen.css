@@ -1,4 +1,3 @@
-/* Exact Preview 37 section appearance, without demonstration UI */
 .az-art-nav{position:relative;width:100%;background:#000;overflow:hidden;isolation:isolate}
 .az-art-nav .az-art-item{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;text-align:center;width:100%;height:64vh;min-height:470px;padding:0 7%;overflow:hidden;background:transparent!important;color:white;text-decoration:none}
 .az-art-nav .az-art-item:after{content:"";position:absolute;left:7%;right:7%;bottom:0;height:1px;background:rgba(255,255,255,.10)}
