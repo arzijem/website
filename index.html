@@ -24,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azzurra Zingoni</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="traces-unseen.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         html {
@@ -207,128 +208,8 @@ document.querySelectorAll(".az-mobile-menu a").forEach(function(link) {
 });
 </script>
 
-<!-- FLUID WATER INTERACTION SCRIPT -->
-<script>
-(function() {
-    const navSection = document.querySelector(".az-art-nav");
-    const canvas = document.getElementById("az-water-canvas");
-    if (!navSection || !canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    let dpr = window.devicePixelRatio || 1;
-    let width, height;
-
-    function resize() {
-        width = navSection.clientWidth;
-        height = navSection.clientHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        ctx.scale(dpr, dpr);
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    const points = [];
-    let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
-    let isHovering = false;
-
-    function updateCoordinates(clientX, clientY) {
-        const rect = navSection.getBoundingClientRect();
-        mouse.targetX = clientX - rect.left;
-        mouse.targetY = clientY - rect.top;
-        isHovering = true;
-    }
-
-    navSection.addEventListener("mousemove", (e) => {
-        updateCoordinates(e.clientX, e.clientY);
-    });
-
-    navSection.addEventListener("mouseleave", () => {
-        isHovering = false;
-    });
-
-    navSection.addEventListener("touchstart", (e) => {
-        if (e.touches.length > 0) {
-            updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
-            mouse.x = mouse.targetX;
-            mouse.y = mouse.targetY;
-        }
-    }, { passive: true });
-
-    navSection.addEventListener("touchmove", (e) => {
-        if (e.touches.length > 0) {
-            updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
-        }
-    }, { passive: true });
-
-    navSection.addEventListener("touchend", () => {
-        isHovering = false;
-    });
-
-    function spawnLiquidDrops(x, y, vx, vy) {
-        points.push({
-            x: x,
-            y: y,
-            radius: Math.min(85, Math.max(45, Math.hypot(vx, vy) * 2.2)),
-            alpha: 1,
-            decay: 0.016
-        });
-
-        if (Math.random() > 0.45 && Math.hypot(vx, vy) > 3) {
-            points.push({
-                x: x + (Math.random() - 0.5) * 35,
-                y: y + (Math.random() - 0.5) * 35,
-                radius: 18 + Math.random() * 20,
-                alpha: 0.9,
-                decay: 0.024
-            });
-        }
-    }
-
-    let lastX = 0, lastY = 0;
-
-    function render() {
-        ctx.clearRect(0, 0, width, height);
-
-        const dx = mouse.targetX - mouse.x;
-        const dy = mouse.targetY - mouse.y;
-        mouse.x += dx * 0.16;
-        mouse.y += dy * 0.16;
-
-        const velocityX = mouse.x - lastX;
-        const velocityY = mouse.y - lastY;
-
-        if (isHovering || Math.hypot(velocityX, velocityY) > 0.5) {
-            spawnLiquidDrops(mouse.x, mouse.y, velocityX, velocityY);
-        }
-
-        lastX = mouse.x;
-        lastY = mouse.y;
-
-        ctx.fillStyle = "#ffffff";
-
-        for (let i = points.length - 1; i >= 0; i--) {
-            const p = points[i];
-            p.radius *= 0.982;
-            p.alpha -= p.decay;
-
-            if (p.alpha <= 0 || p.radius <= 3) {
-                points.splice(i, 1);
-                continue;
-            }
-
-            ctx.globalAlpha = p.alpha;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        requestAnimationFrame(render);
-    }
-
-    render();
-})();
-</script>
+<!-- Traces of the Unseen: smoke and lingering universe reveals -->
+<script src="traces-unseen.js" defer></script>
 
 <!-- SCROLL OBSERVER FOR ART SECTIONS -->
 <script>
