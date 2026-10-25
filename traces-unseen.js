@@ -188,46 +188,7 @@ sections.forEach(el=>{
   ctx.restore();
  }
 
- const smoke=document.getElementById('az-water-canvas');
- const nav=document.querySelector('.az-art-nav');
- const layers=states.map(st=>{
-   const c=document.createElement('canvas');c.className='smoke-universe-reveal';
-   st.el.insertBefore(c,st.el.querySelector('.az-art-title'));
-   const mask=document.createElement('canvas');
-   const trace=document.createElement('canvas');
-   return {st,c,ctx:c.getContext('2d'),mask,mctx:mask.getContext('2d'),trace,tctx:trace.getContext('2d'),w:0,h:0};
- });
- function reveal(){
-   const navRect=nav.getBoundingClientRect();
-   const sourceScale=smoke.width/Math.max(1,nav.clientWidth);
-   for(const L of layers){
-     const {st,c,ctx,mask,mctx,trace,tctx}=L;
-     const w=Math.round(st.w),h=Math.round(st.h);
-     if(w<1||h<1)continue;
-     if(L.w!==w||L.h!==h){L.w=w;L.h=h;c.width=mask.width=trace.width=w;c.height=mask.height=trace.height=h;}
-     const rect=st.el.getBoundingClientRect();
-     const sx=Math.max(0,Math.round((rect.left-navRect.left)*sourceScale));
-     const sy=Math.max(0,Math.round((rect.top-navRect.top)*sourceScale));
-     const sw=Math.min(smoke.width-sx,Math.round(st.w*sourceScale));
-     const sh=Math.min(smoke.height-sy,Math.round(st.h*sourceScale));
-     if(sw<=0||sh<=0)continue;
-     mctx.clearRect(0,0,w,h);
-     // Accumulate smoke alpha to show details, preserving its irregular contours.
-     for(let j=0;j<13;j++)mctx.drawImage(smoke,sx,sy,sw,sh,0,0,w,h);
-     // Keep the smoke's exact contours as a lingering powder imprint.
-     // Old traces evaporate softly over roughly two seconds; fresh smoke replenishes them.
-     tctx.globalCompositeOperation='destination-out';
-     tctx.fillStyle='rgba(0,0,0,.018)';
-     tctx.fillRect(0,0,w,h);
-     tctx.globalCompositeOperation='source-over';
-     tctx.drawImage(mask,0,0);
-     ctx.clearRect(0,0,w,h);
-     ctx.drawImage(st.canvas,0,0,w,h);
-     ctx.globalCompositeOperation='destination-in';
-     ctx.drawImage(trace,0,0);
-     ctx.globalCompositeOperation='source-over';
-   }
- }
+ // DIAGNOSTIC: skip reveal canvases and all smoke-mask compositing.
  // The three universe canvases are expensive; only render when this
  // section is near the viewport. Resume normally when scrolling to it.
  let universeVisible=false,universeFramePending=false;
@@ -245,7 +206,7 @@ sections.forEach(el=>{
   requestAnimationFrame(()=>{
    universeFramePending=false;
    if(!universeVisible||document.hidden)return;
-   states.forEach(draw);reveal();requestUniverseFrame();
+   states.forEach(draw);requestUniverseFrame();
   });
  }
 })();
