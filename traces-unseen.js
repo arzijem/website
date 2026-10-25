@@ -1,3 +1,17 @@
+// Initialize Preview 37 only when its navigation section approaches the viewport.
+// This keeps the hero video free of canvas allocation and texture generation at startup.
+(function(){
+ const nav=document.querySelector('.az-art-nav');
+ if(!nav)return;
+ let initialized=false;
+ const observer=new IntersectionObserver(entries=>{
+  if(initialized||!entries.some(entry=>entry.isIntersecting))return;
+  initialized=true;
+  observer.disconnect();
+  initializePreview37();
+ },{rootMargin:'100px 0px',threshold:0});
+ observer.observe(nav);
+ function initializePreview37(){
 (function(){
  const nav=document.querySelector('.az-art-nav'), canvas=document.getElementById('az-water-canvas'),ctx=canvas.getContext('2d');
  let w=0,h=0,dpr=1,hover=false,lastX=0,lastY=0;const trail=[];
@@ -187,6 +201,9 @@ sections.forEach(el=>{
    const navRect=nav.getBoundingClientRect();
    const sourceScale=smoke.width/Math.max(1,nav.clientWidth);
    for(const L of layers){
+    // Only composite the section currently visible on screen.
+    const bounds=L.st.el.getBoundingClientRect();
+    if(bounds.bottom<0||bounds.top>window.innerHeight)continue;
      const {st,c,ctx,mask,mctx,trace,tctx}=L;
      const w=Math.round(st.w),h=Math.round(st.h);
      if(w<1||h<1)continue;
@@ -225,13 +242,22 @@ sections.forEach(el=>{
  document.addEventListener('visibilitychange',()=>{
   if(!document.hidden&&universeVisible)requestUniverseFrame();
  });
+ // Limit expensive reveal compositing to ~20 frames per second.
+ let lastRevealTime=0;
  function requestUniverseFrame(){
   if(universeFramePending||!universeVisible||document.hidden)return;
   universeFramePending=true;
   requestAnimationFrame(()=>{
    universeFramePending=false;
    if(!universeVisible||document.hidden)return;
-   states.forEach(draw);reveal();requestUniverseFrame();
+   const now=performance.now();
+   if(now-lastRevealTime>=50){
+    states.forEach(draw);reveal();lastRevealTime=now;
+   }
+   requestUniverseFrame();
   });
+ }
+})();
+
  }
 })();
