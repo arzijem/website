@@ -104,12 +104,23 @@ sections.forEach(el=>{
   const st={el,canvas,ctx,k,stars,w:0,h:0,zoom:0,energy:0,aimX:.5,aimY:.5,last:null,visible:false};
   function resize(){const r=el.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);st.w=r.width;st.h=r.height;canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
   resize();window.addEventListener('resize',resize);
-  el.addEventListener('pointermove',e=>{
-   const r=el.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  function moveUniverse(clientX,clientY){
+   const r=el.getBoundingClientRect(),x=clientX-r.left,y=clientY-r.top;
    if(st.last){const d=Math.hypot(x-st.last.x,y-st.last.y);st.energy=clamp(st.energy+d*.004,0,1)}
    st.last={x,y};st.aimX=x/r.width;st.aimY=y/r.height;st.visible=true;
-  });
+  }
+  // Desktop pointer behavior stays unchanged. Mobile touch movement also
+  // drives universe depth, just as it already drives the smoke trail.
+  el.addEventListener('pointermove',e=>{if(e.pointerType!=='touch')moveUniverse(e.clientX,e.clientY)});
   el.addEventListener('pointerleave',()=>{st.visible=false;st.last=null});
+  el.addEventListener('touchstart',e=>{
+   if(e.touches.length){st.last=null;moveUniverse(e.touches[0].clientX,e.touches[0].clientY)}
+  },{passive:true});
+  el.addEventListener('touchmove',e=>{
+   if(e.touches.length)moveUniverse(e.touches[0].clientX,e.touches[0].clientY);
+  },{passive:true});
+  el.addEventListener('touchend',()=>{st.visible=false;st.last=null},{passive:true});
+  el.addEventListener('touchcancel',()=>{st.visible=false;st.last=null},{passive:true});
   return st;
  });
  function line(ctx,pts,alpha,width=1){
