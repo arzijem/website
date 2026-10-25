@@ -201,6 +201,9 @@ sections.forEach(el=>{
    const navRect=nav.getBoundingClientRect();
    const sourceScale=smoke.width/Math.max(1,nav.clientWidth);
    for(const L of layers){
+    // Only composite the section currently visible on screen.
+    const bounds=L.st.el.getBoundingClientRect();
+    if(bounds.bottom<0||bounds.top>window.innerHeight)continue;
      const {st,c,ctx,mask,mctx,trace,tctx}=L;
      const w=Math.round(st.w),h=Math.round(st.h);
      if(w<1||h<1)continue;
@@ -239,13 +242,19 @@ sections.forEach(el=>{
  document.addEventListener('visibilitychange',()=>{
   if(!document.hidden&&universeVisible)requestUniverseFrame();
  });
+ // Limit expensive reveal compositing to ~20 frames per second.
+ let lastRevealTime=0;
  function requestUniverseFrame(){
   if(universeFramePending||!universeVisible||document.hidden)return;
   universeFramePending=true;
   requestAnimationFrame(()=>{
    universeFramePending=false;
    if(!universeVisible||document.hidden)return;
-   states.forEach(draw);reveal();requestUniverseFrame();
+   const now=performance.now();
+   if(now-lastRevealTime>=50){
+    states.forEach(draw);reveal();lastRevealTime=now;
+   }
+   requestUniverseFrame();
   });
  }
 })();
