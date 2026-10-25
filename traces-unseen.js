@@ -119,8 +119,8 @@ sections.forEach(el=>{
  function draw(st){
   const {ctx,w,h,k}=st;if(!w||!h)return;
   ctx.clearRect(0,0,w,h);ctx.fillStyle='#000';ctx.fillRect(0,0,w,h);
-  st.energy*=.91;st.zoom+=(st.energy-st.zoom)*.07;
-  const cx=w*.5,cy=h*.5,depth=1+st.zoom*.23;
+  // Visual test: the universe stays fully zoomed in, while smoke reveals it.
+  const cx=w*.5,cy=h*.5,depth=1.23;
   ctx.save();ctx.translate(cx,cy);ctx.scale(depth,depth);ctx.translate(-cx,-cy);
   // Deep star field: close specks drift farther than distant ones.
   for(const p of st.stars){
