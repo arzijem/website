@@ -140,38 +140,27 @@ sections.forEach(el=>{
    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.beginPath();ctx.arc(x,y,p.r,0,Math.PI*2);ctx.fill();
   }
   if(k===0){
-   // WORK: impossible celestial architecture; a deep dark monolith with a fragmented halo.
-   const R=Math.min(w*.26,h*.43);
-   const halo=ctx.createRadialGradient(cx,cy,R*.45,cx,cy,R*1.65);
-   halo.addColorStop(0,'rgba(0,0,0,0)');halo.addColorStop(.47,'rgba(255,255,255,.13)');halo.addColorStop(.62,'rgba(255,255,255,.025)');halo.addColorStop(1,'rgba(0,0,0,0)');
-   ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,R*1.65,0,7);ctx.fill();
-   for(let j=0;j<38;j++){
-    const a=j/38*Math.PI*2,offset=R*(1.15+random(j*29)*.48);
-    const x=cx+Math.cos(a)*offset*1.5,y=cy+Math.sin(a)*offset*.68;
-    const len=15+random(j*17)*85;
-    line(ctx,[[x,y],[x+Math.cos(a+.9)*len,y+Math.sin(a+.9)*len]],.13+random(j*5)*.52,random(j*11)>.82?2:.7);
-   }
-   ctx.save();ctx.translate(cx,cy);ctx.rotate(-.21);
-   const g=ctx.createLinearGradient(-R,0,R,0);g.addColorStop(0,'#020202');g.addColorStop(.37,'#111');g.addColorStop(.5,'#050505');g.addColorStop(.64,'#282828');g.addColorStop(.69,'#030303');g.addColorStop(1,'#000');
-   ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(-R*.5,-R*1.08);ctx.lineTo(R*.56,-R*.75);ctx.lineTo(R*.75,R*.9);ctx.lineTo(-R*.63,R*.7);ctx.closePath();ctx.fill();
-   line(ctx,[[-R*.5,-R*1.08],[R*.56,-R*.75],[R*.75,R*.9]],.55,1.4);
-   ctx.restore();
-   // Layered monochrome orbital filaments and architectural frames.
-   for(let j=0;j<26;j++){
-    const a=j*.235,rad=R*(.47+j*.033),pts=[];
-    for(let i=0;i<=42;i++){
-     const theta=a+i/42*2.1;
-     pts.push([cx+Math.cos(theta)*rad*1.25,cy+Math.sin(theta)*rad*.67]);
+   // WORK: folded, faceted silk sculpture; replaces the monolith entirely.
+   const R=Math.min(w*.38,h*.62);
+   const haze=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.25);
+   haze.addColorStop(0,'rgba(230,235,255,.14)');haze.addColorStop(.36,'rgba(190,195,215,.055)');haze.addColorStop(1,'rgba(0,0,0,0)');
+   ctx.fillStyle=haze;ctx.fillRect(0,0,w,h);
+   for(let j=0;j<35;j++){
+    const pts=[];
+    for(let i=0;i<=76;i++){
+     const t=i/76,ang=t*Math.PI*2.2+j*.10;
+     const facet=1/(.3+.72*(Math.abs(Math.cos(ang))+Math.abs(Math.sin(ang))));
+     const r=R*(.28+j*.019)*facet*(1+.15*Math.sin(ang*4+j*.23));
+     pts.push([cx+Math.cos(ang)*r*1.2,cy+Math.sin(ang)*r*.73]);
     }
-    line(ctx,pts,.075+(j%5)*.026,j%8===0?1.1:.55);
+    line(ctx,pts,.06+(.5+.5*Math.sin(j*.41))*.34,j%7===0?1.5:.65);
    }
-   ctx.save();ctx.translate(cx,cy);ctx.rotate(-.21);
-   for(let j=0;j<9;j++){
-    const sc=1+j*.14;
-    line(ctx,[[-R*.5*sc,-R*1.08*sc],[R*.56*sc,-R*.75*sc],[R*.75*sc,R*.9*sc],[-R*.63*sc,R*.7*sc],[-R*.5*sc,-R*1.08*sc]],.07+(9-j)*.012,.6);
-   }
-   ctx.restore();
-  }else if(k===1){
+   for(let j=0;j<8;j++){
+    const a=j/8*Math.PI*2+.4,x=cx+Math.cos(a)*R*.75,y=cy+Math.sin(a)*R*.47;
+    const gr=ctx.createRadialGradient(x,y,0,x,y,R*.18);
+    gr.addColorStop(0,'rgba(255,255,255,.22)');gr.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=gr;ctx.beginPath();ctx.arc(x,y,R*.18,0,7);ctx.fill();
+   }  }else if(k===1){
    // ABOUT: ethereal memory nebula and fine, floating silk membranes.
    const R=Math.min(w*.38,h*.62);
    const haze=ctx.createRadialGradient(cx-R*.1,cy,0,cx,cy,R*1.25);
@@ -193,38 +182,25 @@ sections.forEach(el=>{
     ctx.fillStyle=gr;ctx.beginPath();ctx.arc(x,y,R*.18,0,7);ctx.fill();
    }
   }else{
-   // CONTACT: a distant wormhole / constellation of connections.
-   const R=Math.min(w*.38,h*.61);
-   for(let j=23;j>=0;j--){
-    const q=j/23,r=R*(.1+q*1.25),a=q*3.8;
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
-    ctx.beginPath();ctx.ellipse(0,0,r*1.22,r*.55,0,0,Math.PI*2);
-    ctx.strokeStyle=`rgba(255,255,255,${.04+(1-q)*.44})`;ctx.lineWidth=q>.7?.7:1.2;ctx.stroke();ctx.restore();
-   }
-   for(let j=0;j<26;j++){
-    const a=j/26*Math.PI*2,r=R*(.18+random(j*23)*1.4);
-    const x=cx+Math.cos(a)*r*1.3,y=cy+Math.sin(a)*r*.65;
-    line(ctx,[[cx+Math.cos(a)*R*.13,cy+Math.sin(a)*R*.09],[x,y]],.06+random(j*8)*.24);
-    ctx.fillStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.arc(x,y,random(j*41)*1.8+.6,0,7);ctx.fill();
-   }
-   // Interlaced filaments and soft satellite arcs, in the original palette.
-   for(let j=0;j<30;j++){
-    const pts=[],phase=j*.18,rad=R*(.35+j*.025);
-    for(let i=0;i<=64;i++){
-     const ang=i/64*Math.PI*2.05+phase,ripple=1+.095*Math.sin(ang*4+j*.32);
-     pts.push([cx+Math.cos(ang)*rad*1.1*ripple,cy+Math.sin(ang)*rad*.59*ripple]);
+   // CONTACT: intertwined infinity-knot silk ribbons; replaces the wormhole.
+   const R=Math.min(w*.38,h*.62);
+   const haze=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.25);
+   haze.addColorStop(0,'rgba(230,235,255,.14)');haze.addColorStop(.36,'rgba(190,195,215,.055)');haze.addColorStop(1,'rgba(0,0,0,0)');
+   ctx.fillStyle=haze;ctx.fillRect(0,0,w,h);
+   for(let j=0;j<35;j++){
+    const pts=[];
+    for(let i=0;i<=76;i++){
+     const t=i/76,ang=t*Math.PI*2+j*.055,spread=R*(.60+j*.012);
+     pts.push([cx+Math.sin(ang)*spread*1.1,cy+Math.sin(ang*2)*spread*.43+Math.cos(ang*3+j*.11)*R*.075]);
     }
-    line(ctx,pts,.055+(.5+.5*Math.sin(j*.39))*.18,j%8===0?1.1:.55);
+    line(ctx,pts,.06+(.5+.5*Math.sin(j*.41))*.34,j%7===0?1.5:.65);
    }
-   for(let j=0;j<7;j++){
-    const a=j/7*Math.PI*2+.25,x=cx+Math.cos(a)*R*.92,y=cy+Math.sin(a)*R*.55;
-    const glow=ctx.createRadialGradient(x,y,0,x,y,R*.13);
-    glow.addColorStop(0,'rgba(255,255,255,.18)');glow.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,y,R*.13,0,Math.PI*2);ctx.fill();
+   for(let j=0;j<8;j++){
+    const a=j/8*Math.PI*2,x=cx+Math.sin(a)*R*.84,y=cy+Math.sin(a*2)*R*.35;
+    const gr=ctx.createRadialGradient(x,y,0,x,y,R*.18);
+    gr.addColorStop(0,'rgba(255,255,255,.22)');gr.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=gr;ctx.beginPath();ctx.arc(x,y,R*.18,0,7);ctx.fill();
    }
-   const voidGlow=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.6);
-   voidGlow.addColorStop(0,'rgba(0,0,0,1)');voidGlow.addColorStop(.5,'rgba(0,0,0,.7)');voidGlow.addColorStop(1,'rgba(0,0,0,0)');
-   ctx.fillStyle=voidGlow;ctx.beginPath();ctx.arc(cx,cy,R*.6,0,7);ctx.fill();
   }
   ctx.restore();
  }
