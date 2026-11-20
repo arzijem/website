@@ -156,6 +156,21 @@ sections.forEach(el=>{
    ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(-R*.5,-R*1.08);ctx.lineTo(R*.56,-R*.75);ctx.lineTo(R*.75,R*.9);ctx.lineTo(-R*.63,R*.7);ctx.closePath();ctx.fill();
    line(ctx,[[-R*.5,-R*1.08],[R*.56,-R*.75],[R*.75,R*.9]],.55,1.4);
    ctx.restore();
+   // Layered monochrome orbital filaments and architectural frames.
+   for(let j=0;j<26;j++){
+    const a=j*.235,rad=R*(.47+j*.033),pts=[];
+    for(let i=0;i<=42;i++){
+     const theta=a+i/42*2.1;
+     pts.push([cx+Math.cos(theta)*rad*1.25,cy+Math.sin(theta)*rad*.67]);
+    }
+    line(ctx,pts,.075+(j%5)*.026,j%8===0?1.1:.55);
+   }
+   ctx.save();ctx.translate(cx,cy);ctx.rotate(-.21);
+   for(let j=0;j<9;j++){
+    const sc=1+j*.14;
+    line(ctx,[[-R*.5*sc,-R*1.08*sc],[R*.56*sc,-R*.75*sc],[R*.75*sc,R*.9*sc],[-R*.63*sc,R*.7*sc],[-R*.5*sc,-R*1.08*sc]],.07+(9-j)*.012,.6);
+   }
+   ctx.restore();
   }else if(k===1){
    // ABOUT: ethereal memory nebula and fine, floating silk membranes.
    const R=Math.min(w*.38,h*.62);
@@ -191,6 +206,21 @@ sections.forEach(el=>{
     const x=cx+Math.cos(a)*r*1.3,y=cy+Math.sin(a)*r*.65;
     line(ctx,[[cx+Math.cos(a)*R*.13,cy+Math.sin(a)*R*.09],[x,y]],.06+random(j*8)*.24);
     ctx.fillStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.arc(x,y,random(j*41)*1.8+.6,0,7);ctx.fill();
+   }
+   // Interlaced filaments and soft satellite arcs, in the original palette.
+   for(let j=0;j<30;j++){
+    const pts=[],phase=j*.18,rad=R*(.35+j*.025);
+    for(let i=0;i<=64;i++){
+     const ang=i/64*Math.PI*2.05+phase,ripple=1+.095*Math.sin(ang*4+j*.32);
+     pts.push([cx+Math.cos(ang)*rad*1.1*ripple,cy+Math.sin(ang)*rad*.59*ripple]);
+    }
+    line(ctx,pts,.055+(.5+.5*Math.sin(j*.39))*.18,j%8===0?1.1:.55);
+   }
+   for(let j=0;j<7;j++){
+    const a=j/7*Math.PI*2+.25,x=cx+Math.cos(a)*R*.92,y=cy+Math.sin(a)*R*.55;
+    const glow=ctx.createRadialGradient(x,y,0,x,y,R*.13);
+    glow.addColorStop(0,'rgba(255,255,255,.18)');glow.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=glow;ctx.beginPath();ctx.arc(x,y,R*.13,0,Math.PI*2);ctx.fill();
    }
    const voidGlow=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.6);
    voidGlow.addColorStop(0,'rgba(0,0,0,1)');voidGlow.addColorStop(.5,'rgba(0,0,0,.7)');voidGlow.addColorStop(1,'rgba(0,0,0,0)');
